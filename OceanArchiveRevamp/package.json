@@ -1,0 +1,9 @@
+{
+  "name": "ocean-archive-revamp",
+  "version": "0.0.0",
+  "description": "OceanArchiveRevamp",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  }
+}
