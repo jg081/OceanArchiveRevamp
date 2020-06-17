@@ -127,23 +127,29 @@ var tabStyle = {
 };
 var allTabStyle = {
     padding: '0px',
-    backgroundColor: '#4A74A5',
+    background: '#4A74A5',
     width: '25%',
 };
 var scitechTabStyle = {
     padding: '0px',
-    backgroundColor: '#0076FF',
+    background: 'linear-gradient(#0076FF, #000000 150%)',
     width: '25%',
 };
 var artTabStyle = {
     padding: '0px',
-    backgroundColor: '#9013FE',
+    background: 'linear-gradient(#9013FE, #000000 150%)',
     width: '25%',
 };
 var activismTabStyle = {
     padding: '0px',
-    backgroundColor: '#50E3C2',
+    background: 'linear-gradient(#50E3C2, #000000 150%)',
     width: '25%',
+};
+var contentSectionStyle = {
+    background: '#4A74A5',
+    padding: '10px',
+    width: '100%',
+    height: '10000px'
 };
 var contentTab = [
     React.createElement("table", { style: tabStyle },
@@ -153,13 +159,18 @@ var contentTab = [
             React.createElement("th", { style: artTabStyle }, "ART"),
             React.createElement("th", { style: activismTabStyle }, "ACTIVISM")))
 ];
+var contentSection = [
+    React.createElement("div", { style: contentSectionStyle }, "Content Goes Here")
+];
 var Homepage = /** @class */ (function (_super) {
     __extends(Homepage, _super);
     function Homepage() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Homepage.prototype.render = function () {
-        return (contentTab);
+        return (React.createElement("div", null,
+            contentTab,
+            contentSection));
     };
     return Homepage;
 }(React.Component));

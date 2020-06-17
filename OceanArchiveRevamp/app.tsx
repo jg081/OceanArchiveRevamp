@@ -17,28 +17,36 @@ const tabStyle = {
     padding: '0px',
     boxSizing: 'border-box',
 };
-const allTabStyle = {
+
+var allTabStyle = {
     padding: '0px',
-    backgroundColor: '#4A74A5',
+    background: '#4A74A5',
     width: '25%',
 };
 
-const scitechTabStyle = {
+var scitechTabStyle = {
     padding: '0px',
-    backgroundColor: '#0076FF',
+    background: 'linear-gradient(#0076FF, #000000 150%)',
     width: '25%',
 };
 
-const artTabStyle = {
+var artTabStyle = {
     padding: '0px',
-    backgroundColor: '#9013FE',
+    background: 'linear-gradient(#9013FE, #000000 150%)',
     width: '25%',
 };
 
-const activismTabStyle = {
+var activismTabStyle = {
     padding: '0px',
-    backgroundColor: '#50E3C2',
+    background: 'linear-gradient(#50E3C2, #000000 150%)',
     width: '25%',
+};
+
+var contentSectionStyle = {
+    background: '#4A74A5',
+    padding: '10px',
+    width: '100%',
+    height: '10000px'
 };
 
 var contentTab = [
@@ -52,10 +60,19 @@ var contentTab = [
     </table>
 ]
 
+var contentSection = [
+    <div style={contentSectionStyle}>
+        Content Goes Here
+    </div>
+]
+
 export class Homepage extends React.Component {
     render() {
         return (
-            contentTab
+            <div>
+                {contentTab}
+                {contentSection}
+            </div>
         );
     }
 }
