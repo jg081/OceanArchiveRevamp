@@ -93,8 +93,6 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -108,8 +106,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Homepage = void 0;
+var state = 8;
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 document.body.style.backgroundColor = '#142636';
@@ -125,43 +122,62 @@ var tabStyle = {
     padding: '0px',
     boxSizing: 'border-box',
 };
-var allTabStyle = {
-    padding: '0px',
-    background: '#4A74A5',
-    width: '25%',
-};
-var scitechTabStyle = {
-    padding: '0px',
-    background: 'linear-gradient(#0076FF, #000000 150%)',
-    width: '25%',
-};
-var artTabStyle = {
-    padding: '0px',
-    background: 'linear-gradient(#9013FE, #000000 150%)',
-    width: '25%',
-};
-var activismTabStyle = {
-    padding: '0px',
-    background: 'linear-gradient(#50E3C2, #000000 150%)',
-    width: '25%',
-};
 var contentSectionStyle = {
     background: '#4A74A5',
     padding: '10px',
     width: '100%',
     height: '10000px'
 };
-var contentTab = [
-    React.createElement("table", { style: tabStyle },
-        React.createElement("tr", null,
-            React.createElement("th", { style: allTabStyle }, "ALL"),
-            React.createElement("th", { style: scitechTabStyle }, "SCIENCE & TECHNOLOGY"),
-            React.createElement("th", { style: artTabStyle }, "ART"),
-            React.createElement("th", { style: activismTabStyle }, "ACTIVISM")))
-];
-var contentSection = [
-    React.createElement("div", { style: contentSectionStyle }, "Content Goes Here")
-];
+var TableHeader = /** @class */ (function (_super) {
+    __extends(TableHeader, _super);
+    function TableHeader(props) {
+        var _this = _super.call(this, props) || this;
+        _this.changeBackground = function () {
+            _this.setState({
+                isActive: !_this.state.isActive,
+                bgColour: !_this.state.isActive ? _this.state.colourCode : "linear-gradient(" + _this.state.colourCode + ", " + _this.state.colourCode + " 85%, #000000 150%)"
+            });
+        };
+        _this.state = {
+            title: props.title,
+            isActive: props.isActive,
+            colourCode: props.colourCode,
+            bgColour: props.isActive ? props.colourCode : "linear-gradient(" + props.colourCode + ", " + props.colourCode + " 85%, #000000 150%)"
+        };
+        return _this;
+    }
+    TableHeader.prototype.render = function () {
+        return (React.createElement("th", { style: { padding: '0px', width: '25%', background: this.state.bgColour }, onClick: this.changeBackground }, this.state.title));
+    };
+    return TableHeader;
+}(React.Component));
+var ContentSection = /** @class */ (function (_super) {
+    __extends(ContentSection, _super);
+    function ContentSection(props) {
+        var _this = _super.call(this, props) || this;
+        _this.updateBackground = _this.updateBackground.bind(_this);
+        _this.state = {
+            bgContent: "#4A74A5"
+        };
+        return _this;
+    }
+    ContentSection.prototype.updateBackground = function () {
+        this.setState({
+            bgContent: "#000000"
+        });
+    };
+    ContentSection.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement("table", { style: tabStyle },
+                React.createElement("tr", null,
+                    React.createElement(TableHeader, { title: "ALL", isActive: true, colourCode: "#4A74A5", onClick: this.updateBackground }),
+                    React.createElement(TableHeader, { title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: "#0076FF", onClick: this.updateBackground }),
+                    React.createElement(TableHeader, { title: "ART", isActive: false, colourCode: "#9013FE", onClick: this.updateBackground }),
+                    React.createElement(TableHeader, { title: "ACTIVISM", isActive: false, colourCode: "#50E3C2", onClick: this.updateBackground }))),
+            React.createElement("div", { style: { padding: "10px", width: "100%", height: "10000px", background: this.state.bgContent } }, "Content Goes Here")));
+    };
+    return ContentSection;
+}(React.Component));
 var Homepage = /** @class */ (function (_super) {
     __extends(Homepage, _super);
     function Homepage() {
@@ -169,12 +185,10 @@ var Homepage = /** @class */ (function (_super) {
     }
     Homepage.prototype.render = function () {
         return (React.createElement("div", null,
-            contentTab,
-            contentSection));
+            React.createElement(ContentSection, null)));
     };
     return Homepage;
 }(React.Component));
-exports.Homepage = Homepage;
 ReactDOM.render(React.createElement(Homepage, null), document.getElementById('root'));
 
 

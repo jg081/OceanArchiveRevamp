@@ -1,5 +1,7 @@
 ﻿declare var require: any
 
+var state = 0b1000;
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -18,30 +20,6 @@ const tabStyle = {
     boxSizing: 'border-box',
 };
 
-var allTabStyle = {
-    padding: '0px',
-    background: '#4A74A5',
-    width: '25%',
-};
-
-var scitechTabStyle = {
-    padding: '0px',
-    background: 'linear-gradient(#0076FF, #000000 150%)',
-    width: '25%',
-};
-
-var artTabStyle = {
-    padding: '0px',
-    background: 'linear-gradient(#9013FE, #000000 150%)',
-    width: '25%',
-};
-
-var activismTabStyle = {
-    padding: '0px',
-    background: 'linear-gradient(#50E3C2, #000000 150%)',
-    width: '25%',
-};
-
 var contentSectionStyle = {
     background: '#4A74A5',
     padding: '10px',
@@ -49,29 +27,72 @@ var contentSectionStyle = {
     height: '10000px'
 };
 
-var contentTab = [
-    <table style={tabStyle}> 
-        <tr>
-            <th style={allTabStyle}>ALL</th>
-            <th style={scitechTabStyle}>SCIENCE & TECHNOLOGY</th>
-            <th style={artTabStyle}>ART</th>
-            <th style={activismTabStyle}>ACTIVISM</th>
-        </tr>
-    </table>
-]
+class TableHeader extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: props.title,
+            isActive: props.isActive,
+            colourCode: props.colourCode,
+            bgColour: props.isActive ? props.colourCode : "linear-gradient(" + props.colourCode + ", " + props.colourCode + " 85%, #000000 150%)"
+        };
+    }
 
-var contentSection = [
-    <div style={contentSectionStyle}>
-        Content Goes Here
-    </div>
-]
+    changeBackground = () => {
+        this.setState({
+            isActive: !this.state.isActive,
+            bgColour: !this.state.isActive ? this.state.colourCode : "linear-gradient(" + this.state.colourCode + ", " + this.state.colourCode + " 85%, #000000 150%)"
+        });
+    }
 
-export class Homepage extends React.Component {
+    render() {
+        return (
+            <th style={{ padding: '0px', width: '25%', background: this.state.bgColour }} onClick={this.changeBackground}>
+                {this.state.title}
+            </th>
+        );
+    }
+}
+
+class ContentSection extends React.Component {
+    constructor(props) {
+        super(props);
+        this.updateBackground = this.updateBackground.bind(this);
+        this.state = {
+            bgContent: "#4A74A5"
+        };
+    }
+
+    updateBackground() {
+        this.setState({
+            bgContent: "#000000"
+        });
+    }
+
     render() {
         return (
             <div>
-                {contentTab}
-                {contentSection}
+                <table style={tabStyle}>
+                    <tr>
+                        <TableHeader title="ALL" isActive={true} colourCode="#4A74A5" onClick={this.updateBackground} />
+                        <TableHeader title="SCIENCE & TECHNOLOGY" isActive={false} colourCode="#0076FF" onClick={this.updateBackground} />
+                        <TableHeader title="ART" isActive={false} colourCode="#9013FE" onClick={this.updateBackground} />
+                        <TableHeader title="ACTIVISM" isActive={false} colourCode="#50E3C2" onClick={this.updateBackground} />
+                    </tr>
+                </table>
+                <div style={{ padding: "10px", width: "100%", height: "10000px", background: this.state.bgContent }}>
+                    Content Goes Here
+                </div>
+            </div>
+        );
+    }
+}
+
+class Homepage extends React.Component {
+    render() {
+        return (
+            <div>
+                <ContentSection />
             </div>
         );
     }
