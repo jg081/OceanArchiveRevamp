@@ -52,7 +52,7 @@ var TableHeader = /** @class */ (function (_super) {
         return _this;
     }
     TableHeader.prototype.render = function () {
-        return (React.createElement("th", { style: { padding: '0px', width: '25%', background: this.state.bgColour }, onClick: this.changeBackground }, this.state.title));
+        return (React.createElement("th", { style: { padding: '0px', width: '25%', background: this.state.bgColour }, onClick: this.props.stateUpdate }, this.state.title));
     };
     return TableHeader;
 }(React.Component));
@@ -60,25 +60,36 @@ var ContentSection = /** @class */ (function (_super) {
     __extends(ContentSection, _super);
     function ContentSection(props) {
         var _this = _super.call(this, props) || this;
+        _this.updateBackground = function (i) { return function () {
+            _this.setState({
+                bgContent: _this.Tabs[i].current.state.colourCode
+            });
+            for (var x = 0; x < 4; x++) {
+                if (_this.Tabs[x].current.state.isActive)
+                    _this.Tabs[x].current.changeBackground();
+            }
+            _this.Tabs[i].current.changeBackground();
+        }; };
+        _this.Tabs = [
+            React.createRef(),
+            React.createRef(),
+            React.createRef(),
+            React.createRef()
+        ];
         _this.updateBackground = _this.updateBackground.bind(_this);
         _this.state = {
             bgContent: "#4A74A5"
         };
         return _this;
     }
-    ContentSection.prototype.updateBackground = function () {
-        this.setState({
-            bgContent: "#000000"
-        });
-    };
     ContentSection.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement("table", { style: tabStyle },
                 React.createElement("tr", null,
-                    React.createElement(TableHeader, { title: "ALL", isActive: true, colourCode: "#4A74A5", onClick: this.updateBackground }),
-                    React.createElement(TableHeader, { title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: "#0076FF", onClick: this.updateBackground }),
-                    React.createElement(TableHeader, { title: "ART", isActive: false, colourCode: "#9013FE", onClick: this.updateBackground }),
-                    React.createElement(TableHeader, { title: "ACTIVISM", isActive: false, colourCode: "#50E3C2", onClick: this.updateBackground }))),
+                    React.createElement(TableHeader, { ref: this.Tabs[0], title: "ALL", isActive: true, colourCode: "#4A74A5", stateUpdate: this.updateBackground(0) }),
+                    React.createElement(TableHeader, { ref: this.Tabs[1], title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: "#0076FF", stateUpdate: this.updateBackground(1) }),
+                    React.createElement(TableHeader, { ref: this.Tabs[2], title: "ART", isActive: false, colourCode: "#9013FE", stateUpdate: this.updateBackground(2) }),
+                    React.createElement(TableHeader, { ref: this.Tabs[3], title: "ACTIVISM", isActive: false, colourCode: "#50E3C2", stateUpdate: this.updateBackground(3) }))),
             React.createElement("div", { style: { padding: "10px", width: "100%", height: "10000px", background: this.state.bgContent } }, "Content Goes Here")));
     };
     return ContentSection;

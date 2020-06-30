@@ -47,7 +47,7 @@ class TableHeader extends React.Component {
 
     render() {
         return (
-            <th style={{ padding: '0px', width: '25%', background: this.state.bgColour }} onClick={this.changeBackground}>
+            <th style={{ padding: '0px', width: '25%', background: this.state.bgColour }} onClick={this.props.stateUpdate}>
                 {this.state.title}
             </th>
         );
@@ -57,16 +57,27 @@ class TableHeader extends React.Component {
 class ContentSection extends React.Component {
     constructor(props) {
         super(props);
+        this.Tabs = [
+            React.createRef(),
+            React.createRef(),
+            React.createRef(),
+            React.createRef()
+        ];
         this.updateBackground = this.updateBackground.bind(this);
         this.state = {
             bgContent: "#4A74A5"
         };
     }
 
-    updateBackground() {
+    updateBackground = i => () => {
         this.setState({
-            bgContent: "#000000"
+            bgContent: this.Tabs[i].current.state.colourCode
         });
+        for (var x = 0; x < 4; x++) {
+            if (this.Tabs[x].current.state.isActive)
+                this.Tabs[x].current.changeBackground();
+        }
+        this.Tabs[i].current.changeBackground();
     }
 
     render() {
@@ -74,10 +85,10 @@ class ContentSection extends React.Component {
             <div>
                 <table style={tabStyle}>
                     <tr>
-                        <TableHeader title="ALL" isActive={true} colourCode="#4A74A5" onClick={this.updateBackground} />
-                        <TableHeader title="SCIENCE & TECHNOLOGY" isActive={false} colourCode="#0076FF" onClick={this.updateBackground} />
-                        <TableHeader title="ART" isActive={false} colourCode="#9013FE" onClick={this.updateBackground} />
-                        <TableHeader title="ACTIVISM" isActive={false} colourCode="#50E3C2" onClick={this.updateBackground} />
+                        <TableHeader ref={this.Tabs[0]} title="ALL" isActive={true} colourCode="#4A74A5" stateUpdate={this.updateBackground(0)} />
+                        <TableHeader ref={this.Tabs[1]} title="SCIENCE & TECHNOLOGY" isActive={false} colourCode="#0076FF" stateUpdate={this.updateBackground(1)} />
+                        <TableHeader ref={this.Tabs[2]} title="ART" isActive={false} colourCode="#9013FE" stateUpdate={this.updateBackground(2)} />
+                        <TableHeader ref={this.Tabs[3]} title="ACTIVISM" isActive={false} colourCode="#50E3C2" stateUpdate={this.updateBackground(3)} />
                     </tr>
                 </table>
                 <div style={{ padding: "10px", width: "100%", height: "10000px", background: this.state.bgContent }}>
