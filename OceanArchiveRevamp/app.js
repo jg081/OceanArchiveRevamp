@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var state = 8;
+var tabState = 8;
 var React = require('react');
 var ReactDOM = require('react-dom');
 document.body.style.backgroundColor = '#142636';
@@ -37,20 +37,32 @@ var TableHeader = /** @class */ (function (_super) {
     __extends(TableHeader, _super);
     function TableHeader(props) {
         var _this = _super.call(this, props) || this;
-        _this.changeBackground = function () {
-            _this.setState({
-                isActive: !_this.state.isActive,
-                bgColour: !_this.state.isActive ? _this.state.colourCode : "linear-gradient(" + _this.state.colourCode + ", " + _this.state.colourCode + " 85%, #000000 150%)"
-            });
-        };
         _this.state = {
             title: props.title,
-            isActive: props.isActive,
             colourCode: props.colourCode,
             bgColour: props.isActive ? props.colourCode : "linear-gradient(" + props.colourCode + ", " + props.colourCode + " 85%, #000000 150%)"
         };
         return _this;
     }
+    TableHeader.prototype.changeBackground = function (active, secColour) {
+        if (active) {
+            if (secColour == null) {
+                this.setState({
+                    bgColour: this.state.colourCode
+                });
+            }
+            else {
+                this.setState({
+                    bgColour: "linear-gradient(" + this.state.colourCode + ", " + secColour + ")"
+                });
+            }
+        }
+        else {
+            this.setState({
+                bgColour: "linear-gradient(" + this.state.colourCode + ", " + this.state.colourCode + " 85%, #000000 150%)"
+            });
+        }
+    };
     TableHeader.prototype.render = function () {
         return (React.createElement("th", { style: { padding: '0px', width: '25%', background: this.state.bgColour }, onClick: this.props.stateUpdate }, this.state.title));
     };
@@ -61,14 +73,55 @@ var ContentSection = /** @class */ (function (_super) {
     function ContentSection(props) {
         var _this = _super.call(this, props) || this;
         _this.updateBackground = function (i) { return function () {
-            _this.setState({
-                bgContent: _this.Tabs[i].current.state.colourCode
-            });
-            for (var x = 0; x < 4; x++) {
-                if (_this.Tabs[x].current.state.isActive)
-                    _this.Tabs[x].current.changeBackground();
+            var s = 8 >> i;
+            //Set state of tabs to know what is selected
+            var newTabState;
+            if (s != 8) {
+                if (s & tabState)
+                    tabState = s;
+                else {
+                    newTabState = ((tabState & ~s) | (~tabState & s)) & 7;
+                    if (newTabState == 7)
+                        tabState = 8 >> i;
+                    else if (newTabState != 0)
+                        tabState = newTabState;
+                }
             }
-            _this.Tabs[i].current.changeBackground();
+            else
+                tabState = s;
+            //console.log("tabState = " + tabState.toString(2));
+            //Get secondary colour in case 2 tabs are selected
+            var secColour = null;
+            switch (tabState) {
+                case 6: //SciTech and Art
+                    secColour = "#4845FF";
+                    break;
+                case 5: //SciTech and Activism
+                    secColour = "#28ADE1";
+                    break;
+                case 3: //Art and Activism
+                    secColour = "#707BE0";
+                    break;
+                default:
+                    secColour = null;
+                    break;
+            }
+            //Set tab background colours
+            for (var x = 0; x < 4; x++) {
+                if (tabState & (8 >> x))
+                    _this.Tabs[x].current.changeBackground(true, secColour);
+                else
+                    _this.Tabs[x].current.changeBackground(false, null);
+            }
+            //Set content section background colour
+            if (secColour == null)
+                _this.setState({
+                    bgContent: _this.Tabs[i].current.state.colourCode
+                });
+            else
+                _this.setState({
+                    bgContent: secColour
+                });
         }; };
         _this.Tabs = [
             React.createRef(),
