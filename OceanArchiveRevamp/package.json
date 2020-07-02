@@ -18,5 +18,9 @@
   },
   "scripts": {
     "build": "webpack-cli app.tsx --config webpack-config.js"
+  },
+  "devDependencies": {
+    "css-loader": "^3.6.0",
+    "style-loader": "^1.2.1"
   }
 }

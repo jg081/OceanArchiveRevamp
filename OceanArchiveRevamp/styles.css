@@ -1,0 +1,14 @@
+﻿.search::placeholder {
+    color: #ffffff;
+    font-family: Roboto;
+    font-weight: bold;
+}
+
+.search:focus {
+    outline: none;
+}
+
+.search {
+    color: #ffffff;
+    font-family: Roboto;
+}

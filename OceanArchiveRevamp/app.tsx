@@ -1,4 +1,8 @@
-﻿declare var require: any
+﻿//Run this in console after changing code.
+//node_modules\.bin\webpack app.tsx --config webpack-config.js
+import "./styles.css";
+
+declare var require: any
 
 var tabState = 0b1000;
 
@@ -18,13 +22,6 @@ const tabStyle = {
     color: '#000000',
     padding: '0px',
     boxSizing: 'border-box',
-};
-
-var contentSectionStyle = {
-    background: '#4A74A5',
-    padding: '10px',
-    width: '100%',
-    height: '10000px'
 };
 
 class TableHeader extends React.Component {
@@ -152,10 +149,80 @@ class ContentSection extends React.Component {
     }
 }
 
+const header = {
+    width: '100%',
+    height: '100px',
+    textAlign: 'center'
+}
+
+class Logo extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div style={{ width: '230px', height: '100px', textAlign: 'center', lineHeight: '100px', float: this.props.float }}>{this.props.name}</div>
+        );
+    }
+}
+
+class HeaderButton extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div style={{ color: '#D8D8D8', width: '100px', height: '60px', textAlign: 'center', lineHeight: '60px', float: this.props.float }}>{this.props.name}</div>
+        );
+    }
+}
+
+class SeachBar extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <form method="post">
+                <input type="submit" style={{ width: '150px', height: '34px', float: 'right', borderRadius: '0px 10px 10px 0px', border: '0px', background: '#4A74A5' }} />
+                <span style={{ display: 'block', overflow: 'hidden'}}>
+                    <input type="search" class="search" style={{ width: '100%', height: '34px', borderRadius: '10px 0px 0px 10px', border: '0px', background: '#787878', paddingLeft: '20px' }} placeholder="Search..." />
+                </span>
+            </form>
+        );
+    }
+}
+
+class Header extends React.Component {
+
+
+    render() {
+        return (
+            <div style={header}>
+                <Logo float='left' name='OCEAN' />
+                <HeaderButton float='left' name='HOME' />
+                <HeaderButton float='left' name='MAP' />
+                <HeaderButton float='left' name='TERMS' />
+                <HeaderButton float='left' name='PRIVACY' />
+                <Logo float='right' name='ARCHIVE' />
+                <HeaderButton float='right' name='SIGNUP' />
+                <HeaderButton float='right' name='LOGIN' />
+                <div style={{ position: 'absolute', height: '40px', left: '230px', right: '230px', top: '60px' }}>
+                    <SeachBar />
+                </div>
+            </div>
+        );
+    }
+}
+
 class Homepage extends React.Component {
     render() {
         return (
             <div>
+                <Header />
                 <ContentSection />
             </div>
         );
