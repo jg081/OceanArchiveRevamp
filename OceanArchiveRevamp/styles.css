@@ -1,4 +1,15 @@
-﻿.search::placeholder {
+﻿h1 {
+    font-size: 15pt;
+    font-weight: normal;
+    height: 30px;
+}
+
+h2 {
+    font-size: 14pt;
+    font-weight: normal;
+}
+
+.search::placeholder {
     color: #ffffff;
     font-family: Roboto;
     font-weight: bold;
@@ -11,4 +22,33 @@
 .search {
     color: #ffffff;
     font-family: Roboto;
+}
+
+.tabHeader {
+    padding: 0px;
+    width: 25%;
+}
+
+.tabs {
+    height: 100px;
+    width: 100%;
+    border-collapse: collapse;
+    color: #000000;
+    padding: 0px;
+    box-sizing: border-box;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px;
+    z-index: 1;
+}
+
+.header {
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    position: -webkit-sticky;
+    position: sticky; 
+    top: 0;
+    background: #142636;
+    z-index: 1;
 }

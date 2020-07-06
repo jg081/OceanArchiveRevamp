@@ -115,29 +115,29 @@ __webpack_require__(/*! ./styles.css */ "./styles.css");
 var tabState = 8;
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-document.body.style.backgroundColor = '#142636';
+var MAIN_COLOUR = '#142636';
+var SECONDARY_COLOUR = "#4A74A5";
+var SCITECH = '#0076FF';
+var ART = '#9013FE';
+var ACTIVISM = '#50E3C2';
+var SCITECH_ART = '#4845FF';
+var ART_ACTIVISM = '#707BE0';
+var ACTIVISM_SCITECH = '#28ADE1';
+document.body.style.backgroundColor = MAIN_COLOUR;
 document.body.style.fontFamily = 'Roboto';
 document.body.style.color = '#ffffff';
 document.body.style.padding = '0px';
 document.body.style.margin = '0px';
-var tabStyle = {
-    height: '100px',
-    width: '100%',
-    borderCollapse: 'collapse',
-    color: '#000000',
-    padding: '0px',
-    boxSizing: 'border-box',
-};
-var contentSectionStyle = {
-    background: '#4A74A5',
-    padding: '10px',
-    width: '100%',
-    height: '10000px'
-};
 var TableHeader = /** @class */ (function (_super) {
     __extends(TableHeader, _super);
     function TableHeader(props) {
         var _this = _super.call(this, props) || this;
+        _this.handleScroll = function () {
+            if (window.pageYOffset > 750)
+                _this.classList.add("sticky");
+            else
+                _this.classList.remove("sticky");
+        };
         _this.state = {
             title: props.title,
             colourCode: props.colourCode,
@@ -165,7 +165,7 @@ var TableHeader = /** @class */ (function (_super) {
         }
     };
     TableHeader.prototype.render = function () {
-        return (React.createElement("th", { style: { padding: '0px', width: '25%', background: this.state.bgColour }, onClick: this.props.stateUpdate }, this.state.title));
+        return (React.createElement("th", { class: "tabHeader", style: { background: this.state.bgColour }, onClick: this.props.stateUpdate, onScroll: this.handleScroll }, this.state.title));
     };
     return TableHeader;
 }(React.Component));
@@ -195,13 +195,13 @@ var ContentSection = /** @class */ (function (_super) {
             var secColour = null;
             switch (tabState) {
                 case 6: //SciTech and Art
-                    secColour = "#4845FF";
+                    secColour = SCITECH_ART;
                     break;
                 case 5: //SciTech and Activism
-                    secColour = "#28ADE1";
+                    secColour = ACTIVISM_SCITECH;
                     break;
                 case 3: //Art and Activism
-                    secColour = "#707BE0";
+                    secColour = ART_ACTIVISM;
                     break;
                 default:
                     secColour = null;
@@ -238,21 +238,16 @@ var ContentSection = /** @class */ (function (_super) {
     }
     ContentSection.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement("table", { style: tabStyle },
+            React.createElement("table", { class: "tabs" },
                 React.createElement("tr", null,
-                    React.createElement(TableHeader, { ref: this.Tabs[0], title: "ALL", isActive: true, colourCode: "#4A74A5", stateUpdate: this.updateBackground(0) }),
-                    React.createElement(TableHeader, { ref: this.Tabs[1], title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: "#0076FF", stateUpdate: this.updateBackground(1) }),
-                    React.createElement(TableHeader, { ref: this.Tabs[2], title: "ART", isActive: false, colourCode: "#9013FE", stateUpdate: this.updateBackground(2) }),
-                    React.createElement(TableHeader, { ref: this.Tabs[3], title: "ACTIVISM", isActive: false, colourCode: "#50E3C2", stateUpdate: this.updateBackground(3) }))),
+                    React.createElement(TableHeader, { ref: this.Tabs[0], title: "ALL", isActive: true, colourCode: SECONDARY_COLOUR, stateUpdate: this.updateBackground(0) }),
+                    React.createElement(TableHeader, { ref: this.Tabs[1], title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: SCITECH, stateUpdate: this.updateBackground(1) }),
+                    React.createElement(TableHeader, { ref: this.Tabs[2], title: "ART", isActive: false, colourCode: ART, stateUpdate: this.updateBackground(2) }),
+                    React.createElement(TableHeader, { ref: this.Tabs[3], title: "ACTIVISM", isActive: false, colourCode: ACTIVISM, stateUpdate: this.updateBackground(3) }))),
             React.createElement("div", { style: { padding: "10px", width: "100%", height: "10000px", background: this.state.bgContent } }, "Content Goes Here")));
     };
     return ContentSection;
 }(React.Component));
-var header = {
-    width: '100%',
-    height: '100px',
-    textAlign: 'center'
-};
 var Logo = /** @class */ (function (_super) {
     __extends(Logo, _super);
     function Logo(props) {
@@ -280,7 +275,7 @@ var SeachBar = /** @class */ (function (_super) {
     }
     SeachBar.prototype.render = function () {
         return (React.createElement("form", { method: "post" },
-            React.createElement("input", { type: "submit", style: { width: '150px', height: '34px', float: 'right', borderRadius: '0px 10px 10px 0px', border: '0px', background: '#4A74A5' } }),
+            React.createElement("input", { type: "submit", style: { width: '150px', height: '34px', float: 'right', borderRadius: '0px 10px 10px 0px', border: '0px', background: SECONDARY_COLOUR } }),
             React.createElement("span", { style: { display: 'block', overflow: 'hidden' } },
                 React.createElement("input", { type: "search", class: "search", style: { width: '100%', height: '34px', borderRadius: '10px 0px 0px 10px', border: '0px', background: '#787878', paddingLeft: '20px' }, placeholder: "Search..." }))));
     };
@@ -292,7 +287,7 @@ var Header = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Header.prototype.render = function () {
-        return (React.createElement("div", { style: header },
+        return (React.createElement("div", { class: "header" },
             React.createElement(Logo, { float: 'left', name: 'OCEAN' }),
             React.createElement(HeaderButton, { float: 'left', name: 'HOME' }),
             React.createElement(HeaderButton, { float: 'left', name: 'MAP' }),
@@ -306,6 +301,74 @@ var Header = /** @class */ (function (_super) {
     };
     return Header;
 }(React.Component));
+var LargeContentBox = /** @class */ (function (_super) {
+    __extends(LargeContentBox, _super);
+    function LargeContentBox(props) {
+        return _super.call(this, props) || this;
+    }
+    LargeContentBox.prototype.render = function () {
+        return (React.createElement("div", { style: { height: '340px', width: '566px', background: this.props.bgColour, display: 'inline-block', marginLeft: '50px', position: 'relative' } },
+            React.createElement("div", { style: { height: '50px' } }, "TITLE"),
+            React.createElement("img", { src: '', alt: 'IMAGE', style: { height: '240px' } }),
+            React.createElement("div", { style: { height: '50px', position: 'absolute', bottom: '0px' } }, "TAGS AND STUFF")));
+    };
+    return LargeContentBox;
+}(React.Component));
+var NewAndTrending = /** @class */ (function (_super) {
+    __extends(NewAndTrending, _super);
+    function NewAndTrending() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    NewAndTrending.prototype.render = function () {
+        return (React.createElement("div", { style: { height: '405px', width: '100%' } },
+            React.createElement("h1", { style: { paddingLeft: '10px' } }, "New & Trending"),
+            React.createElement("div", null,
+                React.createElement(LargeContentBox, { bgColour: ACTIVISM }),
+                React.createElement(LargeContentBox, { bgColour: SCITECH }),
+                React.createElement(LargeContentBox, { bgColour: ART }))));
+    };
+    return NewAndTrending;
+}(React.Component));
+var Announcement = /** @class */ (function (_super) {
+    __extends(Announcement, _super);
+    function Announcement() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Announcement.prototype.render = function () {
+        return (React.createElement("div", { style: { height: '150px', width: '620px', display: 'inline-block', padding: '0px 5px', position: 'relative' } },
+            React.createElement("h2", null, "Title"),
+            React.createElement("p", null, "Text"),
+            React.createElement("a", { style: { position: 'absolute', bottom: '0' } }, "View")));
+    };
+    return Announcement;
+}(React.Component));
+var CaroselIndicatior = /** @class */ (function (_super) {
+    __extends(CaroselIndicatior, _super);
+    function CaroselIndicatior() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CaroselIndicatior.prototype.render = function () {
+        return (React.createElement("div", { style: { height: '50px', width: '100%' } },
+            React.createElement("p", null, "O O O")));
+    };
+    return CaroselIndicatior;
+}(React.Component));
+var AnnouncementsContainer = /** @class */ (function (_super) {
+    __extends(AnnouncementsContainer, _super);
+    function AnnouncementsContainer() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    AnnouncementsContainer.prototype.render = function () {
+        return (React.createElement("div", { style: { height: '250px', width: '100%', padding: '10px' } },
+            React.createElement("h1", null, "Announcements"),
+            React.createElement("div", null,
+                React.createElement(Announcement, null),
+                React.createElement(Announcement, null),
+                React.createElement(Announcement, null)),
+            React.createElement(CaroselIndicatior, null)));
+    };
+    return AnnouncementsContainer;
+}(React.Component));
 var Homepage = /** @class */ (function (_super) {
     __extends(Homepage, _super);
     function Homepage() {
@@ -314,6 +377,8 @@ var Homepage = /** @class */ (function (_super) {
     Homepage.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement(Header, null),
+            React.createElement(NewAndTrending, null),
+            React.createElement(AnnouncementsContainer, null),
             React.createElement(ContentSection, null)));
     };
     return Homepage;
@@ -334,7 +399,7 @@ ReactDOM.render(React.createElement(Homepage, null), document.getElementById('ro
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".search::placeholder {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    font-weight: bold;\r\n}\r\n\r\n.search:focus {\r\n    outline: none;\r\n}\r\n\r\n.search {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n}", ""]);
+exports.push([module.i, "h1 {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    height: 30px;\r\n}\r\n\r\nh2 {\r\n    font-size: 14pt;\r\n    font-weight: normal;\r\n}\r\n\r\n.search::placeholder {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    font-weight: bold;\r\n}\r\n\r\n.search:focus {\r\n    outline: none;\r\n}\r\n\r\n.search {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n}\r\n\r\n.tabHeader {\r\n    padding: 0px;\r\n    width: 25%;\r\n}\r\n\r\n.tabs {\r\n    height: 100px;\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    color: #000000;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 100px;\r\n    z-index: 1;\r\n}\r\n\r\n.header {\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    position: -webkit-sticky;\r\n    position: sticky; \r\n    top: 0;\r\n    background: #142636;\r\n    z-index: 1;\r\n}", ""]);
 // Exports
 module.exports = exports;
 
