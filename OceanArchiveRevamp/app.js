@@ -15,10 +15,12 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 //Run this in console after changing code.
 //node_modules\.bin\webpack app.tsx --config webpack-config.js
-require("./styles.css");
+require("./styles/styles.css");
+require("./styles/carousel.css");
 var tabState = 8;
 var React = require('react');
 var ReactDOM = require('react-dom');
+var reactstrap_1 = require("reactstrap");
 var MAIN_COLOUR = '#142636';
 var SECONDARY_COLOUR = "#4A74A5";
 var SCITECH = '#0076FF';
@@ -36,12 +38,6 @@ var TableHeader = /** @class */ (function (_super) {
     __extends(TableHeader, _super);
     function TableHeader(props) {
         var _this = _super.call(this, props) || this;
-        _this.handleScroll = function () {
-            if (window.pageYOffset > 750)
-                _this.classList.add("sticky");
-            else
-                _this.classList.remove("sticky");
-        };
         _this.state = {
             title: props.title,
             colourCode: props.colourCode,
@@ -69,7 +65,7 @@ var TableHeader = /** @class */ (function (_super) {
         }
     };
     TableHeader.prototype.render = function () {
-        return (React.createElement("th", { class: "tabHeader", style: { background: this.state.bgColour }, onClick: this.props.stateUpdate, onScroll: this.handleScroll }, this.state.title));
+        return (React.createElement("th", { className: "tabHeader", style: { background: this.state.bgColour }, onClick: this.props.stateUpdate }, this.state.title));
     };
     return TableHeader;
 }(React.Component));
@@ -142,12 +138,13 @@ var ContentSection = /** @class */ (function (_super) {
     }
     ContentSection.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement("table", { class: "tabs" },
-                React.createElement("tr", null,
-                    React.createElement(TableHeader, { ref: this.Tabs[0], title: "ALL", isActive: true, colourCode: SECONDARY_COLOUR, stateUpdate: this.updateBackground(0) }),
-                    React.createElement(TableHeader, { ref: this.Tabs[1], title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: SCITECH, stateUpdate: this.updateBackground(1) }),
-                    React.createElement(TableHeader, { ref: this.Tabs[2], title: "ART", isActive: false, colourCode: ART, stateUpdate: this.updateBackground(2) }),
-                    React.createElement(TableHeader, { ref: this.Tabs[3], title: "ACTIVISM", isActive: false, colourCode: ACTIVISM, stateUpdate: this.updateBackground(3) }))),
+            React.createElement("table", { className: "tabs" },
+                React.createElement("tbody", null,
+                    React.createElement("tr", null,
+                        React.createElement(TableHeader, { ref: this.Tabs[0], title: "ALL", isActive: true, colourCode: SECONDARY_COLOUR, stateUpdate: this.updateBackground(0) }),
+                        React.createElement(TableHeader, { ref: this.Tabs[1], title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: SCITECH, stateUpdate: this.updateBackground(1) }),
+                        React.createElement(TableHeader, { ref: this.Tabs[2], title: "ART", isActive: false, colourCode: ART, stateUpdate: this.updateBackground(2) }),
+                        React.createElement(TableHeader, { ref: this.Tabs[3], title: "ACTIVISM", isActive: false, colourCode: ACTIVISM, stateUpdate: this.updateBackground(3) })))),
             React.createElement("div", { style: { padding: "10px", width: "100%", height: "10000px", background: this.state.bgContent } }, "Content Goes Here")));
     };
     return ContentSection;
@@ -181,7 +178,7 @@ var SeachBar = /** @class */ (function (_super) {
         return (React.createElement("form", { method: "post" },
             React.createElement("input", { type: "submit", style: { width: '150px', height: '34px', float: 'right', borderRadius: '0px 10px 10px 0px', border: '0px', background: SECONDARY_COLOUR } }),
             React.createElement("span", { style: { display: 'block', overflow: 'hidden' } },
-                React.createElement("input", { type: "search", class: "search", style: { width: '100%', height: '34px', borderRadius: '10px 0px 0px 10px', border: '0px', background: '#787878', paddingLeft: '20px' }, placeholder: "Search..." }))));
+                React.createElement("input", { type: "search", className: "search", style: { width: '100%', height: '34px', borderRadius: '10px 0px 0px 10px', border: '0px', background: '#787878', paddingLeft: '20px' }, placeholder: "Search..." }))));
     };
     return SeachBar;
 }(React.Component));
@@ -191,7 +188,7 @@ var Header = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Header.prototype.render = function () {
-        return (React.createElement("div", { class: "header" },
+        return (React.createElement("div", { className: "header" },
             React.createElement(Logo, { float: 'left', name: 'OCEAN' }),
             React.createElement(HeaderButton, { float: 'left', name: 'HOME' }),
             React.createElement(HeaderButton, { float: 'left', name: 'MAP' }),
@@ -235,41 +232,98 @@ var NewAndTrending = /** @class */ (function (_super) {
 }(React.Component));
 var Announcement = /** @class */ (function (_super) {
     __extends(Announcement, _super);
-    function Announcement() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Announcement(props) {
+        return _super.call(this, props) || this;
     }
     Announcement.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '150px', width: '620px', display: 'inline-block', padding: '0px 5px', position: 'relative' } },
-            React.createElement("h2", null, "Title"),
-            React.createElement("p", null, "Text"),
+        return (React.createElement("div", { style: { height: '150px', width: '620px', display: 'inline-block', padding: '0px 5px', position: 'relative', backgroundColor: '#0f0f0f' } },
+            React.createElement("h2", null, this.props.title),
+            React.createElement("p", null, this.props.text),
             React.createElement("a", { style: { position: 'absolute', bottom: '0' } }, "View")));
     };
     return Announcement;
 }(React.Component));
-var CaroselIndicatior = /** @class */ (function (_super) {
-    __extends(CaroselIndicatior, _super);
-    function CaroselIndicatior() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    CaroselIndicatior.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '50px', width: '100%' } },
-            React.createElement("p", null, "O O O")));
-    };
-    return CaroselIndicatior;
-}(React.Component));
 var AnnouncementsContainer = /** @class */ (function (_super) {
     __extends(AnnouncementsContainer, _super);
-    function AnnouncementsContainer() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function AnnouncementsContainer(props) {
+        var _this = _super.call(this, props) || this;
+        _this.items = [
+            [
+                {
+                    title: 'TITLE 1',
+                    text: 'Text for 1'
+                },
+                {
+                    title: 'TITLE 2',
+                    text: 'Text for 2'
+                },
+                {
+                    title: 'TITLE 3',
+                    text: 'Text for 3'
+                }
+            ],
+            [
+                {
+                    title: 'TITLE 4',
+                    text: 'Text for 4'
+                },
+                {
+                    title: 'TITLE 5',
+                    text: 'Text for 5'
+                },
+                {
+                    title: 'TITLE 6',
+                    text: 'Text for 6'
+                }
+            ],
+            [
+                {
+                    title: 'TITLE 7',
+                    text: 'Text for 7'
+                },
+                {
+                    title: 'TITLE 8',
+                    text: 'Text for 8'
+                },
+                {
+                    title: 'TITLE 9',
+                    text: 'Text for 9'
+                }
+            ]
+        ];
+        _this.slides = _this.items.map(function (item) {
+            return (React.createElement(reactstrap_1.CarouselItem, { onExiting: function () { return _this.setState({ animating: true }); }, onExited: function () { return _this.setState({ animating: false }); } },
+                React.createElement(Announcement, { title: item[0].title, text: item[0].text }),
+                React.createElement(Announcement, { title: item[1].title, text: item[1].text }),
+                React.createElement(Announcement, { title: item[2].title, text: item[2].text })));
+        });
+        _this.next = function () {
+            if (_this.state.animating)
+                return;
+            var nextIndex = ((_this.state.activeIndex + 1) > (_this.items.length - 1)) ? 0 : (_this.state.activeIndex + 1);
+            _this.setState({ activeIndex: nextIndex });
+        };
+        _this.prev = function () {
+            if (_this.state.animating)
+                return;
+            var nextIndex = (_this.state.activeIndex - 1) < 0 ? (_this.items.length - 1) : (_this.state.activeIndex - 1);
+            _this.setState({ activeIndex: nextIndex });
+        };
+        _this.goToIndex = function (newIndex) {
+            _this.setState({ activeIndex: newIndex });
+        };
+        _this.state = {
+            activeIndex: 0,
+            animating: false
+        };
+        return _this;
     }
     AnnouncementsContainer.prototype.render = function () {
         return (React.createElement("div", { style: { height: '250px', width: '100%', padding: '10px' } },
             React.createElement("h1", null, "Announcements"),
-            React.createElement("div", null,
-                React.createElement(Announcement, null),
-                React.createElement(Announcement, null),
-                React.createElement(Announcement, null)),
-            React.createElement(CaroselIndicatior, null)));
+            React.createElement(reactstrap_1.Carousel, { activeIndex: this.state.activeIndex, next: this.next, previous: this.prev },
+                this.slides,
+                React.createElement(reactstrap_1.CarouselIndicators, { items: this.items, activeIndex: this.state.activeIndex, onClickHandler: this.goToIndex }))));
     };
     return AnnouncementsContainer;
 }(React.Component));

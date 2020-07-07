@@ -1,6 +1,7 @@
 ﻿//Run this in console after changing code.
 //node_modules\.bin\webpack app.tsx --config webpack-config.js
-import "./styles.css";
+import "./styles/styles.css";
+import "./styles/carousel.css";
 
 declare var require: any
 
@@ -8,6 +9,14 @@ var tabState = 0b1000;
 
 var React = require('react');
 var ReactDOM = require('react-dom');
+
+import {
+    Carousel,
+    CarouselItem,
+    CarouselControl,
+    CarouselIndicators,
+    CarouselCaption
+} from 'reactstrap';
 
 const MAIN_COLOUR = '#142636';
 const SECONDARY_COLOUR = "#4A74A5";
@@ -36,13 +45,6 @@ class TableHeader extends React.Component {
         };
     }
 
-    handleScroll = () => {
-        if (window.pageYOffset > 750)
-            this.classList.add("sticky");
-        else
-            this.classList.remove("sticky");
-    }
-
     changeBackground(active, secColour) {
         if (active) {
             if (secColour == null) {
@@ -63,7 +65,7 @@ class TableHeader extends React.Component {
 
     render() {
         return (
-            <th class="tabHeader" style={{ background: this.state.bgColour }} onClick={this.props.stateUpdate} onScroll={this.handleScroll}>
+            <th className="tabHeader" style={{ background: this.state.bgColour }} onClick={this.props.stateUpdate} >
                 {this.state.title}
             </th>
         );
@@ -142,13 +144,15 @@ class ContentSection extends React.Component {
     render() {
         return (
             <div>
-                <table class="tabs">
-                    <tr>
-                        <TableHeader ref={this.Tabs[0]} title="ALL" isActive={true} colourCode={SECONDARY_COLOUR} stateUpdate={this.updateBackground(0)} />
-                        <TableHeader ref={this.Tabs[1]} title="SCIENCE & TECHNOLOGY" isActive={false} colourCode={SCITECH} stateUpdate={this.updateBackground(1)} />
-                        <TableHeader ref={this.Tabs[2]} title="ART" isActive={false} colourCode={ART} stateUpdate={this.updateBackground(2)} />
-                        <TableHeader ref={this.Tabs[3]} title="ACTIVISM" isActive={false} colourCode={ACTIVISM} stateUpdate={this.updateBackground(3)} />
-                    </tr>
+                <table className="tabs">
+                    <tbody>
+                        <tr>
+                            <TableHeader ref={this.Tabs[0]} title="ALL" isActive={true} colourCode={SECONDARY_COLOUR} stateUpdate={this.updateBackground(0)} />
+                            <TableHeader ref={this.Tabs[1]} title="SCIENCE & TECHNOLOGY" isActive={false} colourCode={SCITECH} stateUpdate={this.updateBackground(1)} />
+                            <TableHeader ref={this.Tabs[2]} title="ART" isActive={false} colourCode={ART} stateUpdate={this.updateBackground(2)} />
+                            <TableHeader ref={this.Tabs[3]} title="ACTIVISM" isActive={false} colourCode={ACTIVISM} stateUpdate={this.updateBackground(3)} />
+                        </tr>
+                    </tbody>
                 </table>
                 <div style={{ padding: "10px", width: "100%", height: "10000px", background: this.state.bgContent }}>
                     Content Goes Here
@@ -192,7 +196,7 @@ class SeachBar extends React.Component {
             <form method="post">
                 <input type="submit" style={{ width: '150px', height: '34px', float: 'right', borderRadius: '0px 10px 10px 0px', border: '0px', background: SECONDARY_COLOUR }} />
                 <span style={{ display: 'block', overflow: 'hidden' }}>
-                    <input type="search" class="search" style={{ width: '100%', height: '34px', borderRadius: '10px 0px 0px 10px', border: '0px', background: '#787878', paddingLeft: '20px' }} placeholder="Search..." />
+                    <input type="search" className="search" style={{ width: '100%', height: '34px', borderRadius: '10px 0px 0px 10px', border: '0px', background: '#787878', paddingLeft: '20px' }} placeholder="Search..." />
                 </span>
             </form>
         );
@@ -202,7 +206,7 @@ class SeachBar extends React.Component {
 class Header extends React.Component {
     render() {
         return (
-            <div class="header">
+            <div className="header">
                 <Logo float='left' name='OCEAN' />
                 <HeaderButton float='left' name='HOME' />
                 <HeaderButton float='left' name='MAP' />
@@ -251,38 +255,109 @@ class NewAndTrending extends React.Component {
 }
 
 class Announcement extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
-            <div style={{ height: '150px', width: '620px', display: 'inline-block', padding: '0px 5px', position: 'relative' }}>
-                <h2>Title</h2>
-                <p>Text</p>
+            <div style={{ height: '150px', width: '620px', display: 'inline-block', padding: '0px 5px', position: 'relative', backgroundColor: '#0f0f0f' }}>
+                <h2>{this.props.title}</h2>
+                <p>{this.props.text}</p>
                 <a style={{ position: 'absolute', bottom: '0' }}>View</a>
             </div>
         );
     }
 }
 
-class CaroselIndicatior extends React.Component {
-    render() {
-        return (
-            <div style={{ height: '50px', width: '100%' }}>
-                <p>O O O</p>
-            </div>
-        );
-    }
-}
-
 class AnnouncementsContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeIndex: 0,
+            animating: false
+        };
+    }
+
+    items = [
+        [
+            {
+                title: 'TITLE 1',
+                text: 'Text for 1'
+            },
+            {
+                title: 'TITLE 2',
+                text: 'Text for 2'
+            },
+            {
+                title: 'TITLE 3',
+                text: 'Text for 3'
+            }
+        ],
+        [
+            {
+                title: 'TITLE 4',
+                text: 'Text for 4'
+            },
+            {
+                title: 'TITLE 5',
+                text: 'Text for 5'
+            },
+            {
+                title: 'TITLE 6',
+                text: 'Text for 6'
+            }
+        ],
+        [
+            {
+                title: 'TITLE 7',
+                text: 'Text for 7'
+            },
+            {
+                title: 'TITLE 8',
+                text: 'Text for 8'
+            },
+            {
+                title: 'TITLE 9',
+                text: 'Text for 9'
+            }
+        ]
+    ];
+
+    slides = this.items.map((item) => {
+        return (
+            <CarouselItem onExiting={() => this.setState({ animating: true })} onExited={() => this.setState({ animating: false })}>
+                <Announcement title={item[0].title} text={item[0].text} />
+                <Announcement title={item[1].title} text={item[1].text} />
+                <Announcement title={item[2].title} text={item[2].text} />
+            </CarouselItem>
+        );
+    });
+
+    next = () => {
+        if (this.state.animating) return;
+        var nextIndex = ((this.state.activeIndex + 1) > (this.items.length - 1)) ? 0 : (this.state.activeIndex + 1);
+        this.setState({ activeIndex: nextIndex })
+    }
+
+    prev = () => {
+        if (this.state.animating) return;
+        var nextIndex = (this.state.activeIndex - 1) < 0 ? (this.items.length - 1) : (this.state.activeIndex - 1);
+        this.setState({ activeIndex: nextIndex })
+    }
+
+    goToIndex = (newIndex) => {
+        this.setState({ activeIndex: newIndex });
+    }
+
     render() {
         return (
             <div style={{ height: '250px', width: '100%', padding: '10px' }}>
                 <h1>Announcements</h1>
-                <div>
-                    <Announcement />
-                    <Announcement />
-                    <Announcement />
-                </div>
-                <CaroselIndicatior />
+                <Carousel activeIndex={this.state.activeIndex} next={this.next} previous={this.prev}>
+                    {this.slides}
+                    <CarouselIndicators items={this.items} activeIndex={this.state.activeIndex} onClickHandler={this.goToIndex} />
+                </Carousel>
             </div>
         );
     }
