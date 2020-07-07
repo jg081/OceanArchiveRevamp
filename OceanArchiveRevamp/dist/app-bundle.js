@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./app.tsx":
-/*!*****************!*\
-  !*** ./app.tsx ***!
-  \*****************/
+/***/ "./announcementsContainer.tsx":
+/*!************************************!*\
+  !*** ./announcementsContainer.tsx ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -109,223 +109,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-//Run this in console after changing code.
-//node_modules\.bin\webpack app.tsx --config webpack-config.js
-__webpack_require__(/*! ./styles/styles.css */ "./styles/styles.css");
-__webpack_require__(/*! ./styles/carousel.css */ "./styles/carousel.css");
-var tabState = 8;
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 var reactstrap_1 = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
-var MAIN_COLOUR = '#142636';
-var SECONDARY_COLOUR = "#4A74A5";
-var SCITECH = '#0076FF';
-var ART = '#9013FE';
-var ACTIVISM = '#50E3C2';
-var SCITECH_ART = '#4845FF';
-var ART_ACTIVISM = '#707BE0';
-var ACTIVISM_SCITECH = '#28ADE1';
-document.body.style.backgroundColor = MAIN_COLOUR;
-document.body.style.fontFamily = 'Roboto';
-document.body.style.color = '#ffffff';
-document.body.style.padding = '0px';
-document.body.style.margin = '0px';
-var TableHeader = /** @class */ (function (_super) {
-    __extends(TableHeader, _super);
-    function TableHeader(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
-            title: props.title,
-            colourCode: props.colourCode,
-            bgColour: props.isActive ? props.colourCode : "linear-gradient(" + props.colourCode + ", " + props.colourCode + " 85%, #000000 150%)"
-        };
-        return _this;
-    }
-    TableHeader.prototype.changeBackground = function (active, secColour) {
-        if (active) {
-            if (secColour == null) {
-                this.setState({
-                    bgColour: this.state.colourCode
-                });
-            }
-            else {
-                this.setState({
-                    bgColour: "linear-gradient(" + this.state.colourCode + ", " + secColour + ")"
-                });
-            }
-        }
-        else {
-            this.setState({
-                bgColour: "linear-gradient(" + this.state.colourCode + ", " + this.state.colourCode + " 85%, #000000 150%)"
-            });
-        }
-    };
-    TableHeader.prototype.render = function () {
-        return (React.createElement("th", { className: "tabHeader", style: { background: this.state.bgColour }, onClick: this.props.stateUpdate }, this.state.title));
-    };
-    return TableHeader;
-}(React.Component));
-var ContentSection = /** @class */ (function (_super) {
-    __extends(ContentSection, _super);
-    function ContentSection(props) {
-        var _this = _super.call(this, props) || this;
-        _this.updateBackground = function (i) { return function () {
-            var s = 8 >> i;
-            //Set state of tabs to know what is selected
-            var newTabState;
-            if (s != 8) {
-                if (s & tabState)
-                    tabState = s;
-                else {
-                    newTabState = ((tabState & ~s) | (~tabState & s)) & 7;
-                    if (newTabState == 7)
-                        tabState = 8 >> i;
-                    else if (newTabState != 0)
-                        tabState = newTabState;
-                }
-            }
-            else
-                tabState = s;
-            //console.log("tabState = " + tabState.toString(2));
-            //Get secondary colour in case 2 tabs are selected
-            var secColour = null;
-            switch (tabState) {
-                case 6: //SciTech and Art
-                    secColour = SCITECH_ART;
-                    break;
-                case 5: //SciTech and Activism
-                    secColour = ACTIVISM_SCITECH;
-                    break;
-                case 3: //Art and Activism
-                    secColour = ART_ACTIVISM;
-                    break;
-                default:
-                    secColour = null;
-                    break;
-            }
-            //Set tab background colours
-            for (var x = 0; x < 4; x++) {
-                if (tabState & (8 >> x))
-                    _this.Tabs[x].current.changeBackground(true, secColour);
-                else
-                    _this.Tabs[x].current.changeBackground(false, null);
-            }
-            //Set content section background colour
-            if (secColour == null)
-                _this.setState({
-                    bgContent: _this.Tabs[i].current.state.colourCode
-                });
-            else
-                _this.setState({
-                    bgContent: secColour
-                });
-        }; };
-        _this.Tabs = [
-            React.createRef(),
-            React.createRef(),
-            React.createRef(),
-            React.createRef()
-        ];
-        _this.updateBackground = _this.updateBackground.bind(_this);
-        _this.state = {
-            bgContent: "#4A74A5"
-        };
-        return _this;
-    }
-    ContentSection.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement("table", { className: "tabs" },
-                React.createElement("tbody", null,
-                    React.createElement("tr", null,
-                        React.createElement(TableHeader, { ref: this.Tabs[0], title: "ALL", isActive: true, colourCode: SECONDARY_COLOUR, stateUpdate: this.updateBackground(0) }),
-                        React.createElement(TableHeader, { ref: this.Tabs[1], title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: SCITECH, stateUpdate: this.updateBackground(1) }),
-                        React.createElement(TableHeader, { ref: this.Tabs[2], title: "ART", isActive: false, colourCode: ART, stateUpdate: this.updateBackground(2) }),
-                        React.createElement(TableHeader, { ref: this.Tabs[3], title: "ACTIVISM", isActive: false, colourCode: ACTIVISM, stateUpdate: this.updateBackground(3) })))),
-            React.createElement("div", { style: { padding: "10px", width: "100%", height: "10000px", background: this.state.bgContent } }, "Content Goes Here")));
-    };
-    return ContentSection;
-}(React.Component));
-var Logo = /** @class */ (function (_super) {
-    __extends(Logo, _super);
-    function Logo(props) {
-        return _super.call(this, props) || this;
-    }
-    Logo.prototype.render = function () {
-        return (React.createElement("div", { style: { width: '230px', height: '100px', textAlign: 'center', lineHeight: '100px', float: this.props.float } }, this.props.name));
-    };
-    return Logo;
-}(React.Component));
-var HeaderButton = /** @class */ (function (_super) {
-    __extends(HeaderButton, _super);
-    function HeaderButton(props) {
-        return _super.call(this, props) || this;
-    }
-    HeaderButton.prototype.render = function () {
-        return (React.createElement("div", { style: { color: '#D8D8D8', width: '100px', height: '60px', textAlign: 'center', lineHeight: '60px', float: this.props.float } }, this.props.name));
-    };
-    return HeaderButton;
-}(React.Component));
-var SeachBar = /** @class */ (function (_super) {
-    __extends(SeachBar, _super);
-    function SeachBar(props) {
-        return _super.call(this, props) || this;
-    }
-    SeachBar.prototype.render = function () {
-        return (React.createElement("form", { method: "post" },
-            React.createElement("input", { type: "submit", style: { width: '150px', height: '34px', float: 'right', borderRadius: '0px 10px 10px 0px', border: '0px', background: SECONDARY_COLOUR } }),
-            React.createElement("span", { style: { display: 'block', overflow: 'hidden' } },
-                React.createElement("input", { type: "search", className: "search", style: { width: '100%', height: '34px', borderRadius: '10px 0px 0px 10px', border: '0px', background: '#787878', paddingLeft: '20px' }, placeholder: "Search..." }))));
-    };
-    return SeachBar;
-}(React.Component));
-var Header = /** @class */ (function (_super) {
-    __extends(Header, _super);
-    function Header() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Header.prototype.render = function () {
-        return (React.createElement("div", { className: "header" },
-            React.createElement(Logo, { float: 'left', name: 'OCEAN' }),
-            React.createElement(HeaderButton, { float: 'left', name: 'HOME' }),
-            React.createElement(HeaderButton, { float: 'left', name: 'MAP' }),
-            React.createElement(HeaderButton, { float: 'left', name: 'TERMS' }),
-            React.createElement(HeaderButton, { float: 'left', name: 'PRIVACY' }),
-            React.createElement(Logo, { float: 'right', name: 'ARCHIVE' }),
-            React.createElement(HeaderButton, { float: 'right', name: 'SIGNUP' }),
-            React.createElement(HeaderButton, { float: 'right', name: 'LOGIN' }),
-            React.createElement("div", { style: { position: 'absolute', height: '40px', left: '230px', right: '230px', top: '60px' } },
-                React.createElement(SeachBar, null))));
-    };
-    return Header;
-}(React.Component));
-var LargeContentBox = /** @class */ (function (_super) {
-    __extends(LargeContentBox, _super);
-    function LargeContentBox(props) {
-        return _super.call(this, props) || this;
-    }
-    LargeContentBox.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '340px', width: '566px', background: this.props.bgColour, display: 'inline-block', marginLeft: '50px', position: 'relative' } },
-            React.createElement("div", { style: { height: '50px' } }, "TITLE"),
-            React.createElement("img", { src: '', alt: 'IMAGE', style: { height: '240px' } }),
-            React.createElement("div", { style: { height: '50px', position: 'absolute', bottom: '0px' } }, "TAGS AND STUFF")));
-    };
-    return LargeContentBox;
-}(React.Component));
-var NewAndTrending = /** @class */ (function (_super) {
-    __extends(NewAndTrending, _super);
-    function NewAndTrending() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    NewAndTrending.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '405px', width: '100%' } },
-            React.createElement("h1", { style: { paddingLeft: '10px' } }, "New & Trending"),
-            React.createElement("div", null,
-                React.createElement(LargeContentBox, { bgColour: ACTIVISM }),
-                React.createElement(LargeContentBox, { bgColour: SCITECH }),
-                React.createElement(LargeContentBox, { bgColour: ART }))));
-    };
-    return NewAndTrending;
-}(React.Component));
 var Announcement = /** @class */ (function (_super) {
     __extends(Announcement, _super);
     function Announcement(props) {
@@ -423,6 +208,50 @@ var AnnouncementsContainer = /** @class */ (function (_super) {
     };
     return AnnouncementsContainer;
 }(React.Component));
+exports.default = AnnouncementsContainer;
+
+
+/***/ }),
+
+/***/ "./app.tsx":
+/*!*****************!*\
+  !*** ./app.tsx ***!
+  \*****************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+//Run this in console after changing code.
+//node_modules\.bin\webpack app.tsx --config webpack-config.js
+__webpack_require__(/*! ./styles/styles.css */ "./styles/styles.css");
+__webpack_require__(/*! ./styles/carousel.css */ "./styles/carousel.css");
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+var header_1 = __webpack_require__(/*! ./header */ "./header.js");
+var newAndTrending_1 = __webpack_require__(/*! ./newAndTrending */ "./newAndTrending.js");
+var contentSection_1 = __webpack_require__(/*! ./contentSection */ "./contentSection.js");
+var announcementsContainer_1 = __webpack_require__(/*! ./announcementsContainer */ "./announcementsContainer.tsx");
+var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
+document.body.style.backgroundColor = Constant.MAIN_COLOUR;
+document.body.style.fontFamily = 'Roboto';
+document.body.style.color = '#ffffff';
+document.body.style.padding = '0px';
+document.body.style.margin = '0px';
 var Homepage = /** @class */ (function (_super) {
     __extends(Homepage, _super);
     function Homepage() {
@@ -430,15 +259,330 @@ var Homepage = /** @class */ (function (_super) {
     }
     Homepage.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement(Header, null),
-            React.createElement(NewAndTrending, null),
-            React.createElement(AnnouncementsContainer, null),
-            React.createElement(ContentSection, null)));
+            React.createElement(header_1.default, null),
+            React.createElement(newAndTrending_1.default, null),
+            React.createElement(announcementsContainer_1.default, null),
+            React.createElement(contentSection_1.default, null)));
     };
     return Homepage;
 }(React.Component));
 ReactDOM.render(React.createElement(Homepage, null), document.getElementById('root'));
 
+
+/***/ }),
+
+/***/ "./constants/index.js":
+/*!****************************!*\
+  !*** ./constants/index.js ***!
+  \****************************/
+/*! exports provided: MAIN_COLOUR, SECONDARY_COLOUR, SCITECH, ART, ACTIVISM, SCITECH_ART, ART_ACTIVISM, ACTIVISM_SCITECH */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAIN_COLOUR", function() { return MAIN_COLOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SECONDARY_COLOUR", function() { return SECONDARY_COLOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SCITECH", function() { return SCITECH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ART", function() { return ART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ACTIVISM", function() { return ACTIVISM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SCITECH_ART", function() { return SCITECH_ART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ART_ACTIVISM", function() { return ART_ACTIVISM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ACTIVISM_SCITECH", function() { return ACTIVISM_SCITECH; });
+﻿const MAIN_COLOUR = '#142636';
+const SECONDARY_COLOUR = "#4A74A5";
+const SCITECH = '#0076FF';
+const ART = '#9013FE';
+const ACTIVISM = '#50E3C2';
+const SCITECH_ART = '#4845FF';
+const ART_ACTIVISM = '#707BE0';
+const ACTIVISM_SCITECH = '#28ADE1';
+
+/***/ }),
+
+/***/ "./contentSection.js":
+/*!***************************!*\
+  !*** ./contentSection.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
+var tabState = 8;
+var TableHeader = /** @class */ (function (_super) {
+    __extends(TableHeader, _super);
+    function TableHeader(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            title: props.title,
+            colourCode: props.colourCode,
+            bgColour: props.isActive ? props.colourCode : "linear-gradient(" + props.colourCode + ", " + props.colourCode + " 85%, #000000 150%)"
+        };
+        return _this;
+    }
+    TableHeader.prototype.changeBackground = function (active, secColour) {
+        if (active) {
+            if (secColour == null) {
+                this.setState({
+                    bgColour: this.state.colourCode
+                });
+            }
+            else {
+                this.setState({
+                    bgColour: "linear-gradient(" + this.state.colourCode + ", " + secColour + ")"
+                });
+            }
+        }
+        else {
+            this.setState({
+                bgColour: "linear-gradient(" + this.state.colourCode + ", " + this.state.colourCode + " 85%, #000000 150%)"
+            });
+        }
+    };
+    TableHeader.prototype.render = function () {
+        return (React.createElement("th", { className: "tabHeader", style: { background: this.state.bgColour }, onClick: this.props.stateUpdate }, this.state.title));
+    };
+    return TableHeader;
+}(React.Component));
+var ContentSection = /** @class */ (function (_super) {
+    __extends(ContentSection, _super);
+    function ContentSection(props) {
+        var _this = _super.call(this, props) || this;
+        _this.updateBackground = function (i) { return function () {
+            var s = 8 >> i;
+            //Set state of tabs to know what is selected
+            var newTabState;
+            if (s != 8) {
+                if (s & tabState)
+                    tabState = s;
+                else {
+                    newTabState = ((tabState & ~s) | (~tabState & s)) & 7;
+                    if (newTabState == 7)
+                        tabState = 8 >> i;
+                    else if (newTabState != 0)
+                        tabState = newTabState;
+                }
+            }
+            else
+                tabState = s;
+            //console.log("tabState = " + tabState.toString(2));
+            //Get secondary colour in case 2 tabs are selected
+            var secColour = null;
+            switch (tabState) {
+                case 6: //SciTech and Art
+                    secColour = Constant.SCITECH_ART;
+                    break;
+                case 5: //SciTech and Activism
+                    secColour = Constant.ACTIVISM_SCITECH;
+                    break;
+                case 3: //Art and Activism
+                    secColour = Constant.ART_ACTIVISM;
+                    break;
+                default:
+                    secColour = null;
+                    break;
+            }
+            //Set tab background colours
+            for (var x = 0; x < 4; x++) {
+                if (tabState & (8 >> x))
+                    _this.Tabs[x].current.changeBackground(true, secColour);
+                else
+                    _this.Tabs[x].current.changeBackground(false, null);
+            }
+            //Set content section background colour
+            if (secColour == null)
+                _this.setState({
+                    bgContent: _this.Tabs[i].current.state.colourCode
+                });
+            else
+                _this.setState({
+                    bgContent: secColour
+                });
+        }; };
+        _this.Tabs = [
+            React.createRef(),
+            React.createRef(),
+            React.createRef(),
+            React.createRef()
+        ];
+        _this.updateBackground = _this.updateBackground.bind(_this);
+        _this.state = {
+            bgContent: "#4A74A5"
+        };
+        return _this;
+    }
+    ContentSection.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement("table", { className: "tabs" },
+                React.createElement("tbody", null,
+                    React.createElement("tr", null,
+                        React.createElement(TableHeader, { ref: this.Tabs[0], title: "ALL", isActive: true, colourCode: Constant.SECONDARY_COLOUR, stateUpdate: this.updateBackground(0) }),
+                        React.createElement(TableHeader, { ref: this.Tabs[1], title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: Constant.SCITECH, stateUpdate: this.updateBackground(1) }),
+                        React.createElement(TableHeader, { ref: this.Tabs[2], title: "ART", isActive: false, colourCode: Constant.ART, stateUpdate: this.updateBackground(2) }),
+                        React.createElement(TableHeader, { ref: this.Tabs[3], title: "ACTIVISM", isActive: false, colourCode: Constant.ACTIVISM, stateUpdate: this.updateBackground(3) })))),
+            React.createElement("div", { style: { padding: "10px", width: "100%", height: "10000px", background: this.state.bgContent } }, "Content Goes Here")));
+    };
+    return ContentSection;
+}(React.Component));
+exports.default = ContentSection;
+//# sourceMappingURL=contentSection.js.map
+
+/***/ }),
+
+/***/ "./header.js":
+/*!*******************!*\
+  !*** ./header.js ***!
+  \*******************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
+var Logo = /** @class */ (function (_super) {
+    __extends(Logo, _super);
+    function Logo(props) {
+        return _super.call(this, props) || this;
+    }
+    Logo.prototype.render = function () {
+        return (React.createElement("div", { style: { width: '230px', height: '100px', textAlign: 'center', lineHeight: '100px', float: this.props.float } }, this.props.name));
+    };
+    return Logo;
+}(React.Component));
+var HeaderButton = /** @class */ (function (_super) {
+    __extends(HeaderButton, _super);
+    function HeaderButton(props) {
+        return _super.call(this, props) || this;
+    }
+    HeaderButton.prototype.render = function () {
+        return (React.createElement("div", { style: { color: '#D8D8D8', width: '100px', height: '60px', textAlign: 'center', lineHeight: '60px', float: this.props.float } }, this.props.name));
+    };
+    return HeaderButton;
+}(React.Component));
+var SeachBar = /** @class */ (function (_super) {
+    __extends(SeachBar, _super);
+    function SeachBar(props) {
+        return _super.call(this, props) || this;
+    }
+    SeachBar.prototype.render = function () {
+        return (React.createElement("form", { method: "post" },
+            React.createElement("input", { type: "submit", style: { width: '150px', height: '34px', float: 'right', borderRadius: '0px 10px 10px 0px', border: '0px', background: Constant.SECONDARY_COLOUR } }),
+            React.createElement("span", { style: { display: 'block', overflow: 'hidden' } },
+                React.createElement("input", { type: "search", className: "search", style: { width: '100%', height: '34px', borderRadius: '10px 0px 0px 10px', border: '0px', background: '#787878', paddingLeft: '20px' }, placeholder: "Search..." }))));
+    };
+    return SeachBar;
+}(React.Component));
+var Header = /** @class */ (function (_super) {
+    __extends(Header, _super);
+    function Header() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Header.prototype.render = function () {
+        return (React.createElement("div", { className: "header" },
+            React.createElement(Logo, { float: 'left', name: 'OCEAN' }),
+            React.createElement(HeaderButton, { float: 'left', name: 'HOME' }),
+            React.createElement(HeaderButton, { float: 'left', name: 'MAP' }),
+            React.createElement(HeaderButton, { float: 'left', name: 'TERMS' }),
+            React.createElement(HeaderButton, { float: 'left', name: 'PRIVACY' }),
+            React.createElement(Logo, { float: 'right', name: 'ARCHIVE' }),
+            React.createElement(HeaderButton, { float: 'right', name: 'SIGNUP' }),
+            React.createElement(HeaderButton, { float: 'right', name: 'LOGIN' }),
+            React.createElement("div", { style: { position: 'absolute', height: '40px', left: '230px', right: '230px', top: '60px' } },
+                React.createElement(SeachBar, null))));
+    };
+    return Header;
+}(React.Component));
+exports.default = Header;
+//# sourceMappingURL=header.js.map
+
+/***/ }),
+
+/***/ "./newAndTrending.js":
+/*!***************************!*\
+  !*** ./newAndTrending.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
+var LargeContentBox = /** @class */ (function (_super) {
+    __extends(LargeContentBox, _super);
+    function LargeContentBox(props) {
+        return _super.call(this, props) || this;
+    }
+    LargeContentBox.prototype.render = function () {
+        return (React.createElement("div", { style: { height: '340px', width: '566px', background: this.props.bgColour, display: 'inline-block', marginLeft: '50px', position: 'relative' } },
+            React.createElement("div", { style: { height: '50px' } }, "TITLE"),
+            React.createElement("img", { src: '', alt: 'IMAGE', style: { height: '240px' } }),
+            React.createElement("div", { style: { height: '50px', position: 'absolute', bottom: '0px' } }, "TAGS AND STUFF")));
+    };
+    return LargeContentBox;
+}(React.Component));
+var NewAndTrending = /** @class */ (function (_super) {
+    __extends(NewAndTrending, _super);
+    function NewAndTrending() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    NewAndTrending.prototype.render = function () {
+        return (React.createElement("div", { style: { height: '405px', width: '100%' } },
+            React.createElement("h1", { style: { paddingLeft: '10px' } }, "New & Trending"),
+            React.createElement("div", null,
+                React.createElement(LargeContentBox, { bgColour: Constant.ACTIVISM }),
+                React.createElement(LargeContentBox, { bgColour: Constant.SCITECH }),
+                React.createElement(LargeContentBox, { bgColour: Constant.ART }))));
+    };
+    return NewAndTrending;
+}(React.Component));
+exports.default = NewAndTrending;
+//# sourceMappingURL=newAndTrending.js.map
 
 /***/ }),
 
@@ -1038,7 +1182,7 @@ module.exports = exports['default'];
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".carousel {\r\n    position: relative\r\n}\r\n\r\n.carousel-inner {\r\n    position: relative;\r\n    width: 100%;\r\n    overflow: hidden\r\n}\r\n\r\n.carousel-item {\r\n    position: relative;\r\n    display: none;\r\n    -ms-flex-align: center;\r\n    align-items: center;\r\n    width: 100%;\r\n    -webkit-backface-visibility: hidden;\r\n    backface-visibility: hidden;\r\n    -webkit-perspective: 1000px;\r\n    perspective: 1000px\r\n}\r\n\r\n    .carousel-item-next,\r\n    .carousel-item-prev,\r\n    .carousel-item.active {\r\n        display: block;\r\n        transition: -webkit-transform .6s ease;\r\n        transition: transform .6s ease;\r\n        transition: transform .6s ease, -webkit-transform .6s ease\r\n    }\r\n\r\n@media screen and (prefers-reduced-motion:reduce) {\r\n    .carousel-item-next,\r\n    .carousel-item-prev,\r\n    .carousel-item.active {\r\n        transition: none\r\n    }\r\n}\r\n\r\n.carousel-item-next,\r\n.carousel-item-prev {\r\n    position: absolute;\r\n    top: 0\r\n}\r\n\r\n    .carousel-item-next.carousel-item-left,\r\n    .carousel-item-prev.carousel-item-right {\r\n        -webkit-transform: translateX(0);\r\n        transform: translateX(0)\r\n    }\r\n\r\n@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)) {\r\n    .carousel-item-next.carousel-item-left,\r\n    .carousel-item-prev.carousel-item-right {\r\n        -webkit-transform: translate3d(0, 0, 0);\r\n        transform: translate3d(0, 0, 0)\r\n    }\r\n}\r\n\r\n.active.carousel-item-right,\r\n.carousel-item-next {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%)\r\n}\r\n\r\n@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)) {\r\n    .active.carousel-item-right,\r\n    .carousel-item-next {\r\n        -webkit-transform: translate3d(100%, 0, 0);\r\n        transform: translate3d(100%, 0, 0)\r\n    }\r\n}\r\n\r\n.active.carousel-item-left,\r\n.carousel-item-prev {\r\n    -webkit-transform: translateX(-100%);\r\n    transform: translateX(-100%)\r\n}\r\n\r\n@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)) {\r\n    .active.carousel-item-left,\r\n    .carousel-item-prev {\r\n        -webkit-transform: translate3d(-100%, 0, 0);\r\n        transform: translate3d(-100%, 0, 0)\r\n    }\r\n}\r\n\r\n.carousel-fade .carousel-item {\r\n    opacity: 0;\r\n    transition-duration: .6s;\r\n    transition-property: opacity\r\n}\r\n\r\n    .carousel-fade .carousel-item-next.carousel-item-left,\r\n    .carousel-fade .carousel-item-prev.carousel-item-right,\r\n    .carousel-fade .carousel-item.active {\r\n        opacity: 1\r\n    }\r\n\r\n.carousel-fade .active.carousel-item-left,\r\n.carousel-fade .active.carousel-item-right {\r\n    opacity: 0\r\n}\r\n\r\n.carousel-fade .active.carousel-item-left,\r\n.carousel-fade .active.carousel-item-prev,\r\n.carousel-fade .carousel-item-next,\r\n.carousel-fade .carousel-item-prev,\r\n.carousel-fade .carousel-item.active {\r\n    -webkit-transform: translateX(0);\r\n    transform: translateX(0)\r\n}\r\n\r\n@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)) {\r\n    .carousel-fade .active.carousel-item-left,\r\n    .carousel-fade .active.carousel-item-prev,\r\n    .carousel-fade .carousel-item-next,\r\n    .carousel-fade .carousel-item-prev,\r\n    .carousel-fade .carousel-item.active {\r\n        -webkit-transform: translate3d(0, 0, 0);\r\n        transform: translate3d(0, 0, 0)\r\n    }\r\n}\r\n\r\n.carousel-control-next,\r\n.carousel-control-prev {\r\n    position: absolute;\r\n    top: 0;\r\n    bottom: 0;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-align: center;\r\n    align-items: center;\r\n    -ms-flex-pack: center;\r\n    justify-content: center;\r\n    width: 15%;\r\n    color: #fff;\r\n    text-align: center;\r\n    opacity: .5\r\n}\r\n\r\n    .carousel-control-next:focus,\r\n    .carousel-control-next:hover,\r\n    .carousel-control-prev:focus,\r\n    .carousel-control-prev:hover {\r\n        color: #fff;\r\n        text-decoration: none;\r\n        outline: 0;\r\n        opacity: .9\r\n    }\r\n\r\n.carousel-control-prev {\r\n    left: 0\r\n}\r\n\r\n.carousel-control-next {\r\n    right: 0\r\n}\r\n\r\n.carousel-control-next-icon,\r\n.carousel-control-prev-icon {\r\n    display: inline-block;\r\n    width: 20px;\r\n    height: 20px;\r\n    background: transparent no-repeat center center;\r\n    background-size: 100% 100%\r\n}\r\n\r\n.carousel-control-prev-icon {\r\n    background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E\")\r\n}\r\n\r\n.carousel-control-next-icon {\r\n    background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E\")\r\n}\r\n\r\n.carousel-indicators {\r\n    position: relative;\r\n    right: 0;\r\n    top: 10px;\r\n    left: 0;\r\n    z-index: 15;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-pack: center;\r\n    justify-content: center;\r\n    padding-left: 0;\r\n    margin-right: 15%;\r\n    margin-left: 15%;\r\n    list-style: none\r\n}\r\n\r\n    .carousel-indicators li {\r\n        position: relative;\r\n        -ms-flex: 0 1 auto;\r\n        flex: 0 1 auto;\r\n        width: 30px;\r\n        height: 3px;\r\n        margin-right: 3px;\r\n        margin-left: 3px;\r\n        text-indent: -999px;\r\n        cursor: pointer;\r\n        background-color: rgba(255, 255, 255, .5)\r\n    }\r\n\r\n        .carousel-indicators li::before {\r\n            position: absolute;\r\n            top: -10px;\r\n            left: 0;\r\n            display: inline-block;\r\n            width: 100%;\r\n            height: 10px;\r\n            content: \"\"\r\n        }\r\n\r\n        .carousel-indicators li::after {\r\n            position: absolute;\r\n            bottom: -10px;\r\n            left: 0;\r\n            display: inline-block;\r\n            width: 100%;\r\n            height: 10px;\r\n            content: \"\"\r\n        }\r\n\r\n    .carousel-indicators .active {\r\n        background-color: #fff\r\n    }\r\n\r\n.carousel-caption {\r\n    position: absolute;\r\n    right: 15%;\r\n    bottom: 20px;\r\n    left: 15%;\r\n    z-index: 10;\r\n    padding-top: 20px;\r\n    padding-bottom: 20px;\r\n    color: #fff;\r\n    text-align: center\r\n}\r\n", ""]);
+exports.push([module.i, "/*Pulled from https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css*/\r\n.carousel {\r\n    position: relative\r\n}\r\n\r\n.carousel-inner {\r\n    position: relative;\r\n    width: 100%;\r\n    overflow: hidden\r\n}\r\n\r\n.carousel-item {\r\n    position: relative;\r\n    display: none;\r\n    -ms-flex-align: center;\r\n    align-items: center;\r\n    width: 100%;\r\n    -webkit-backface-visibility: hidden;\r\n    backface-visibility: hidden;\r\n    -webkit-perspective: 1000px;\r\n    perspective: 1000px\r\n}\r\n\r\n    .carousel-item-next,\r\n    .carousel-item-prev,\r\n    .carousel-item.active {\r\n        display: block;\r\n        transition: -webkit-transform .6s ease;\r\n        transition: transform .6s ease;\r\n        transition: transform .6s ease, -webkit-transform .6s ease\r\n    }\r\n\r\n@media screen and (prefers-reduced-motion:reduce) {\r\n    .carousel-item-next,\r\n    .carousel-item-prev,\r\n    .carousel-item.active {\r\n        transition: none\r\n    }\r\n}\r\n\r\n.carousel-item-next,\r\n.carousel-item-prev {\r\n    position: absolute;\r\n    top: 0\r\n}\r\n\r\n    .carousel-item-next.carousel-item-left,\r\n    .carousel-item-prev.carousel-item-right {\r\n        -webkit-transform: translateX(0);\r\n        transform: translateX(0)\r\n    }\r\n\r\n@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)) {\r\n    .carousel-item-next.carousel-item-left,\r\n    .carousel-item-prev.carousel-item-right {\r\n        -webkit-transform: translate3d(0, 0, 0);\r\n        transform: translate3d(0, 0, 0)\r\n    }\r\n}\r\n\r\n.active.carousel-item-right,\r\n.carousel-item-next {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%)\r\n}\r\n\r\n@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)) {\r\n    .active.carousel-item-right,\r\n    .carousel-item-next {\r\n        -webkit-transform: translate3d(100%, 0, 0);\r\n        transform: translate3d(100%, 0, 0)\r\n    }\r\n}\r\n\r\n.active.carousel-item-left,\r\n.carousel-item-prev {\r\n    -webkit-transform: translateX(-100%);\r\n    transform: translateX(-100%)\r\n}\r\n\r\n@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)) {\r\n    .active.carousel-item-left,\r\n    .carousel-item-prev {\r\n        -webkit-transform: translate3d(-100%, 0, 0);\r\n        transform: translate3d(-100%, 0, 0)\r\n    }\r\n}\r\n\r\n.carousel-fade .carousel-item {\r\n    opacity: 0;\r\n    transition-duration: .6s;\r\n    transition-property: opacity\r\n}\r\n\r\n    .carousel-fade .carousel-item-next.carousel-item-left,\r\n    .carousel-fade .carousel-item-prev.carousel-item-right,\r\n    .carousel-fade .carousel-item.active {\r\n        opacity: 1\r\n    }\r\n\r\n.carousel-fade .active.carousel-item-left,\r\n.carousel-fade .active.carousel-item-right {\r\n    opacity: 0\r\n}\r\n\r\n.carousel-fade .active.carousel-item-left,\r\n.carousel-fade .active.carousel-item-prev,\r\n.carousel-fade .carousel-item-next,\r\n.carousel-fade .carousel-item-prev,\r\n.carousel-fade .carousel-item.active {\r\n    -webkit-transform: translateX(0);\r\n    transform: translateX(0)\r\n}\r\n\r\n@supports ((-webkit-transform-style:preserve-3d) or (transform-style:preserve-3d)) {\r\n    .carousel-fade .active.carousel-item-left,\r\n    .carousel-fade .active.carousel-item-prev,\r\n    .carousel-fade .carousel-item-next,\r\n    .carousel-fade .carousel-item-prev,\r\n    .carousel-fade .carousel-item.active {\r\n        -webkit-transform: translate3d(0, 0, 0);\r\n        transform: translate3d(0, 0, 0)\r\n    }\r\n}\r\n\r\n.carousel-control-next,\r\n.carousel-control-prev {\r\n    position: absolute;\r\n    top: 0;\r\n    bottom: 0;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-align: center;\r\n    align-items: center;\r\n    -ms-flex-pack: center;\r\n    justify-content: center;\r\n    width: 15%;\r\n    color: #fff;\r\n    text-align: center;\r\n    opacity: .5\r\n}\r\n\r\n    .carousel-control-next:focus,\r\n    .carousel-control-next:hover,\r\n    .carousel-control-prev:focus,\r\n    .carousel-control-prev:hover {\r\n        color: #fff;\r\n        text-decoration: none;\r\n        outline: 0;\r\n        opacity: .9\r\n    }\r\n\r\n.carousel-control-prev {\r\n    left: 0\r\n}\r\n\r\n.carousel-control-next {\r\n    right: 0\r\n}\r\n\r\n.carousel-control-next-icon,\r\n.carousel-control-prev-icon {\r\n    display: inline-block;\r\n    width: 20px;\r\n    height: 20px;\r\n    background: transparent no-repeat center center;\r\n    background-size: 100% 100%\r\n}\r\n\r\n.carousel-control-prev-icon {\r\n    background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E\")\r\n}\r\n\r\n.carousel-control-next-icon {\r\n    background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E\")\r\n}\r\n\r\n/*Modified to relative so that it sits below the main carousel*/\r\n.carousel-indicators {\r\n    position: relative;\r\n    right: 0;\r\n    top: 10px;\r\n    left: 0;\r\n    z-index: 15;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-pack: center;\r\n    justify-content: center;\r\n    padding-left: 0;\r\n    margin-right: 15%;\r\n    margin-left: 15%;\r\n    list-style: none\r\n}\r\n\r\n    .carousel-indicators li {\r\n        position: relative;\r\n        -ms-flex: 0 1 auto;\r\n        flex: 0 1 auto;\r\n        width: 30px;\r\n        height: 3px;\r\n        margin-right: 3px;\r\n        margin-left: 3px;\r\n        text-indent: -999px;\r\n        cursor: pointer;\r\n        background-color: rgba(255, 255, 255, .5)\r\n    }\r\n\r\n        .carousel-indicators li::before {\r\n            position: absolute;\r\n            top: -10px;\r\n            left: 0;\r\n            display: inline-block;\r\n            width: 100%;\r\n            height: 10px;\r\n            content: \"\"\r\n        }\r\n\r\n        .carousel-indicators li::after {\r\n            position: absolute;\r\n            bottom: -10px;\r\n            left: 0;\r\n            display: inline-block;\r\n            width: 100%;\r\n            height: 10px;\r\n            content: \"\"\r\n        }\r\n\r\n    .carousel-indicators .active {\r\n        background-color: #fff\r\n    }\r\n\r\n.carousel-caption {\r\n    position: absolute;\r\n    right: 15%;\r\n    bottom: 20px;\r\n    left: 15%;\r\n    z-index: 10;\r\n    padding-top: 20px;\r\n    padding-bottom: 20px;\r\n    color: #fff;\r\n    text-align: center\r\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 

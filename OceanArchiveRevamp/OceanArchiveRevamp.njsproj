@@ -36,6 +36,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="constants\index.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="dist\app-bundle.js" />
     <Compile Include="server.js" />
     <Compile Include="webpack-config.js">
@@ -58,11 +61,24 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="announcementsContainer.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="app.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="contentSection.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="header.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="newAndTrending.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="constants\" />
     <Folder Include="dist\" />
     <Folder Include="styles\" />
   </ItemGroup>
