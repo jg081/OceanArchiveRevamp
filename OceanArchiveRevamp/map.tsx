@@ -4,6 +4,8 @@ declare var require: any
 
 var React = require('react');
 
+import GoogleMapReact from 'google-map-react';
+
 import * as Constant from './constants';
 
 document.body.style.backgroundColor = Constant.MAIN_COLOUR;
@@ -15,8 +17,8 @@ document.body.style.margin = '0px';
 export default class Map extends React.Component {
     render() {
         return (
-            <div>
-                MAP
+            <div style={{ width: '100%', height: '90vh' }}>
+                <GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }} defaultZoom={10} defaultCenter={{ lat: 33.8688, lng: 151.2093 }} />
             </div>
         );
     }

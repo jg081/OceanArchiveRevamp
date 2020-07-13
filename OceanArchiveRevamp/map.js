@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("./styles/styles.css");
 var React = require('react');
+var google_map_react_1 = require("google-map-react");
 var Constant = require("./constants");
 document.body.style.backgroundColor = Constant.MAIN_COLOUR;
 document.body.style.fontFamily = 'Roboto';
@@ -27,7 +28,8 @@ var Map = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Map.prototype.render = function () {
-        return (React.createElement("div", null, "MAP"));
+        return (React.createElement("div", { style: { display: 'flex', flexFlow: 'column', width: '100%', height: '100%' } },
+            React.createElement(google_map_react_1.default, { bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 10, defaultCenter: { lat: 33.8688, lng: 151.2093 } })));
     };
     return Map;
 }(React.Component));
