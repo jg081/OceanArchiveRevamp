@@ -73,6 +73,12 @@
     <TypeScriptCompile Include="header.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="home.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="map.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="newAndTrending.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>

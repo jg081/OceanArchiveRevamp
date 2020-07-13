@@ -8,10 +8,11 @@ declare var require: any
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+
 import Header from './header';
-import NewAndTrending from './newAndTrending';
-import ContentSection from './contentSection';
-import AnnouncementsContainer from './announcementsContainer';
+import Home from './home';
+import Map from './map';
 
 import * as Constant from './constants';
 
@@ -26,12 +27,13 @@ class Homepage extends React.Component {
         return (
             <div>
                 <Header />
-                <NewAndTrending />
-                <AnnouncementsContainer />
-                <ContentSection />
+                <Switch>
+                    <Route path="/" component={Home} exact />
+                    <Route path="/map" component={Map} />
+                </Switch>
             </div>
         );
     }
 }
 
-ReactDOM.render(<Homepage />, document.getElementById('root'));
+ReactDOM.render(<BrowserRouter><Homepage /></BrowserRouter>, document.getElementById('root'));

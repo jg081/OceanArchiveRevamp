@@ -2,6 +2,8 @@
 
 var React = require('react');
 
+import { NavLink } from 'react-router-dom'
+
 import * as Constant from './constants';
 
 class Logo extends React.Component {
@@ -23,7 +25,9 @@ class HeaderButton extends React.Component {
 
     render() {
         return (
-            <div style={{ color: '#D8D8D8', width: '100px', height: '60px', textAlign: 'center', lineHeight: '60px', float: this.props.float }}>{this.props.name}</div>
+            <div style={{ color: '#D8D8D8', width: '100px', height: '60px', textAlign: 'center', lineHeight: '60px', float: this.props.float }}>
+                {this.props.name}
+            </div >
         );
     }
 }
@@ -50,8 +54,12 @@ export default class Header extends React.Component {
         return (
             <div className="header">
                 <Logo float='left' name='OCEAN' />
-                <HeaderButton float='left' name='HOME' />
-                <HeaderButton float='left' name='MAP' />
+                <NavLink to="/">
+                    <HeaderButton float='left' name='HOME' />
+                </NavLink>
+                <NavLink to="/map">
+                    <HeaderButton float='left' name='MAP' />
+                </NavLink>
                 <HeaderButton float='left' name='TERMS' />
                 <HeaderButton float='left' name='PRIVACY' />
                 <Logo float='right' name='ARCHIVE' />

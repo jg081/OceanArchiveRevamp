@@ -14,6 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require('react');
+var react_router_dom_1 = require("react-router-dom");
 var Constant = require("./constants");
 var Logo = /** @class */ (function (_super) {
     __extends(Logo, _super);
@@ -56,8 +57,10 @@ var Header = /** @class */ (function (_super) {
     Header.prototype.render = function () {
         return (React.createElement("div", { className: "header" },
             React.createElement(Logo, { float: 'left', name: 'OCEAN' }),
-            React.createElement(HeaderButton, { float: 'left', name: 'HOME' }),
-            React.createElement(HeaderButton, { float: 'left', name: 'MAP' }),
+            React.createElement(react_router_dom_1.NavLink, { to: "/" },
+                React.createElement(HeaderButton, { float: 'left', name: 'HOME' })),
+            React.createElement(react_router_dom_1.NavLink, { to: "/map" },
+                React.createElement(HeaderButton, { float: 'left', name: 'MAP' })),
             React.createElement(HeaderButton, { float: 'left', name: 'TERMS' }),
             React.createElement(HeaderButton, { float: 'left', name: 'PRIVACY' }),
             React.createElement(Logo, { float: 'right', name: 'ARCHIVE' }),

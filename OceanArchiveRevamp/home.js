@@ -13,36 +13,30 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-//Run this in console after changing code.
-//node_modules\.bin\webpack app.tsx --config webpack-config.js
 require("./styles/styles.css");
 require("./styles/carousel.css");
 var React = require('react');
-var ReactDOM = require('react-dom');
-var react_router_dom_1 = require("react-router-dom");
-var header_1 = require("./header");
-var home_1 = require("./home");
-var map_1 = require("./map");
+var newAndTrending_1 = require("./newAndTrending");
+var contentSection_1 = require("./contentSection");
+var announcementsContainer_1 = require("./announcementsContainer");
 var Constant = require("./constants");
 document.body.style.backgroundColor = Constant.MAIN_COLOUR;
 document.body.style.fontFamily = 'Roboto';
 document.body.style.color = '#ffffff';
 document.body.style.padding = '0px';
 document.body.style.margin = '0px';
-var Homepage = /** @class */ (function (_super) {
-    __extends(Homepage, _super);
-    function Homepage() {
+var Home = /** @class */ (function (_super) {
+    __extends(Home, _super);
+    function Home() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Homepage.prototype.render = function () {
+    Home.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement(header_1.default, null),
-            React.createElement(react_router_dom_1.Switch, null,
-                React.createElement(react_router_dom_1.Route, { path: "/", component: home_1.default, exact: true }),
-                React.createElement(react_router_dom_1.Route, { path: "/map", component: map_1.default }))));
+            React.createElement(newAndTrending_1.default, null),
+            React.createElement(announcementsContainer_1.default, null),
+            React.createElement(contentSection_1.default, null)));
     };
-    return Homepage;
+    return Home;
 }(React.Component));
-ReactDOM.render(React.createElement(react_router_dom_1.BrowserRouter, null,
-    React.createElement(Homepage, null)), document.getElementById('root'));
-//# sourceMappingURL=app.js.map
+exports.default = Home;
+//# sourceMappingURL=home.js.map
