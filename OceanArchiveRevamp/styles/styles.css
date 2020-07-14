@@ -15,15 +15,6 @@ h2 {
     font-weight: bold;
 }
 
-.search:focus {
-    outline: none;
-}
-
-.search {
-    color: #ffffff;
-    font-family: Roboto;
-}
-
 .tabHeader {
     padding: 0px;
     width: 25%;
@@ -43,13 +34,85 @@ h2 {
 }
 
 .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
     height: 100px;
     text-align: center;
     position: -webkit-sticky;
-    position: sticky; 
+    position: sticky;
     top: 0;
     background: #142636;
     z-index: 100;
 }
 
+    .header > .logo {
+        flex-basis: 0;
+        min-width: 230px;
+        line-height: 100px;
+        height: 100px;
+        width: 230px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+.headerNavBar {
+    flex: 1;
+}
+
+.fillerBox {
+    flex: 1;
+}
+
+.headerButton {
+    color: #D8D8D8;
+    min-width: 100px;
+    width: 100px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    flex: 0;
+}
+
+.searchButton {
+    flex: 0;
+    min-width: 150px;
+    width: 150px;
+    height: 34px;
+    border-radius: 0px 10px 10px 0px;
+    border: 0px;
+    background: #4A74A5;
+}
+
+.searchBar {
+    flex: 1;
+    color: #ffffff;
+    font-family: Roboto;
+    height: 34px; 
+    border-radius: 10px 0px 0px 10px; 
+    border: 0px; 
+    background: #787878; 
+    padding-left: 20px;
+}
+
+    .searchBar:focus {
+        outline: none;
+    }
+
+.flex-parent {
+    display: flex;
+    flex-direction: column;
+}
+
+.mapSection {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 auto;
+}
+
+    .mapSection > div {
+        display: flex;
+        flex: 1;
+    }

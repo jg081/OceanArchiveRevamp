@@ -258,7 +258,7 @@ var Homepage = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Homepage.prototype.render = function () {
-        return (React.createElement("div", null,
+        return (React.createElement("div", { className: "flex-parent" },
             React.createElement(header_1.default, null),
             React.createElement(react_router_dom_1.Switch, null,
                 React.createElement(react_router_dom_1.Route, { path: "/", component: home_1.default, exact: true }),
@@ -471,14 +471,13 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
 var Logo = /** @class */ (function (_super) {
     __extends(Logo, _super);
     function Logo(props) {
         return _super.call(this, props) || this;
     }
     Logo.prototype.render = function () {
-        return (React.createElement("div", { style: { width: '230px', height: '100px', textAlign: 'center', lineHeight: '100px', float: this.props.float } }, this.props.name));
+        return (React.createElement("div", { className: 'logo' }, this.props.name));
     };
     return Logo;
 }(React.Component));
@@ -488,7 +487,7 @@ var HeaderButton = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     HeaderButton.prototype.render = function () {
-        return (React.createElement("div", { style: { color: '#D8D8D8', width: '100px', height: '60px', textAlign: 'center', lineHeight: '60px', float: this.props.float } }, this.props.name));
+        return (React.createElement("div", { className: 'headerButton' }, this.props.name));
     };
     return HeaderButton;
 }(React.Component));
@@ -498,10 +497,9 @@ var SeachBar = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     SeachBar.prototype.render = function () {
-        return (React.createElement("form", { method: "post" },
-            React.createElement("input", { type: "submit", style: { width: '150px', height: '34px', float: 'right', borderRadius: '0px 10px 10px 0px', border: '0px', background: Constant.SECONDARY_COLOUR } }),
-            React.createElement("span", { style: { display: 'block', overflow: 'hidden' } },
-                React.createElement("input", { type: "search", className: "search", style: { width: '100%', height: '34px', borderRadius: '10px 0px 0px 10px', border: '0px', background: '#787878', paddingLeft: '20px' }, placeholder: "Search..." }))));
+        return (React.createElement("form", { method: "post", style: { display: 'flex' } },
+            React.createElement("input", { type: "search", className: "searchBar", placeholder: "Search..." }),
+            React.createElement("input", { type: "submit", className: 'searchButton' })));
     };
     return SeachBar;
 }(React.Component));
@@ -512,18 +510,23 @@ var Header = /** @class */ (function (_super) {
     }
     Header.prototype.render = function () {
         return (React.createElement("div", { className: "header" },
-            React.createElement(Logo, { float: 'left', name: 'OCEAN' }),
-            React.createElement(react_router_dom_1.NavLink, { to: "/" },
-                React.createElement(HeaderButton, { float: 'left', name: 'HOME' })),
-            React.createElement(react_router_dom_1.NavLink, { to: "/map" },
-                React.createElement(HeaderButton, { float: 'left', name: 'MAP' })),
-            React.createElement(HeaderButton, { float: 'left', name: 'TERMS' }),
-            React.createElement(HeaderButton, { float: 'left', name: 'PRIVACY' }),
-            React.createElement(Logo, { float: 'right', name: 'ARCHIVE' }),
-            React.createElement(HeaderButton, { float: 'right', name: 'SIGNUP' }),
-            React.createElement(HeaderButton, { float: 'right', name: 'LOGIN' }),
-            React.createElement("div", { style: { position: 'absolute', height: '40px', left: '230px', right: '230px', top: '60px' } },
-                React.createElement(SeachBar, null))));
+            React.createElement(Logo, { name: 'OCEAN' }),
+            React.createElement("div", { style: { flex: '1' } },
+                React.createElement("div", { style: { display: 'flex', flexDirection: 'column' } },
+                    React.createElement("div", { className: 'headerNavBar' },
+                        React.createElement("div", { style: { display: 'flex', flexDirection: 'row' } },
+                            React.createElement(react_router_dom_1.NavLink, { to: "/" },
+                                React.createElement(HeaderButton, { name: 'HOME' })),
+                            React.createElement(react_router_dom_1.NavLink, { to: "/map" },
+                                React.createElement(HeaderButton, { name: 'MAP' })),
+                            React.createElement(HeaderButton, { name: 'TERMS' }),
+                            React.createElement(HeaderButton, { name: 'PRIVACY' }),
+                            React.createElement("div", { className: 'fillerBox' }),
+                            React.createElement(HeaderButton, { name: 'LOGIN' }),
+                            React.createElement(HeaderButton, { name: 'SIGNUP' }))),
+                    React.createElement("div", { style: { flex: '1' } },
+                        React.createElement(SeachBar, null)))),
+            React.createElement(Logo, { order: '2', name: 'ARCHIVE' })));
     };
     return Header;
 }(React.Component));
@@ -623,8 +626,9 @@ var Map = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Map.prototype.render = function () {
-        return (React.createElement("div", { style: { display: 'flex', flexFlow: 'column', width: '100%', height: '100%' } },
-            React.createElement(google_map_react_1.default, { bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 10, defaultCenter: { lat: 33.8688, lng: 151.2093 } })));
+        return (React.createElement("div", { className: "mapSection" },
+            React.createElement("div", { style: { width: '100%' } },
+                React.createElement(google_map_react_1.default, { bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 10, defaultCenter: { lat: 33.8688, lng: 151.2093 } }))));
     };
     return Map;
 }(React.Component));
@@ -1629,7 +1633,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "h1 {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    height: 30px;\r\n}\r\n\r\nh2 {\r\n    font-size: 13pt;\r\n    font-weight: normal;\r\n}\r\n\r\n.search::placeholder {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    font-weight: bold;\r\n}\r\n\r\n.search:focus {\r\n    outline: none;\r\n}\r\n\r\n.search {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n}\r\n\r\n.tabHeader {\r\n    padding: 0px;\r\n    width: 25%;\r\n}\r\n\r\n.tabs {\r\n    height: 100px;\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    color: #000000;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 100px;\r\n    z-index: 100;\r\n}\r\n\r\n.header {\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    position: -webkit-sticky;\r\n    position: sticky; \r\n    top: 0;\r\n    background: #142636;\r\n    z-index: 100;\r\n}\r\n\r\n", ""]);
+exports.push([module.i, "h1 {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    height: 30px;\r\n}\r\n\r\nh2 {\r\n    font-size: 13pt;\r\n    font-weight: normal;\r\n}\r\n\r\n.search::placeholder {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    font-weight: bold;\r\n}\r\n\r\n.tabHeader {\r\n    padding: 0px;\r\n    width: 25%;\r\n}\r\n\r\n.tabs {\r\n    height: 100px;\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    color: #000000;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 100px;\r\n    z-index: 100;\r\n}\r\n\r\n.header {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0;\r\n    background: #142636;\r\n    z-index: 100;\r\n}\r\n\r\n    .header > .logo {\r\n        flex-basis: 0;\r\n        min-width: 230px;\r\n        line-height: 100px;\r\n        height: 100px;\r\n        width: 230px;\r\n        text-align: center;\r\n        align-items: center;\r\n        justify-content: center;\r\n    }\r\n\r\n.headerNavBar {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBox {\r\n    flex: 1;\r\n}\r\n\r\n.headerButton {\r\n    color: #D8D8D8;\r\n    min-width: 100px;\r\n    width: 100px;\r\n    height: 60px;\r\n    text-align: center;\r\n    line-height: 60px;\r\n    flex: 0;\r\n}\r\n\r\n.searchButton {\r\n    flex: 0;\r\n    min-width: 150px;\r\n    width: 150px;\r\n    height: 34px;\r\n    border-radius: 0px 10px 10px 0px;\r\n    border: 0px;\r\n    background: #4A74A5;\r\n}\r\n\r\n.searchBar {\r\n    flex: 1;\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    height: 34px; \r\n    border-radius: 10px 0px 0px 10px; \r\n    border: 0px; \r\n    background: #787878; \r\n    padding-left: 20px;\r\n}\r\n\r\n    .searchBar:focus {\r\n        outline: none;\r\n    }\r\n\r\n.flex-parent {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.mapSection {\r\n    display: flex;\r\n    flex-direction: row;\r\n    flex: 0 0 auto;\r\n}\r\n\r\n    .mapSection > div {\r\n        display: flex;\r\n        flex: 1;\r\n    }\r\n", ""]);
 // Exports
 module.exports = exports;
 

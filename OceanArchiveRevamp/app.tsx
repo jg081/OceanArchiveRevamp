@@ -25,7 +25,7 @@ document.body.style.margin = '0px';
 class Homepage extends React.Component {
     render() {
         return (
-            <div>
+            <div className="flex-parent">
                 <Header />
                 <Switch>
                     <Route path="/" component={Home} exact />

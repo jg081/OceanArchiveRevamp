@@ -17,8 +17,10 @@ document.body.style.margin = '0px';
 export default class Map extends React.Component {
     render() {
         return (
-            <div style={{ width: '100%', height: '90vh' }}>
-                <GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }} defaultZoom={10} defaultCenter={{ lat: 33.8688, lng: 151.2093 }} />
+            <div className="mapSection">
+                <div style={{ width: '100%' }}>
+                    <GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }} defaultZoom={10} defaultCenter={{ lat: 33.8688, lng: 151.2093 }} />
+                </div>
             </div>
         );
     }
