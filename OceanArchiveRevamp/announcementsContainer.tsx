@@ -15,10 +15,10 @@ class Announcement extends React.Component {
 
     render() {
         return (
-            <div style={{ height: '150px', width: '620px', display: 'inline-block', padding: '0px 5px', position: 'relative', backgroundColor: '#0f0f0f' }}>
+            <div className='announcement'>
                 <h2>{this.props.title}</h2>
                 <p>{this.props.text}</p>
-                <a style={{ position: 'absolute', bottom: '0' }}>View</a>
+                <a style={{}}>View</a>
             </div>
         );
     }
@@ -81,9 +81,11 @@ export default class AnnouncementsContainer extends React.Component {
     slides = this.items.map((item) => {
         return (
             <CarouselItem onExiting={() => this.setState({ animating: true })} onExited={() => this.setState({ animating: false })}>
-                <Announcement title={item[0].title} text={item[0].text} />
-                <Announcement title={item[1].title} text={item[1].text} />
-                <Announcement title={item[2].title} text={item[2].text} />
+                <div style={{ display: 'flex' }}>
+                    <Announcement title={item[0].title} text={item[0].text} />
+                    <Announcement title={item[1].title} text={item[1].text} />
+                    <Announcement title={item[2].title} text={item[2].text} />
+                </div>
             </CarouselItem>
         );
     });
@@ -106,8 +108,8 @@ export default class AnnouncementsContainer extends React.Component {
 
     render() {
         return (
-            <div style={{ height: '250px', width: '100%', padding: '10px' }}>
-                <h1>Announcements</h1>
+            <div className='announcementsContainer' style={{ height: '250px', width: '100%', padding: '10px' }}>
+                <h1 style={{ flex: '0', minWidth: '200px' }}>Announcements</h1>
                 <Carousel activeIndex={this.state.activeIndex} next={this.next} previous={this.prev}>
                     {this.slides}
                     <CarouselIndicators items={this.items} activeIndex={this.state.activeIndex} onClickHandler={this.goToIndex} />

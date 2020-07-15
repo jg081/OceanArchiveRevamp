@@ -21,10 +21,10 @@ var Announcement = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     Announcement.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '150px', width: '620px', display: 'inline-block', padding: '0px 5px', position: 'relative', backgroundColor: '#0f0f0f' } },
+        return (React.createElement("div", { className: 'announcement' },
             React.createElement("h2", null, this.props.title),
             React.createElement("p", null, this.props.text),
-            React.createElement("a", { style: { position: 'absolute', bottom: '0' } }, "View")));
+            React.createElement("a", { style: {} }, "View")));
     };
     return Announcement;
 }(React.Component));
@@ -78,9 +78,10 @@ var AnnouncementsContainer = /** @class */ (function (_super) {
         ];
         _this.slides = _this.items.map(function (item) {
             return (React.createElement(reactstrap_1.CarouselItem, { onExiting: function () { return _this.setState({ animating: true }); }, onExited: function () { return _this.setState({ animating: false }); } },
-                React.createElement(Announcement, { title: item[0].title, text: item[0].text }),
-                React.createElement(Announcement, { title: item[1].title, text: item[1].text }),
-                React.createElement(Announcement, { title: item[2].title, text: item[2].text })));
+                React.createElement("div", { style: { display: 'flex' } },
+                    React.createElement(Announcement, { title: item[0].title, text: item[0].text }),
+                    React.createElement(Announcement, { title: item[1].title, text: item[1].text }),
+                    React.createElement(Announcement, { title: item[2].title, text: item[2].text }))));
         });
         _this.next = function () {
             if (_this.state.animating)
@@ -104,8 +105,8 @@ var AnnouncementsContainer = /** @class */ (function (_super) {
         return _this;
     }
     AnnouncementsContainer.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '250px', width: '100%', padding: '10px' } },
-            React.createElement("h1", null, "Announcements"),
+        return (React.createElement("div", { className: 'announcementsContainer', style: { height: '250px', width: '100%', padding: '10px' } },
+            React.createElement("h1", { style: { flex: '0', minWidth: '200px' } }, "Announcements"),
             React.createElement(reactstrap_1.Carousel, { activeIndex: this.state.activeIndex, next: this.next, previous: this.prev },
                 this.slides,
                 React.createElement(reactstrap_1.CarouselIndicators, { items: this.items, activeIndex: this.state.activeIndex, onClickHandler: this.goToIndex }))));

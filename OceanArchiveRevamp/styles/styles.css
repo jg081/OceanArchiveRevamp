@@ -66,6 +66,10 @@ h2 {
     flex: 1;
 }
 
+.fillerBoxMin {
+    min-width: 10px;
+}
+
 .headerButton {
     color: #D8D8D8;
     min-width: 100px;
@@ -90,10 +94,10 @@ h2 {
     flex: 1;
     color: #ffffff;
     font-family: Roboto;
-    height: 34px; 
-    border-radius: 10px 0px 0px 10px; 
-    border: 0px; 
-    background: #787878; 
+    height: 34px;
+    border-radius: 10px 0px 0px 10px;
+    border: 0px;
+    background: #787878;
     padding-left: 20px;
 }
 
@@ -116,3 +120,27 @@ h2 {
         display: flex;
         flex: 1;
     }
+
+.newAndTrending {
+    display: flex;
+    flex-direction: column;
+}
+
+.largeContentBox {
+    flex: 0;
+    height: 340px;
+    width: 566px;
+    min-width: 566px;
+}
+
+.announcementsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.announcement {
+    height: 150px; 
+    min-width: 620px; 
+    padding: 0px 5px;
+    background-color: #0f0f0f;
+}

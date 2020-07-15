@@ -11,10 +11,12 @@ class LargeContentBox extends React.Component {
 
     render() {
         return (
-            <div style={{ height: '340px', width: '566px', background: this.props.bgColour, display: 'inline-block', marginLeft: '50px', position: 'relative' }}>
-                <div style={{ height: '50px' }}>TITLE</div>
-                <img src='' alt='IMAGE' style={{ height: '240px' }} />
-                <div style={{ height: '50px', position: 'absolute', bottom: '0px' }}>TAGS AND STUFF</div>
+            <div className='largeContentBox' style={{ background: this.props.bgColour }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ height: '50px' }}>TITLE</div>
+                    <img src='' alt='IMAGE' style={{ height: '240px' }} />
+                    <div style={{ height: '50px' }}>TAGS AND STUFF</div>
+                </div>
             </div>
         );
     }
@@ -23,12 +25,18 @@ class LargeContentBox extends React.Component {
 export default class NewAndTrending extends React.Component {
     render() {
         return (
-            <div style={{ height: '405px', width: '100%' }}>
-                <h1 style={{ paddingLeft: '10px' }}>New & Trending</h1>
-                <div>
-                    <LargeContentBox bgColour={Constant.ACTIVISM} />
-                    <LargeContentBox bgColour={Constant.SCITECH} />
-                    <LargeContentBox bgColour={Constant.ART} />
+            <div className='newAndTrending'>
+                <h1 style={{ paddingLeft: '10px', flex: '0', minWidth: '200px' }}>New & Trending</h1>
+                <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex' }}>
+                        <div className='fillerBox fillerBoxMin' />
+                        <LargeContentBox bgColour={Constant.ACTIVISM} />
+                        <div className='fillerBox fillerBoxMin' />
+                        <LargeContentBox bgColour={Constant.SCITECH} />
+                        <div className='fillerBox fillerBoxMin' />
+                        <LargeContentBox bgColour={Constant.ART} />
+                        <div className='fillerBox fillerBoxMin' />
+                    </div>
                 </div>
             </div>
         );

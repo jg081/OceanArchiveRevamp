@@ -21,10 +21,11 @@ var LargeContentBox = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     LargeContentBox.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '340px', width: '566px', background: this.props.bgColour, display: 'inline-block', marginLeft: '50px', position: 'relative' } },
-            React.createElement("div", { style: { height: '50px' } }, "TITLE"),
-            React.createElement("img", { src: '', alt: 'IMAGE', style: { height: '240px' } }),
-            React.createElement("div", { style: { height: '50px', position: 'absolute', bottom: '0px' } }, "TAGS AND STUFF")));
+        return (React.createElement("div", { className: 'largeContentBox', style: { background: this.props.bgColour } },
+            React.createElement("div", { style: { display: 'flex', flexDirection: 'column' } },
+                React.createElement("div", { style: { height: '50px' } }, "TITLE"),
+                React.createElement("img", { src: '', alt: 'IMAGE', style: { height: '240px' } }),
+                React.createElement("div", { style: { height: '50px' } }, "TAGS AND STUFF"))));
     };
     return LargeContentBox;
 }(React.Component));
@@ -34,12 +35,17 @@ var NewAndTrending = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     NewAndTrending.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '405px', width: '100%' } },
-            React.createElement("h1", { style: { paddingLeft: '10px' } }, "New & Trending"),
-            React.createElement("div", null,
-                React.createElement(LargeContentBox, { bgColour: Constant.ACTIVISM }),
-                React.createElement(LargeContentBox, { bgColour: Constant.SCITECH }),
-                React.createElement(LargeContentBox, { bgColour: Constant.ART }))));
+        return (React.createElement("div", { className: 'newAndTrending' },
+            React.createElement("h1", { style: { paddingLeft: '10px', flex: '0', minWidth: '200px' } }, "New & Trending"),
+            React.createElement("div", { style: { flex: 1 } },
+                React.createElement("div", { style: { display: 'flex' } },
+                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
+                    React.createElement(LargeContentBox, { bgColour: Constant.ACTIVISM }),
+                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
+                    React.createElement(LargeContentBox, { bgColour: Constant.SCITECH }),
+                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
+                    React.createElement(LargeContentBox, { bgColour: Constant.ART }),
+                    React.createElement("div", { className: 'fillerBox fillerBoxMin' })))));
     };
     return NewAndTrending;
 }(React.Component));

@@ -117,10 +117,10 @@ var Announcement = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     Announcement.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '150px', width: '620px', display: 'inline-block', padding: '0px 5px', position: 'relative', backgroundColor: '#0f0f0f' } },
+        return (React.createElement("div", { className: 'announcement' },
             React.createElement("h2", null, this.props.title),
             React.createElement("p", null, this.props.text),
-            React.createElement("a", { style: { position: 'absolute', bottom: '0' } }, "View")));
+            React.createElement("a", { style: {} }, "View")));
     };
     return Announcement;
 }(React.Component));
@@ -174,9 +174,10 @@ var AnnouncementsContainer = /** @class */ (function (_super) {
         ];
         _this.slides = _this.items.map(function (item) {
             return (React.createElement(reactstrap_1.CarouselItem, { onExiting: function () { return _this.setState({ animating: true }); }, onExited: function () { return _this.setState({ animating: false }); } },
-                React.createElement(Announcement, { title: item[0].title, text: item[0].text }),
-                React.createElement(Announcement, { title: item[1].title, text: item[1].text }),
-                React.createElement(Announcement, { title: item[2].title, text: item[2].text })));
+                React.createElement("div", { style: { display: 'flex' } },
+                    React.createElement(Announcement, { title: item[0].title, text: item[0].text }),
+                    React.createElement(Announcement, { title: item[1].title, text: item[1].text }),
+                    React.createElement(Announcement, { title: item[2].title, text: item[2].text }))));
         });
         _this.next = function () {
             if (_this.state.animating)
@@ -200,8 +201,8 @@ var AnnouncementsContainer = /** @class */ (function (_super) {
         return _this;
     }
     AnnouncementsContainer.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '250px', width: '100%', padding: '10px' } },
-            React.createElement("h1", null, "Announcements"),
+        return (React.createElement("div", { className: 'announcementsContainer', style: { height: '250px', width: '100%', padding: '10px' } },
+            React.createElement("h1", { style: { flex: '0', minWidth: '200px' } }, "Announcements"),
             React.createElement(reactstrap_1.Carousel, { activeIndex: this.state.activeIndex, next: this.next, previous: this.prev },
                 this.slides,
                 React.createElement(reactstrap_1.CarouselIndicators, { items: this.items, activeIndex: this.state.activeIndex, onClickHandler: this.goToIndex }))));
@@ -526,7 +527,7 @@ var Header = /** @class */ (function (_super) {
                             React.createElement(HeaderButton, { name: 'SIGNUP' }))),
                     React.createElement("div", { style: { flex: '1' } },
                         React.createElement(SeachBar, null)))),
-            React.createElement(Logo, { order: '2', name: 'ARCHIVE' })));
+            React.createElement(Logo, { name: 'ARCHIVE' })));
     };
     return Header;
 }(React.Component));
@@ -668,10 +669,11 @@ var LargeContentBox = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     LargeContentBox.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '340px', width: '566px', background: this.props.bgColour, display: 'inline-block', marginLeft: '50px', position: 'relative' } },
-            React.createElement("div", { style: { height: '50px' } }, "TITLE"),
-            React.createElement("img", { src: '', alt: 'IMAGE', style: { height: '240px' } }),
-            React.createElement("div", { style: { height: '50px', position: 'absolute', bottom: '0px' } }, "TAGS AND STUFF")));
+        return (React.createElement("div", { className: 'largeContentBox', style: { background: this.props.bgColour } },
+            React.createElement("div", { style: { display: 'flex', flexDirection: 'column' } },
+                React.createElement("div", { style: { height: '50px' } }, "TITLE"),
+                React.createElement("img", { src: '', alt: 'IMAGE', style: { height: '240px' } }),
+                React.createElement("div", { style: { height: '50px' } }, "TAGS AND STUFF"))));
     };
     return LargeContentBox;
 }(React.Component));
@@ -681,12 +683,17 @@ var NewAndTrending = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     NewAndTrending.prototype.render = function () {
-        return (React.createElement("div", { style: { height: '405px', width: '100%' } },
-            React.createElement("h1", { style: { paddingLeft: '10px' } }, "New & Trending"),
-            React.createElement("div", null,
-                React.createElement(LargeContentBox, { bgColour: Constant.ACTIVISM }),
-                React.createElement(LargeContentBox, { bgColour: Constant.SCITECH }),
-                React.createElement(LargeContentBox, { bgColour: Constant.ART }))));
+        return (React.createElement("div", { className: 'newAndTrending' },
+            React.createElement("h1", { style: { paddingLeft: '10px', flex: '0', minWidth: '200px' } }, "New & Trending"),
+            React.createElement("div", { style: { flex: 1 } },
+                React.createElement("div", { style: { display: 'flex' } },
+                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
+                    React.createElement(LargeContentBox, { bgColour: Constant.ACTIVISM }),
+                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
+                    React.createElement(LargeContentBox, { bgColour: Constant.SCITECH }),
+                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
+                    React.createElement(LargeContentBox, { bgColour: Constant.ART }),
+                    React.createElement("div", { className: 'fillerBox fillerBoxMin' })))));
     };
     return NewAndTrending;
 }(React.Component));
@@ -1633,7 +1640,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "h1 {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    height: 30px;\r\n}\r\n\r\nh2 {\r\n    font-size: 13pt;\r\n    font-weight: normal;\r\n}\r\n\r\n.search::placeholder {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    font-weight: bold;\r\n}\r\n\r\n.tabHeader {\r\n    padding: 0px;\r\n    width: 25%;\r\n}\r\n\r\n.tabs {\r\n    height: 100px;\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    color: #000000;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 100px;\r\n    z-index: 100;\r\n}\r\n\r\n.header {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0;\r\n    background: #142636;\r\n    z-index: 100;\r\n}\r\n\r\n    .header > .logo {\r\n        flex-basis: 0;\r\n        min-width: 230px;\r\n        line-height: 100px;\r\n        height: 100px;\r\n        width: 230px;\r\n        text-align: center;\r\n        align-items: center;\r\n        justify-content: center;\r\n    }\r\n\r\n.headerNavBar {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBox {\r\n    flex: 1;\r\n}\r\n\r\n.headerButton {\r\n    color: #D8D8D8;\r\n    min-width: 100px;\r\n    width: 100px;\r\n    height: 60px;\r\n    text-align: center;\r\n    line-height: 60px;\r\n    flex: 0;\r\n}\r\n\r\n.searchButton {\r\n    flex: 0;\r\n    min-width: 150px;\r\n    width: 150px;\r\n    height: 34px;\r\n    border-radius: 0px 10px 10px 0px;\r\n    border: 0px;\r\n    background: #4A74A5;\r\n}\r\n\r\n.searchBar {\r\n    flex: 1;\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    height: 34px; \r\n    border-radius: 10px 0px 0px 10px; \r\n    border: 0px; \r\n    background: #787878; \r\n    padding-left: 20px;\r\n}\r\n\r\n    .searchBar:focus {\r\n        outline: none;\r\n    }\r\n\r\n.flex-parent {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.mapSection {\r\n    display: flex;\r\n    flex-direction: row;\r\n    flex: 0 0 auto;\r\n}\r\n\r\n    .mapSection > div {\r\n        display: flex;\r\n        flex: 1;\r\n    }\r\n", ""]);
+exports.push([module.i, "h1 {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    height: 30px;\r\n}\r\n\r\nh2 {\r\n    font-size: 13pt;\r\n    font-weight: normal;\r\n}\r\n\r\n.search::placeholder {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    font-weight: bold;\r\n}\r\n\r\n.tabHeader {\r\n    padding: 0px;\r\n    width: 25%;\r\n}\r\n\r\n.tabs {\r\n    height: 100px;\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    color: #000000;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 100px;\r\n    z-index: 100;\r\n}\r\n\r\n.header {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0;\r\n    background: #142636;\r\n    z-index: 100;\r\n}\r\n\r\n    .header > .logo {\r\n        flex-basis: 0;\r\n        min-width: 230px;\r\n        line-height: 100px;\r\n        height: 100px;\r\n        width: 230px;\r\n        text-align: center;\r\n        align-items: center;\r\n        justify-content: center;\r\n    }\r\n\r\n.headerNavBar {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBox {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBoxMin {\r\n    min-width: 10px;\r\n}\r\n\r\n.headerButton {\r\n    color: #D8D8D8;\r\n    min-width: 100px;\r\n    width: 100px;\r\n    height: 60px;\r\n    text-align: center;\r\n    line-height: 60px;\r\n    flex: 0;\r\n}\r\n\r\n.searchButton {\r\n    flex: 0;\r\n    min-width: 150px;\r\n    width: 150px;\r\n    height: 34px;\r\n    border-radius: 0px 10px 10px 0px;\r\n    border: 0px;\r\n    background: #4A74A5;\r\n}\r\n\r\n.searchBar {\r\n    flex: 1;\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    height: 34px;\r\n    border-radius: 10px 0px 0px 10px;\r\n    border: 0px;\r\n    background: #787878;\r\n    padding-left: 20px;\r\n}\r\n\r\n    .searchBar:focus {\r\n        outline: none;\r\n    }\r\n\r\n.flex-parent {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.mapSection {\r\n    display: flex;\r\n    flex-direction: row;\r\n    flex: 0 0 auto;\r\n}\r\n\r\n    .mapSection > div {\r\n        display: flex;\r\n        flex: 1;\r\n    }\r\n\r\n.newAndTrending {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.largeContentBox {\r\n    flex: 0;\r\n    height: 340px;\r\n    width: 566px;\r\n    min-width: 566px;\r\n}\r\n\r\n.announcementsContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.announcement {\r\n    height: 150px; \r\n    min-width: 620px; \r\n    padding: 0px 5px;\r\n    background-color: #0f0f0f;\r\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
