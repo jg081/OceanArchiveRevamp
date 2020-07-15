@@ -1,4 +1,9 @@
-﻿h1 {
+﻿html, body {
+    height: 100%;
+    margin: 0;
+}
+
+h1 {
     font-size: 15pt;
     font-weight: normal;
     height: 30px;
@@ -105,21 +110,23 @@ h2 {
         outline: none;
     }
 
-.flex-parent {
+.home {
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 .mapSection {
     display: flex;
     flex-direction: row;
-    flex: 0 0 auto;
+    height: 100%;
 }
 
-    .mapSection > div {
-        display: flex;
-        flex: 1;
-    }
+.mapContainer {
+    min-height: 100px;
+    min-width: 100px;
+    flex: 1;
+}
 
 .newAndTrending {
     display: flex;
@@ -139,8 +146,8 @@ h2 {
 }
 
 .announcement {
-    height: 150px; 
-    min-width: 620px; 
+    height: 150px;
+    min-width: 620px;
     padding: 0px 5px;
     background-color: #0f0f0f;
 }

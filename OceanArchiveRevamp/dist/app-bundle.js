@@ -259,7 +259,7 @@ var Homepage = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Homepage.prototype.render = function () {
-        return (React.createElement("div", { className: "flex-parent" },
+        return (React.createElement("div", { className: "home" },
             React.createElement(header_1.default, null),
             React.createElement(react_router_dom_1.Switch, null,
                 React.createElement(react_router_dom_1.Route, { path: "/", component: home_1.default, exact: true }),
@@ -615,21 +615,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(/*! ./styles/styles.css */ "./styles/styles.css");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var google_map_react_1 = __webpack_require__(/*! google-map-react */ "./node_modules/google-map-react/lib/index.js");
-var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
-document.body.style.backgroundColor = Constant.MAIN_COLOUR;
-document.body.style.fontFamily = 'Roboto';
-document.body.style.color = '#ffffff';
-document.body.style.padding = '0px';
-document.body.style.margin = '0px';
 var Map = /** @class */ (function (_super) {
     __extends(Map, _super);
     function Map() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Map.prototype.render = function () {
-        return (React.createElement("div", { className: "mapSection" },
-            React.createElement("div", { style: { width: '100%' } },
-                React.createElement(google_map_react_1.default, { bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 10, defaultCenter: { lat: 33.8688, lng: 151.2093 } }))));
+        return (React.createElement("div", { style: { flex: '1' } },
+            React.createElement("div", { className: "mapSection" },
+                React.createElement("div", { className: 'mapContainer' },
+                    React.createElement(google_map_react_1.default, { bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 10, defaultCenter: { lat: 33.8688, lng: 151.2093 } })))));
     };
     return Map;
 }(React.Component));
@@ -1640,7 +1635,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "h1 {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    height: 30px;\r\n}\r\n\r\nh2 {\r\n    font-size: 13pt;\r\n    font-weight: normal;\r\n}\r\n\r\n.search::placeholder {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    font-weight: bold;\r\n}\r\n\r\n.tabHeader {\r\n    padding: 0px;\r\n    width: 25%;\r\n}\r\n\r\n.tabs {\r\n    height: 100px;\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    color: #000000;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 100px;\r\n    z-index: 100;\r\n}\r\n\r\n.header {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0;\r\n    background: #142636;\r\n    z-index: 100;\r\n}\r\n\r\n    .header > .logo {\r\n        flex-basis: 0;\r\n        min-width: 230px;\r\n        line-height: 100px;\r\n        height: 100px;\r\n        width: 230px;\r\n        text-align: center;\r\n        align-items: center;\r\n        justify-content: center;\r\n    }\r\n\r\n.headerNavBar {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBox {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBoxMin {\r\n    min-width: 10px;\r\n}\r\n\r\n.headerButton {\r\n    color: #D8D8D8;\r\n    min-width: 100px;\r\n    width: 100px;\r\n    height: 60px;\r\n    text-align: center;\r\n    line-height: 60px;\r\n    flex: 0;\r\n}\r\n\r\n.searchButton {\r\n    flex: 0;\r\n    min-width: 150px;\r\n    width: 150px;\r\n    height: 34px;\r\n    border-radius: 0px 10px 10px 0px;\r\n    border: 0px;\r\n    background: #4A74A5;\r\n}\r\n\r\n.searchBar {\r\n    flex: 1;\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    height: 34px;\r\n    border-radius: 10px 0px 0px 10px;\r\n    border: 0px;\r\n    background: #787878;\r\n    padding-left: 20px;\r\n}\r\n\r\n    .searchBar:focus {\r\n        outline: none;\r\n    }\r\n\r\n.flex-parent {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.mapSection {\r\n    display: flex;\r\n    flex-direction: row;\r\n    flex: 0 0 auto;\r\n}\r\n\r\n    .mapSection > div {\r\n        display: flex;\r\n        flex: 1;\r\n    }\r\n\r\n.newAndTrending {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.largeContentBox {\r\n    flex: 0;\r\n    height: 340px;\r\n    width: 566px;\r\n    min-width: 566px;\r\n}\r\n\r\n.announcementsContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.announcement {\r\n    height: 150px; \r\n    min-width: 620px; \r\n    padding: 0px 5px;\r\n    background-color: #0f0f0f;\r\n}\r\n", ""]);
+exports.push([module.i, "html, body {\r\n    height: 100%;\r\n    margin: 0;\r\n}\r\n\r\nh1 {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    height: 30px;\r\n}\r\n\r\nh2 {\r\n    font-size: 13pt;\r\n    font-weight: normal;\r\n}\r\n\r\n.search::placeholder {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    font-weight: bold;\r\n}\r\n\r\n.tabHeader {\r\n    padding: 0px;\r\n    width: 25%;\r\n}\r\n\r\n.tabs {\r\n    height: 100px;\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    color: #000000;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 100px;\r\n    z-index: 100;\r\n}\r\n\r\n.header {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0;\r\n    background: #142636;\r\n    z-index: 100;\r\n}\r\n\r\n    .header > .logo {\r\n        flex-basis: 0;\r\n        min-width: 230px;\r\n        line-height: 100px;\r\n        height: 100px;\r\n        width: 230px;\r\n        text-align: center;\r\n        align-items: center;\r\n        justify-content: center;\r\n    }\r\n\r\n.headerNavBar {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBox {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBoxMin {\r\n    min-width: 10px;\r\n}\r\n\r\n.headerButton {\r\n    color: #D8D8D8;\r\n    min-width: 100px;\r\n    width: 100px;\r\n    height: 60px;\r\n    text-align: center;\r\n    line-height: 60px;\r\n    flex: 0;\r\n}\r\n\r\n.searchButton {\r\n    flex: 0;\r\n    min-width: 150px;\r\n    width: 150px;\r\n    height: 34px;\r\n    border-radius: 0px 10px 10px 0px;\r\n    border: 0px;\r\n    background: #4A74A5;\r\n}\r\n\r\n.searchBar {\r\n    flex: 1;\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    height: 34px;\r\n    border-radius: 10px 0px 0px 10px;\r\n    border: 0px;\r\n    background: #787878;\r\n    padding-left: 20px;\r\n}\r\n\r\n    .searchBar:focus {\r\n        outline: none;\r\n    }\r\n\r\n.home {\r\n    display: flex;\r\n    flex-direction: column;\r\n    height: 100vh;\r\n}\r\n\r\n.mapSection {\r\n    display: flex;\r\n    flex-direction: row;\r\n    height: 100%;\r\n}\r\n\r\n.mapContainer {\r\n    min-height: 100px;\r\n    min-width: 100px;\r\n    flex: 1;\r\n}\r\n\r\n.newAndTrending {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.largeContentBox {\r\n    flex: 0;\r\n    height: 340px;\r\n    width: 566px;\r\n    min-width: 566px;\r\n}\r\n\r\n.announcementsContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.announcement {\r\n    height: 150px;\r\n    min-width: 620px;\r\n    padding: 0px 5px;\r\n    background-color: #0f0f0f;\r\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 

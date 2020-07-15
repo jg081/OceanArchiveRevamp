@@ -16,21 +16,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("./styles/styles.css");
 var React = require('react');
 var google_map_react_1 = require("google-map-react");
-var Constant = require("./constants");
-document.body.style.backgroundColor = Constant.MAIN_COLOUR;
-document.body.style.fontFamily = 'Roboto';
-document.body.style.color = '#ffffff';
-document.body.style.padding = '0px';
-document.body.style.margin = '0px';
 var Map = /** @class */ (function (_super) {
     __extends(Map, _super);
     function Map() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Map.prototype.render = function () {
-        return (React.createElement("div", { className: "mapSection" },
-            React.createElement("div", { style: { width: '100%' } },
-                React.createElement(google_map_react_1.default, { bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 10, defaultCenter: { lat: 33.8688, lng: 151.2093 } }))));
+        return (React.createElement("div", { style: { flex: '1' } },
+            React.createElement("div", { className: "mapSection" },
+                React.createElement("div", { className: 'mapContainer' },
+                    React.createElement(google_map_react_1.default, { bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 10, defaultCenter: { lat: 33.8688, lng: 151.2093 } })))));
     };
     return Map;
 }(React.Component));
