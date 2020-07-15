@@ -10,9 +10,9 @@ var ReactDOM = require('react-dom');
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import Header from './header';
-import Home from './home';
-import Map from './map';
+import Header from './components/header';
+import Home from './components/home';
+import Map from './components/map';
 
 import * as Constant from './constants';
 

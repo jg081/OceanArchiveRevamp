@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-import * as Constant from './constants';
+import * as Constant from '../constants';
 
 class LargeContentBox extends React.Component {
     constructor(props) {

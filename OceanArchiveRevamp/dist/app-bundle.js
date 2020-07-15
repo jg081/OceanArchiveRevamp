@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./announcementsContainer.js":
-/*!***********************************!*\
-  !*** ./announcementsContainer.js ***!
-  \***********************************/
+/***/ "./app.tsx":
+/*!*****************!*\
+  !*** ./app.tsx ***!
+  \*****************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -101,7 +101,66 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+//Run this in console after changing code.
+//node_modules\.bin\webpack app.tsx --config webpack-config.js
+__webpack_require__(/*! ./styles/styles.css */ "./styles/styles.css");
+__webpack_require__(/*! ./styles/carousel.css */ "./styles/carousel.css");
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+var header_1 = __webpack_require__(/*! ./components/header */ "./components/header.tsx");
+var home_1 = __webpack_require__(/*! ./components/home */ "./components/home.tsx");
+var map_1 = __webpack_require__(/*! ./components/map */ "./components/map.tsx");
+var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
+document.body.style.backgroundColor = Constant.MAIN_COLOUR;
+document.body.style.fontFamily = 'Roboto';
+document.body.style.color = '#ffffff';
+document.body.style.padding = '0px';
+document.body.style.margin = '0px';
+var Homepage = /** @class */ (function (_super) {
+    __extends(Homepage, _super);
+    function Homepage() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
+    Homepage.prototype.render = function () {
+        return (React.createElement("div", { className: "home" },
+            React.createElement(header_1.default, null),
+            React.createElement(react_router_dom_1.Switch, null,
+                React.createElement(react_router_dom_1.Route, { path: "/", component: home_1.default, exact: true }),
+                React.createElement(react_router_dom_1.Route, { path: "/map", component: map_1.default }))));
+    };
+    return Homepage;
+}(React.Component));
+ReactDOM.render(React.createElement(react_router_dom_1.BrowserRouter, null,
+    React.createElement(Homepage, null)), document.getElementById('root'));
+
+
+/***/ }),
+
+/***/ "./components/announcementsContainer.tsx":
+/*!***********************************************!*\
+  !*** ./components/announcementsContainer.tsx ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -210,14 +269,14 @@ var AnnouncementsContainer = /** @class */ (function (_super) {
     return AnnouncementsContainer;
 }(React.Component));
 exports.default = AnnouncementsContainer;
-//# sourceMappingURL=announcementsContainer.js.map
+
 
 /***/ }),
 
-/***/ "./app.tsx":
-/*!*****************!*\
-  !*** ./app.tsx ***!
-  \*****************/
+/***/ "./components/contentSection.tsx":
+/*!***************************************!*\
+  !*** ./components/contentSection.tsx ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -237,95 +296,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-//Run this in console after changing code.
-//node_modules\.bin\webpack app.tsx --config webpack-config.js
-__webpack_require__(/*! ./styles/styles.css */ "./styles/styles.css");
-__webpack_require__(/*! ./styles/carousel.css */ "./styles/carousel.css");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-var header_1 = __webpack_require__(/*! ./header */ "./header.js");
-var home_1 = __webpack_require__(/*! ./home */ "./home.js");
-var map_1 = __webpack_require__(/*! ./map */ "./map.js");
-var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
-document.body.style.backgroundColor = Constant.MAIN_COLOUR;
-document.body.style.fontFamily = 'Roboto';
-document.body.style.color = '#ffffff';
-document.body.style.padding = '0px';
-document.body.style.margin = '0px';
-var Homepage = /** @class */ (function (_super) {
-    __extends(Homepage, _super);
-    function Homepage() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Homepage.prototype.render = function () {
-        return (React.createElement("div", { className: "home" },
-            React.createElement(header_1.default, null),
-            React.createElement(react_router_dom_1.Switch, null,
-                React.createElement(react_router_dom_1.Route, { path: "/", component: home_1.default, exact: true }),
-                React.createElement(react_router_dom_1.Route, { path: "/map", component: map_1.default }))));
-    };
-    return Homepage;
-}(React.Component));
-ReactDOM.render(React.createElement(react_router_dom_1.BrowserRouter, null,
-    React.createElement(Homepage, null)), document.getElementById('root'));
-
-
-/***/ }),
-
-/***/ "./constants/index.js":
-/*!****************************!*\
-  !*** ./constants/index.js ***!
-  \****************************/
-/*! exports provided: MAIN_COLOUR, SECONDARY_COLOUR, SCITECH, ART, ACTIVISM, SCITECH_ART, ART_ACTIVISM, ACTIVISM_SCITECH */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAIN_COLOUR", function() { return MAIN_COLOUR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SECONDARY_COLOUR", function() { return SECONDARY_COLOUR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SCITECH", function() { return SCITECH; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ART", function() { return ART; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ACTIVISM", function() { return ACTIVISM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SCITECH_ART", function() { return SCITECH_ART; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ART_ACTIVISM", function() { return ART_ACTIVISM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ACTIVISM_SCITECH", function() { return ACTIVISM_SCITECH; });
-﻿const MAIN_COLOUR = '#142636';
-const SECONDARY_COLOUR = "#4A74A5";
-const SCITECH = '#0076FF';
-const ART = '#9013FE';
-const ACTIVISM = '#50E3C2';
-const SCITECH_ART = '#4845FF';
-const ART_ACTIVISM = '#707BE0';
-const ACTIVISM_SCITECH = '#28ADE1';
-
-/***/ }),
-
-/***/ "./contentSection.js":
-/*!***************************!*\
-  !*** ./contentSection.js ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
+var Constant = __webpack_require__(/*! ../constants */ "./constants/index.js");
 var tabState = 8;
 var TableHeader = /** @class */ (function (_super) {
     __extends(TableHeader, _super);
@@ -443,14 +415,14 @@ var ContentSection = /** @class */ (function (_super) {
     return ContentSection;
 }(React.Component));
 exports.default = ContentSection;
-//# sourceMappingURL=contentSection.js.map
+
 
 /***/ }),
 
-/***/ "./header.js":
-/*!*******************!*\
-  !*** ./header.js ***!
-  \*******************/
+/***/ "./components/header.tsx":
+/*!*******************************!*\
+  !*** ./components/header.tsx ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -462,7 +434,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -532,14 +504,14 @@ var Header = /** @class */ (function (_super) {
     return Header;
 }(React.Component));
 exports.default = Header;
-//# sourceMappingURL=header.js.map
+
 
 /***/ }),
 
-/***/ "./home.js":
-/*!*****************!*\
-  !*** ./home.js ***!
-  \*****************/
+/***/ "./components/home.tsx":
+/*!*****************************!*\
+  !*** ./components/home.tsx ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -551,7 +523,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -559,13 +531,13 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! ./styles/styles.css */ "./styles/styles.css");
-__webpack_require__(/*! ./styles/carousel.css */ "./styles/carousel.css");
+__webpack_require__(/*! ../styles/styles.css */ "./styles/styles.css");
+__webpack_require__(/*! ../styles/carousel.css */ "./styles/carousel.css");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var newAndTrending_1 = __webpack_require__(/*! ./newAndTrending */ "./newAndTrending.js");
-var contentSection_1 = __webpack_require__(/*! ./contentSection */ "./contentSection.js");
-var announcementsContainer_1 = __webpack_require__(/*! ./announcementsContainer */ "./announcementsContainer.js");
-var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
+var newAndTrending_1 = __webpack_require__(/*! ./newAndTrending */ "./components/newAndTrending.tsx");
+var contentSection_1 = __webpack_require__(/*! ./contentSection */ "./components/contentSection.tsx");
+var announcementsContainer_1 = __webpack_require__(/*! ./announcementsContainer */ "./components/announcementsContainer.tsx");
+var Constant = __webpack_require__(/*! ../constants */ "./constants/index.js");
 document.body.style.backgroundColor = Constant.MAIN_COLOUR;
 document.body.style.fontFamily = 'Roboto';
 document.body.style.color = '#ffffff';
@@ -585,14 +557,14 @@ var Home = /** @class */ (function (_super) {
     return Home;
 }(React.Component));
 exports.default = Home;
-//# sourceMappingURL=home.js.map
+
 
 /***/ }),
 
-/***/ "./map.js":
-/*!****************!*\
-  !*** ./map.js ***!
-  \****************/
+/***/ "./components/map.tsx":
+/*!****************************!*\
+  !*** ./components/map.tsx ***!
+  \****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -604,7 +576,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -612,7 +584,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! ./styles/styles.css */ "./styles/styles.css");
+__webpack_require__(/*! ../styles/styles.css */ "./styles/styles.css");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var google_map_react_1 = __webpack_require__(/*! google-map-react */ "./node_modules/google-map-react/lib/index.js");
 var Map = /** @class */ (function (_super) {
@@ -629,14 +601,14 @@ var Map = /** @class */ (function (_super) {
     return Map;
 }(React.Component));
 exports.default = Map;
-//# sourceMappingURL=map.js.map
+
 
 /***/ }),
 
-/***/ "./newAndTrending.js":
-/*!***************************!*\
-  !*** ./newAndTrending.js ***!
-  \***************************/
+/***/ "./components/newAndTrending.tsx":
+/*!***************************************!*\
+  !*** ./components/newAndTrending.tsx ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -648,7 +620,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -657,7 +629,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
+var Constant = __webpack_require__(/*! ../constants */ "./constants/index.js");
 var LargeContentBox = /** @class */ (function (_super) {
     __extends(LargeContentBox, _super);
     function LargeContentBox(props) {
@@ -693,7 +665,35 @@ var NewAndTrending = /** @class */ (function (_super) {
     return NewAndTrending;
 }(React.Component));
 exports.default = NewAndTrending;
-//# sourceMappingURL=newAndTrending.js.map
+
+
+/***/ }),
+
+/***/ "./constants/index.js":
+/*!****************************!*\
+  !*** ./constants/index.js ***!
+  \****************************/
+/*! exports provided: MAIN_COLOUR, SECONDARY_COLOUR, SCITECH, ART, ACTIVISM, SCITECH_ART, ART_ACTIVISM, ACTIVISM_SCITECH */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAIN_COLOUR", function() { return MAIN_COLOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SECONDARY_COLOUR", function() { return SECONDARY_COLOUR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SCITECH", function() { return SCITECH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ART", function() { return ART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ACTIVISM", function() { return ACTIVISM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SCITECH_ART", function() { return SCITECH_ART; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ART_ACTIVISM", function() { return ART_ACTIVISM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ACTIVISM_SCITECH", function() { return ACTIVISM_SCITECH; });
+﻿const MAIN_COLOUR = '#142636';
+const SECONDARY_COLOUR = "#4A74A5";
+const SCITECH = '#0076FF';
+const ART = '#9013FE';
+const ACTIVISM = '#50E3C2';
+const SCITECH_ART = '#4845FF';
+const ART_ACTIVISM = '#707BE0';
+const ACTIVISM_SCITECH = '#28ADE1';
 
 /***/ }),
 

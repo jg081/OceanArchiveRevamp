@@ -1,4 +1,4 @@
-﻿import "./styles/styles.css";
+﻿import "../styles/styles.css";
 
 declare var require: any
 
@@ -6,7 +6,7 @@ var React = require('react');
 
 import GoogleMapReact from 'google-map-react';
 
-import * as Constant from './constants';
+import * as Constant from '../constants';
 
 export default class Map extends React.Component {
     render() {

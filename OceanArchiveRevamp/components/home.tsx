@@ -1,5 +1,5 @@
-﻿import "./styles/styles.css";
-import "./styles/carousel.css";
+﻿import "../styles/styles.css";
+import "../styles/carousel.css";
 
 declare var require: any
 
@@ -9,7 +9,7 @@ import NewAndTrending from './newAndTrending';
 import ContentSection from './contentSection';
 import AnnouncementsContainer from './announcementsContainer';
 
-import * as Constant from './constants';
+import * as Constant from '../constants';
 
 document.body.style.backgroundColor = Constant.MAIN_COLOUR;
 document.body.style.fontFamily = 'Roboto';

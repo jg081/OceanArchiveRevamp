@@ -4,7 +4,7 @@ var React = require('react');
 
 import { NavLink } from 'react-router-dom'
 
-import * as Constant from './constants';
+import * as Constant from '../constants';
 
 class Logo extends React.Component {
     constructor(props) {

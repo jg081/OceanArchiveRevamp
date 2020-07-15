@@ -61,31 +61,32 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="announcementsContainer.tsx">
+    <TypeScriptCompile Include="components\announcementsContainer.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="app.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="contentSection.tsx">
+    <TypeScriptCompile Include="components\contentSection.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="header.tsx">
+    <TypeScriptCompile Include="components\header.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="home.tsx">
+    <TypeScriptCompile Include="components\home.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="map.tsx">
+    <TypeScriptCompile Include="components\map.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="newAndTrending.tsx">
+    <TypeScriptCompile Include="components\newAndTrending.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="constants\" />
     <Folder Include="dist\" />
+    <Folder Include="components\" />
     <Folder Include="styles\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
