@@ -116,9 +116,9 @@ __webpack_require__(/*! ./styles/carousel.css */ "./styles/carousel.css");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-var header_1 = __webpack_require__(/*! ./components/header */ "./components/header.tsx");
-var home_1 = __webpack_require__(/*! ./components/home */ "./components/home.tsx");
-var map_1 = __webpack_require__(/*! ./components/map */ "./components/map.tsx");
+var header_1 = __webpack_require__(/*! ./components/header */ "./components/header.js");
+var home_1 = __webpack_require__(/*! ./components/home */ "./components/home.js");
+var map_1 = __webpack_require__(/*! ./components/map */ "./components/map.js");
 var Constant = __webpack_require__(/*! ./constants */ "./constants/index.js");
 document.body.style.backgroundColor = Constant.MAIN_COLOUR;
 document.body.style.fontFamily = 'Roboto';
@@ -145,10 +145,10 @@ ReactDOM.render(React.createElement(react_router_dom_1.BrowserRouter, null,
 
 /***/ }),
 
-/***/ "./components/announcementsContainer.tsx":
-/*!***********************************************!*\
-  !*** ./components/announcementsContainer.tsx ***!
-  \***********************************************/
+/***/ "./components/announcementsContainer.js":
+/*!**********************************************!*\
+  !*** ./components/announcementsContainer.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -160,7 +160,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    };
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -269,14 +269,14 @@ var AnnouncementsContainer = /** @class */ (function (_super) {
     return AnnouncementsContainer;
 }(React.Component));
 exports.default = AnnouncementsContainer;
-
+//# sourceMappingURL=announcementsContainer.js.map
 
 /***/ }),
 
-/***/ "./components/contentSection.tsx":
-/*!***************************************!*\
-  !*** ./components/contentSection.tsx ***!
-  \***************************************/
+/***/ "./components/contentSection.js":
+/*!**************************************!*\
+  !*** ./components/contentSection.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -288,7 +288,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    };
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -415,14 +415,14 @@ var ContentSection = /** @class */ (function (_super) {
     return ContentSection;
 }(React.Component));
 exports.default = ContentSection;
-
+//# sourceMappingURL=contentSection.js.map
 
 /***/ }),
 
-/***/ "./components/header.tsx":
-/*!*******************************!*\
-  !*** ./components/header.tsx ***!
-  \*******************************/
+/***/ "./components/header.js":
+/*!******************************!*\
+  !*** ./components/header.js ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -434,7 +434,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    };
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -504,14 +504,14 @@ var Header = /** @class */ (function (_super) {
     return Header;
 }(React.Component));
 exports.default = Header;
-
+//# sourceMappingURL=header.js.map
 
 /***/ }),
 
-/***/ "./components/home.tsx":
-/*!*****************************!*\
-  !*** ./components/home.tsx ***!
-  \*****************************/
+/***/ "./components/home.js":
+/*!****************************!*\
+  !*** ./components/home.js ***!
+  \****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -523,7 +523,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    };
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -534,9 +534,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(/*! ../styles/styles.css */ "./styles/styles.css");
 __webpack_require__(/*! ../styles/carousel.css */ "./styles/carousel.css");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var newAndTrending_1 = __webpack_require__(/*! ./newAndTrending */ "./components/newAndTrending.tsx");
-var contentSection_1 = __webpack_require__(/*! ./contentSection */ "./components/contentSection.tsx");
-var announcementsContainer_1 = __webpack_require__(/*! ./announcementsContainer */ "./components/announcementsContainer.tsx");
+var newAndTrending_1 = __webpack_require__(/*! ./newAndTrending */ "./components/newAndTrending.js");
+var contentSection_1 = __webpack_require__(/*! ./contentSection */ "./components/contentSection.js");
+var announcementsContainer_1 = __webpack_require__(/*! ./announcementsContainer */ "./components/announcementsContainer.js");
 var Constant = __webpack_require__(/*! ../constants */ "./constants/index.js");
 document.body.style.backgroundColor = Constant.MAIN_COLOUR;
 document.body.style.fontFamily = 'Roboto';
@@ -557,14 +557,14 @@ var Home = /** @class */ (function (_super) {
     return Home;
 }(React.Component));
 exports.default = Home;
-
+//# sourceMappingURL=home.js.map
 
 /***/ }),
 
-/***/ "./components/map.tsx":
-/*!****************************!*\
-  !*** ./components/map.tsx ***!
-  \****************************/
+/***/ "./components/map.js":
+/*!***************************!*\
+  !*** ./components/map.js ***!
+  \***************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -576,7 +576,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    };
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -587,6 +587,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(/*! ../styles/styles.css */ "./styles/styles.css");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var google_map_react_1 = __webpack_require__(/*! google-map-react */ "./node_modules/google-map-react/lib/index.js");
+var GoToLocation = /** @class */ (function (_super) {
+    __extends(GoToLocation, _super);
+    function GoToLocation() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    GoToLocation.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement("form", { style: { display: 'flex', height: '50px' } },
+                React.createElement("div", { className: 'goToLocLabels' }, "Lat"),
+                React.createElement("input", { type: 'search', className: 'goToLocSearch' }),
+                React.createElement("div", { className: 'goToLocLabels' }, "Long"),
+                React.createElement("input", { type: 'search', className: 'goToLocSearch' }),
+                React.createElement("input", { type: 'submit', className: 'goToLocButton' }))));
+    };
+    return GoToLocation;
+}(React.Component));
+var Location = /** @class */ (function (_super) {
+    __extends(Location, _super);
+    function Location(props) {
+        return _super.call(this, props) || this;
+    }
+    Location.prototype.render = function () {
+        return (React.createElement("div", { className: 'mapLocationInfo' },
+            React.createElement("img", { alt: 'IMG', style: { height: '100px', width: '100px', minWidth: '100px', flex: '0' } }),
+            React.createElement("div", { style: { flex: '0 0 auto' } },
+                React.createElement("div", { stlye: { display: 'flex', flexDirection: 'column', height: '100px' } },
+                    React.createElement("h2", { className: 'listTitle' }, this.props.title),
+                    React.createElement("p", { className: 'listDesc' }, this.props.desc)))));
+    };
+    return Location;
+}(React.Component));
 var Map = /** @class */ (function (_super) {
     __extends(Map, _super);
     function Map() {
@@ -595,20 +626,39 @@ var Map = /** @class */ (function (_super) {
     Map.prototype.render = function () {
         return (React.createElement("div", { style: { flex: '1' } },
             React.createElement("div", { className: "mapSection" },
+                React.createElement("div", { className: 'mapSideBar' },
+                    React.createElement(GoToLocation, null),
+                    React.createElement("div", { className: 'scrollableList' },
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }),
+                        React.createElement(Location, { title: 'Title', desc: 'Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' }))),
                 React.createElement("div", { className: 'mapContainer' },
                     React.createElement(google_map_react_1.default, { bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 10, defaultCenter: { lat: 33.8688, lng: 151.2093 } })))));
     };
     return Map;
 }(React.Component));
 exports.default = Map;
-
+//# sourceMappingURL=map.js.map
 
 /***/ }),
 
-/***/ "./components/newAndTrending.tsx":
-/*!***************************************!*\
-  !*** ./components/newAndTrending.tsx ***!
-  \***************************************/
+/***/ "./components/newAndTrending.js":
+/*!**************************************!*\
+  !*** ./components/newAndTrending.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -620,7 +670,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    };
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -665,7 +715,7 @@ var NewAndTrending = /** @class */ (function (_super) {
     return NewAndTrending;
 }(React.Component));
 exports.default = NewAndTrending;
-
+//# sourceMappingURL=newAndTrending.js.map
 
 /***/ }),
 
@@ -1635,7 +1685,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "html, body {\r\n    height: 100%;\r\n    margin: 0;\r\n}\r\n\r\nh1 {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    height: 30px;\r\n}\r\n\r\nh2 {\r\n    font-size: 13pt;\r\n    font-weight: normal;\r\n}\r\n\r\n.search::placeholder {\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    font-weight: bold;\r\n}\r\n\r\n.tabHeader {\r\n    padding: 0px;\r\n    width: 25%;\r\n}\r\n\r\n.tabs {\r\n    height: 100px;\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    color: #000000;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 100px;\r\n    z-index: 100;\r\n}\r\n\r\n.header {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0;\r\n    background: #142636;\r\n    z-index: 100;\r\n}\r\n\r\n    .header > .logo {\r\n        flex-basis: 0;\r\n        min-width: 230px;\r\n        line-height: 100px;\r\n        height: 100px;\r\n        width: 230px;\r\n        text-align: center;\r\n        align-items: center;\r\n        justify-content: center;\r\n    }\r\n\r\n.headerNavBar {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBox {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBoxMin {\r\n    min-width: 10px;\r\n}\r\n\r\n.headerButton {\r\n    color: #D8D8D8;\r\n    min-width: 100px;\r\n    width: 100px;\r\n    height: 60px;\r\n    text-align: center;\r\n    line-height: 60px;\r\n    flex: 0;\r\n}\r\n\r\n.searchButton {\r\n    flex: 0;\r\n    min-width: 150px;\r\n    width: 150px;\r\n    height: 34px;\r\n    border-radius: 0px 10px 10px 0px;\r\n    border: 0px;\r\n    background: #4A74A5;\r\n}\r\n\r\n.searchBar {\r\n    flex: 1;\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    height: 34px;\r\n    border-radius: 10px 0px 0px 10px;\r\n    border: 0px;\r\n    background: #787878;\r\n    padding-left: 20px;\r\n}\r\n\r\n    .searchBar:focus {\r\n        outline: none;\r\n    }\r\n\r\n.home {\r\n    display: flex;\r\n    flex-direction: column;\r\n    height: 100vh;\r\n}\r\n\r\n.mapSection {\r\n    display: flex;\r\n    flex-direction: row;\r\n    height: 100%;\r\n}\r\n\r\n.mapContainer {\r\n    min-height: 100px;\r\n    min-width: 100px;\r\n    flex: 1;\r\n}\r\n\r\n.newAndTrending {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.largeContentBox {\r\n    flex: 0;\r\n    height: 340px;\r\n    width: 566px;\r\n    min-width: 566px;\r\n}\r\n\r\n.announcementsContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.announcement {\r\n    height: 150px;\r\n    min-width: 620px;\r\n    padding: 0px 5px;\r\n    background-color: #0f0f0f;\r\n}\r\n", ""]);
+exports.push([module.i, "/* Basics*/\r\nhtml, body {\r\n    height: 100%;\r\n    margin: 0;\r\n}\r\n\r\nh1 {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    height: 30px;\r\n}\r\n\r\nh2 {\r\n    font-size: 13pt;\r\n    font-weight: normal;\r\n}\r\n\r\n.fillerBox {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBoxMin {\r\n    min-width: 10px;\r\n}\r\n\r\n/*Header*/\r\n.header {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0;\r\n    background: #142636;\r\n    z-index: 100;\r\n    align-self: flex-start;\r\n}\r\n\r\n    .header > .logo {\r\n        flex-basis: 0;\r\n        min-width: 230px;\r\n        line-height: 100px;\r\n        height: 100px;\r\n        width: 230px;\r\n        text-align: center;\r\n        align-items: center;\r\n        justify-content: center;\r\n    }\r\n\r\n.headerNavBar {\r\n    flex: 1;\r\n}\r\n\r\n.headerButton {\r\n    color: #D8D8D8;\r\n    min-width: 100px;\r\n    width: 100px;\r\n    height: 60px;\r\n    text-align: center;\r\n    line-height: 60px;\r\n    flex: 0;\r\n}\r\n\r\n.searchButton {\r\n    flex: 0;\r\n    min-width: 150px;\r\n    width: 150px;\r\n    height: 34px;\r\n    border-radius: 0px 10px 10px 0px;\r\n    border: 0px;\r\n    background: #4A74A5;\r\n}\r\n\r\n.searchBar {\r\n    flex: 1;\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    height: 34px;\r\n    border-radius: 10px 0px 0px 10px;\r\n    border: 0px;\r\n    background: #787878;\r\n    padding-left: 20px;\r\n}\r\n\r\n    .searchBar:focus {\r\n        outline: none;\r\n    }\r\n\r\n    .searchBar::placeholder {\r\n        color: #ffffff;\r\n        font-family: Roboto;\r\n        font-weight: bold;\r\n    }\r\n\r\n/*HOME PAGE*/\r\n/*Tabs*/\r\n.tabHeader {\r\n    padding: 0px;\r\n    width: 25%;\r\n}\r\n\r\n.tabs {\r\n    height: 100px;\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    color: #000000;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 100px;\r\n    z-index: 100;\r\n}\r\n\r\n.home {\r\n    display: flex;\r\n    flex-direction: column;\r\n    height: 100vh;\r\n}\r\n\r\n.newAndTrending {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.largeContentBox {\r\n    flex: 0;\r\n    height: 340px;\r\n    width: 566px;\r\n    min-width: 566px;\r\n}\r\n\r\n.announcementsContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.announcement {\r\n    height: 150px;\r\n    min-width: 620px;\r\n    padding: 0px 5px;\r\n    background-color: #0f0f0f;\r\n}\r\n\r\n/*MAP PAGE*/\r\n.mapSection {\r\n    display: flex;\r\n    flex-direction: row;\r\n    height: 100%;\r\n}\r\n\r\n.mapSideBar {\r\n    flex: 0 0 auto;\r\n    max-width: 610px;\r\n    max-height: calc(100vh - 100px);\r\n}\r\n\r\n.mapContainer {\r\n    min-height: 100px;\r\n    min-width: 100px;\r\n    flex: 1 0 auto;\r\n}\r\n\r\n.goToLocLabels {\r\n    background-color: #4A74A5;\r\n    min-width: 70px;\r\n    flex: 0;\r\n    text-align: center;\r\n    font-size: 14pt;\r\n    line-height: 50px;\r\n}\r\n\r\n.goToLocSearch {\r\n    background-color: #ffffff;\r\n    flex: 1 0 auto;\r\n    min-width: 100px;\r\n    border: 0px;\r\n}\r\n\r\n    .goToLocSearch:focus {\r\n        outline: none;\r\n        background-color: #D8D8D8;\r\n    }\r\n\r\n.goToLocButton {\r\n    background-color: #3FB39A;\r\n    flex: 0;\r\n    width: 100px;\r\n    min-width: 100px;\r\n    padding: 0px;\r\n    border: 0px;\r\n}\r\n\r\n.mapLocationInfo {\r\n    display: flex;\r\n    border-bottom: 1px solid;\r\n    border-bottom-color: #FFFFFF;\r\n    margin-top: 10px;\r\n    max-width: 590px;\r\n}\r\n\r\n    .mapLocationInfo:hover {\r\n        background-color: #4A74A5;\r\n    }\r\n\r\n.listTitle {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    margin: 5px 5px 0px 5px;\r\n    max-width: 480px;\r\n}\r\n\r\n.listDesc {\r\n    margin: 5px;\r\n    flex: 1;\r\n    display: -webkit-box;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-line-clamp: 3;\r\n    overflow: hidden;\r\n    max-width: 480px;\r\n}\r\n\r\n.scrollableList {\r\n    display: flex;\r\n    flex-direction: column;\r\n    overflow-y: scroll;\r\n    max-height: calc(100vh - 150px);\r\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 

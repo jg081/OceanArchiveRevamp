@@ -1,4 +1,5 @@
-﻿html, body {
+﻿/* Basics*/
+html, body {
     height: 100%;
     margin: 0;
 }
@@ -14,30 +15,15 @@ h2 {
     font-weight: normal;
 }
 
-.search::placeholder {
-    color: #ffffff;
-    font-family: Roboto;
-    font-weight: bold;
+.fillerBox {
+    flex: 1;
 }
 
-.tabHeader {
-    padding: 0px;
-    width: 25%;
+.fillerBoxMin {
+    min-width: 10px;
 }
 
-.tabs {
-    height: 100px;
-    width: 100%;
-    border-collapse: collapse;
-    color: #000000;
-    padding: 0px;
-    box-sizing: border-box;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 100px;
-    z-index: 100;
-}
-
+/*Header*/
 .header {
     display: flex;
     flex-direction: row;
@@ -50,6 +36,7 @@ h2 {
     top: 0;
     background: #142636;
     z-index: 100;
+    align-self: flex-start;
 }
 
     .header > .logo {
@@ -65,14 +52,6 @@ h2 {
 
 .headerNavBar {
     flex: 1;
-}
-
-.fillerBox {
-    flex: 1;
-}
-
-.fillerBoxMin {
-    min-width: 10px;
 }
 
 .headerButton {
@@ -110,22 +89,36 @@ h2 {
         outline: none;
     }
 
+    .searchBar::placeholder {
+        color: #ffffff;
+        font-family: Roboto;
+        font-weight: bold;
+    }
+
+/*HOME PAGE*/
+/*Tabs*/
+.tabHeader {
+    padding: 0px;
+    width: 25%;
+}
+
+.tabs {
+    height: 100px;
+    width: 100%;
+    border-collapse: collapse;
+    color: #000000;
+    padding: 0px;
+    box-sizing: border-box;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px;
+    z-index: 100;
+}
+
 .home {
     display: flex;
     flex-direction: column;
     height: 100vh;
-}
-
-.mapSection {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-}
-
-.mapContainer {
-    min-height: 100px;
-    min-width: 100px;
-    flex: 1;
 }
 
 .newAndTrending {
@@ -150,4 +143,89 @@ h2 {
     min-width: 620px;
     padding: 0px 5px;
     background-color: #0f0f0f;
+}
+
+/*MAP PAGE*/
+.mapSection {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.mapSideBar {
+    flex: 0 0 auto;
+    max-width: 610px;
+    max-height: calc(100vh - 100px);
+}
+
+.mapContainer {
+    min-height: 100px;
+    min-width: 100px;
+    flex: 1 0 auto;
+}
+
+.goToLocLabels {
+    background-color: #4A74A5;
+    min-width: 70px;
+    flex: 0;
+    text-align: center;
+    font-size: 14pt;
+    line-height: 50px;
+}
+
+.goToLocSearch {
+    background-color: #ffffff;
+    flex: 1 0 auto;
+    min-width: 100px;
+    border: 0px;
+}
+
+    .goToLocSearch:focus {
+        outline: none;
+        background-color: #D8D8D8;
+    }
+
+.goToLocButton {
+    background-color: #3FB39A;
+    flex: 0;
+    width: 100px;
+    min-width: 100px;
+    padding: 0px;
+    border: 0px;
+}
+
+.mapLocationInfo {
+    display: flex;
+    border-bottom: 1px solid;
+    border-bottom-color: #FFFFFF;
+    margin-top: 10px;
+    max-width: 590px;
+}
+
+    .mapLocationInfo:hover {
+        background-color: #4A74A5;
+    }
+
+.listTitle {
+    font-size: 15pt;
+    font-weight: normal;
+    margin: 5px 5px 0px 5px;
+    max-width: 480px;
+}
+
+.listDesc {
+    margin: 5px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    max-width: 480px;
+}
+
+.scrollableList {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    max-height: calc(100vh - 150px);
 }
