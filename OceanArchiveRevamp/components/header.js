@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require('react');
 var react_router_dom_1 = require("react-router-dom");
+var reactstrap_1 = require("reactstrap");
 var Logo = /** @class */ (function (_super) {
     __extends(Logo, _super);
     function Logo(props) {
@@ -31,9 +32,40 @@ var HeaderButton = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     HeaderButton.prototype.render = function () {
-        return (React.createElement("div", { className: 'headerButton' }, this.props.name));
+        return (React.createElement("div", { className: 'headerButton', onClick: this.props.onClick }, this.props.name));
     };
     return HeaderButton;
+}(React.Component));
+var LoginModal = /** @class */ (function (_super) {
+    __extends(LoginModal, _super);
+    function LoginModal(props) {
+        var _this = _super.call(this, props) || this;
+        _this.toggle = function () { return _this.setState({
+            isOpen: !_this.state.isOpen
+        }); };
+        _this.state = {
+            isOpen: false
+        };
+        return _this;
+    }
+    LoginModal.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(HeaderButton, { name: 'LOGIN', onClick: this.toggle }),
+            React.createElement(reactstrap_1.Modal, { isOpen: this.state.isOpen, toggle: this.toggle },
+                React.createElement(reactstrap_1.ModalHeader, null, "Login"),
+                React.createElement(reactstrap_1.ModalBody, null,
+                    React.createElement("form", null,
+                        React.createElement("p", { className: 'inputLabel' }, "EMAIL"),
+                        React.createElement("input", { type: 'text', id: 'email', name: 'email' }),
+                        React.createElement("div", { style: { height: '20px' } }),
+                        React.createElement("p", { className: 'inputLabel' }, "PASSWORD"),
+                        React.createElement("input", { type: 'password', id: 'passwrd', name: 'password' }))),
+                React.createElement(reactstrap_1.ModalFooter, null,
+                    React.createElement(reactstrap_1.Button, { className: 'modalButton', onClick: this.toggle }, "LOGIN"),
+                    React.createElement("div", { className: 'modalCenteredLink' },
+                        React.createElement("a", { href: 'https://www.google.com' }, "Forgot password?"))))));
+    };
+    return LoginModal;
 }(React.Component));
 var SeachBar = /** @class */ (function (_super) {
     __extends(SeachBar, _super);
@@ -66,7 +98,7 @@ var Header = /** @class */ (function (_super) {
                             React.createElement(HeaderButton, { name: 'TERMS' }),
                             React.createElement(HeaderButton, { name: 'PRIVACY' }),
                             React.createElement("div", { className: 'fillerBox' }),
-                            React.createElement(HeaderButton, { name: 'LOGIN' }),
+                            React.createElement(LoginModal, null),
                             React.createElement(HeaderButton, { name: 'SIGNUP' }))),
                     React.createElement("div", { style: { flex: '1' } },
                         React.createElement(SeachBar, null)))),

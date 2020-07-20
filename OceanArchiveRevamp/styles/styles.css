@@ -23,6 +23,26 @@ h2 {
     min-width: 10px;
 }
 
+a:link {
+    color: #3FB39A;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #9013FE;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #4A74A5;
+    text-decoration: underline;
+}
+
 /*Header*/
 .header {
     display: flex;
@@ -35,7 +55,7 @@ h2 {
     position: sticky;
     top: 0;
     background: #142636;
-    z-index: 100;
+    z-index: 5;
     align-self: flex-start;
 }
 
@@ -94,6 +114,98 @@ h2 {
         font-family: Roboto;
         font-weight: bold;
     }
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    outline: 0;
+    z-index: 1000;
+}
+
+.fade {
+    transition: opacity 0.1s linear;
+}
+
+.fade:not(.show) {
+    opacity: 0;
+}
+
+.modal-backdrop.show {
+    opacity: 1;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 990;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(238, 238, 238, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #142636;
+}
+
+.modal-dialog {
+    max-width: 650px;
+    margin: 1.75rem auto;
+}
+
+.modal-header {
+    padding: 16px;
+}
+
+.modal-title {
+    margin: 0px;
+    font-size: 12pt;
+}
+
+.modal-body {
+    padding: 5px 16px;
+}
+
+.modal-body input {
+    width: 100%;
+    height: 40px;
+    background-color: #142636;
+    border: 1px #ffffff solid;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+.modalButton {
+    color: #ffffff;
+    background-color: #4A74A5;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+}
+
+.modal-footer {
+    padding: 16px;
+}
+
+.modalCenteredLink {
+    width: 100%;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.inputLabel {
+    margin: 0;
+}
 
 /*HOME PAGE*/
 /*Tabs*/
@@ -229,3 +341,4 @@ h2 {
     overflow-y: scroll;
     max-height: calc(100vh - 150px);
 }
+

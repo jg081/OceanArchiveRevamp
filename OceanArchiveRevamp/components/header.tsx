@@ -2,7 +2,8 @@
 
 var React = require('react');
 
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import * as Constant from '../constants';
 
@@ -25,9 +26,48 @@ class HeaderButton extends React.Component {
 
     render() {
         return (
-            <div className='headerButton'>
+            <div className='headerButton' onClick={this.props.onClick}>
                 {this.props.name}
             </div >
+        );
+    }
+}
+
+class LoginModal extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: false
+        };
+    }
+
+    toggle = () => this.setState({
+        isOpen: !this.state.isOpen
+    });
+
+    render() {
+        return (
+            <div>
+                <HeaderButton name='LOGIN' onClick={this.toggle} />
+                <Modal isOpen={this.state.isOpen} toggle={this.toggle}>
+                    <ModalHeader>Login</ModalHeader>
+                    <ModalBody>
+                        <form>
+                            <p className='inputLabel'>EMAIL</p>
+                            <input type='text' id='email' name='email' />
+                            <div style={{ height: '20px' }} />
+                            <p className='inputLabel'>PASSWORD</p>
+                            <input type='password' id='passwrd' name='password' />
+                        </form>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button className='modalButton' onClick={this.toggle}>LOGIN</Button>
+                        <div className='modalCenteredLink'>
+                            <a href='https://www.google.com'>Forgot password?</a>
+                        </div>
+                    </ModalFooter>
+                </Modal>
+            </div>
         );
     }
 }
@@ -65,7 +105,7 @@ export default class Header extends React.Component {
                                 <HeaderButton name='TERMS' />
                                 <HeaderButton name='PRIVACY' />
                                 <div className='fillerBox' />
-                                <HeaderButton name='LOGIN' />
+                                <LoginModal />
                                 <HeaderButton name='SIGNUP' />
                             </div>
                         </div>
