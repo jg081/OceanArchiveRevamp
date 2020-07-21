@@ -20,7 +20,7 @@ document.body.style.margin = '0px';
 export default class Home extends React.Component {
     render() {
         return (
-            <div>
+            <div style={{ overflow: 'scroll' }}>
                 <NewAndTrending />
                 <AnnouncementsContainer />
                 <ContentSection />

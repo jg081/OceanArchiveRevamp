@@ -127,7 +127,7 @@ var ContentSection = /** @class */ (function (_super) {
                         React.createElement(TableHeader, { ref: this.Tabs[1], title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: Constant.SCITECH, stateUpdate: this.updateBackground(1) }),
                         React.createElement(TableHeader, { ref: this.Tabs[2], title: "ART", isActive: false, colourCode: Constant.ART, stateUpdate: this.updateBackground(2) }),
                         React.createElement(TableHeader, { ref: this.Tabs[3], title: "ACTIVISM", isActive: false, colourCode: Constant.ACTIVISM, stateUpdate: this.updateBackground(3) })))),
-            React.createElement("div", { style: { padding: "10px", width: "100%", height: "10000px", background: this.state.bgContent } }, "Content Goes Here")));
+            React.createElement("div", { className: 'contentBackground', style: { background: this.state.bgContent } }, "Content Goes Here")));
     };
     return ContentSection;
 }(React.Component));

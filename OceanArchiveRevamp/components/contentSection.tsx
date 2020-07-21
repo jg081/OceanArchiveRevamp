@@ -125,7 +125,7 @@ export default class ContentSection extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                <div style={{ padding: "10px", width: "100%", height: "10000px", background: this.state.bgContent }}>
+                <div className='contentBackground' style={{ background: this.state.bgContent }}>
                     Content Goes Here
                 </div>
             </div>

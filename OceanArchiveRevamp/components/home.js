@@ -31,7 +31,7 @@ var Home = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Home.prototype.render = function () {
-        return (React.createElement("div", null,
+        return (React.createElement("div", { style: { overflow: 'scroll' } },
             React.createElement(newAndTrending_1.default, null),
             React.createElement(announcementsContainer_1.default, null),
             React.createElement(contentSection_1.default, null)));
