@@ -78,7 +78,7 @@ var SignUpModal = /** @class */ (function (_super) {
             document.body.style.overflow = 'hidden';
         };
         _this.enableScroll = function () {
-            document.body.style.overflow = 'scroll';
+            document.body.style.overflow = 'auto';
         };
         _this.state = {
             isOpen: false
@@ -125,7 +125,6 @@ var SignUpModal = /** @class */ (function (_super) {
                         React.createElement("div", { style: { display: 'flex' } },
                             React.createElement("input", { className: 'checkBox', type: 'checkbox', id: 'mailList', name: 'mailList', value: 'mList' }),
                             React.createElement("label", { className: 'checkBoxLabel', for: 'mailList' }, "Join mailing list")),
-                        React.createElement("p", null, "It was their first date and she had been looking forward to it the entire week. She had her eyes on him for months, and it had taken a convoluted scheme with several friends to make it happen, but he'd finally taken the hint and asked her out. After all the time and effort she'd invested into it, she never thought that it would be anything but wonderful. It goes without saying that things didn't work out quite as she expected. The words hadn't flowed from his fingers for the past few weeks. He never imagined he'd find himself with writer's block, but here he sat with a blank screen in front of him. That blank screen taunting him day after day had started to play with his mind. He didn't understand why he couldn't even type a single word, just one to begin the process and build from there. And yet, he already knew that the eight hours he was prepared to sit in front of his computer today would end with the screen remaining blank. The rain and wind abruptly stopped, but the sky still had the gray swirls of storms in the distance. Dave knew this feeling all too well. The calm before the storm. He only had a limited amount of time before all Hell broke loose, but he stopped to admire the calmness. Maybe it would be different this time, he thought, with the knowledge deep within that it wouldn't."),
                         React.createElement("p", null,
                             "By joining the mailing list you acknowledge that your information will be transferred to Mailchimp for processing. Learn more about Mailchimp's privacy practices ",
                             React.createElement("a", { href: 'https://www.google.com' }, "here"),

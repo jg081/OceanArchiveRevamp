@@ -35,7 +35,7 @@ var Homepage = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Homepage.prototype.render = function () {
-        return (React.createElement("div", { className: "home" },
+        return (React.createElement("div", { className: "rootPage" },
             React.createElement(header_1.default, null),
             React.createElement(react_router_dom_1.Switch, null,
                 React.createElement(react_router_dom_1.Route, { path: "/", component: home_1.default, exact: true }),

@@ -131,7 +131,7 @@ var Homepage = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Homepage.prototype.render = function () {
-        return (React.createElement("div", { className: "home" },
+        return (React.createElement("div", { className: "rootPage" },
             React.createElement(header_1.default, null),
             React.createElement(react_router_dom_1.Switch, null,
                 React.createElement(react_router_dom_1.Route, { path: "/", component: home_1.default, exact: true }),
@@ -298,6 +298,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var Constant = __webpack_require__(/*! ../constants */ "./constants/index.js");
+var reactstrap_1 = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
 var tabState = 8;
 var TableHeader = /** @class */ (function (_super) {
     __extends(TableHeader, _super);
@@ -333,6 +334,19 @@ var TableHeader = /** @class */ (function (_super) {
         return (React.createElement("th", { className: "tabHeader", style: { background: this.state.bgColour }, onClick: this.props.stateUpdate }, this.state.title));
     };
     return TableHeader;
+}(React.Component));
+var SmallContentBox = /** @class */ (function (_super) {
+    __extends(SmallContentBox, _super);
+    function SmallContentBox(props) {
+        return _super.call(this, props) || this;
+    }
+    SmallContentBox.prototype.render = function () {
+        return (React.createElement("div", { className: 'smallContentBox', style: { background: this.props.img } },
+            React.createElement("div", { className: 'smallContentBoxBar' }, "HEADER"),
+            React.createElement("div", { className: 'fillerBox' }),
+            React.createElement("div", { className: 'smallContentBoxBar' }, "FOOTER")));
+    };
+    return SmallContentBox;
 }(React.Component));
 var ContentSection = /** @class */ (function (_super) {
     __extends(ContentSection, _super);
@@ -389,6 +403,9 @@ var ContentSection = /** @class */ (function (_super) {
                     bgContent: secColour
                 });
         }; };
+        _this.handleScroll = function () {
+            console.log("Scrolled");
+        };
         _this.Tabs = [
             React.createRef(),
             React.createRef(),
@@ -402,15 +419,30 @@ var ContentSection = /** @class */ (function (_super) {
         return _this;
     }
     ContentSection.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement("table", { className: "tabs" },
+        return (React.createElement("div", { id: 'contentSection', className: 'contentSection' },
+            React.createElement("table", { className: "tabs", style: { height: this.props.tabsHeight } },
                 React.createElement("tbody", null,
                     React.createElement("tr", null,
                         React.createElement(TableHeader, { ref: this.Tabs[0], title: "ALL", isActive: true, colourCode: Constant.SECONDARY_COLOUR, stateUpdate: this.updateBackground(0) }),
                         React.createElement(TableHeader, { ref: this.Tabs[1], title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: Constant.SCITECH, stateUpdate: this.updateBackground(1) }),
                         React.createElement(TableHeader, { ref: this.Tabs[2], title: "ART", isActive: false, colourCode: Constant.ART, stateUpdate: this.updateBackground(2) }),
                         React.createElement(TableHeader, { ref: this.Tabs[3], title: "ACTIVISM", isActive: false, colourCode: Constant.ACTIVISM, stateUpdate: this.updateBackground(3) })))),
-            React.createElement("div", { className: 'contentBackground', style: { background: this.state.bgContent } }, "Content Goes Here")));
+            React.createElement("div", { className: 'contentBackground', style: { background: this.state.bgContent } },
+                React.createElement(reactstrap_1.ButtonGroup, { className: 'buttonBar' },
+                    React.createElement(reactstrap_1.Button, { className: 'gapRight' }, "NEW"),
+                    React.createElement(reactstrap_1.Button, null, "TOP")),
+                React.createElement("div", { className: 'contentContainer' },
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null)))));
     };
     return ContentSection;
 }(React.Component));
@@ -507,7 +539,7 @@ var SignUpModal = /** @class */ (function (_super) {
             document.body.style.overflow = 'hidden';
         };
         _this.enableScroll = function () {
-            document.body.style.overflow = 'scroll';
+            document.body.style.overflow = 'auto';
         };
         _this.state = {
             isOpen: false
@@ -554,7 +586,6 @@ var SignUpModal = /** @class */ (function (_super) {
                         React.createElement("div", { style: { display: 'flex' } },
                             React.createElement("input", { className: 'checkBox', type: 'checkbox', id: 'mailList', name: 'mailList', value: 'mList' }),
                             React.createElement("label", { className: 'checkBoxLabel', for: 'mailList' }, "Join mailing list")),
-                        React.createElement("p", null, "It was their first date and she had been looking forward to it the entire week. She had her eyes on him for months, and it had taken a convoluted scheme with several friends to make it happen, but he'd finally taken the hint and asked her out. After all the time and effort she'd invested into it, she never thought that it would be anything but wonderful. It goes without saying that things didn't work out quite as she expected. The words hadn't flowed from his fingers for the past few weeks. He never imagined he'd find himself with writer's block, but here he sat with a blank screen in front of him. That blank screen taunting him day after day had started to play with his mind. He didn't understand why he couldn't even type a single word, just one to begin the process and build from there. And yet, he already knew that the eight hours he was prepared to sit in front of his computer today would end with the screen remaining blank. The rain and wind abruptly stopped, but the sky still had the gray swirls of storms in the distance. Dave knew this feeling all too well. The calm before the storm. He only had a limited amount of time before all Hell broke loose, but he stopped to admire the calmness. Maybe it would be different this time, he thought, with the knowledge deep within that it wouldn't."),
                         React.createElement("p", null,
                             "By joining the mailing list you acknowledge that your information will be transferred to Mailchimp for processing. Learn more about Mailchimp's privacy practices ",
                             React.createElement("a", { href: 'https://www.google.com' }, "here"),
@@ -649,14 +680,31 @@ document.body.style.padding = '0px';
 document.body.style.margin = '0px';
 var Home = /** @class */ (function (_super) {
     __extends(Home, _super);
-    function Home() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Home(props) {
+        var _this = _super.call(this, props) || this;
+        _this.handleScroll = function () {
+            console.log(document.getElementById('contentSection').offsetTop + ' || ' + document.getElementById('home').scrollTop);
+            if (document.getElementById('contentSection').offsetTop - document.getElementById('home').scrollTop <= 50) {
+                _this.setState({
+                    tabsHeight: '50px'
+                });
+            }
+            else {
+                _this.setState({
+                    tabsHeight: '100px'
+                });
+            }
+        };
+        _this.state = {
+            tabsHeight: '100px'
+        };
+        return _this;
     }
     Home.prototype.render = function () {
-        return (React.createElement("div", { style: { overflow: 'scroll' } },
+        return (React.createElement("div", { id: 'home', className: 'home', onScroll: this.handleScroll },
             React.createElement(newAndTrending_1.default, null),
             React.createElement(announcementsContainer_1.default, null),
-            React.createElement(contentSection_1.default, null)));
+            React.createElement(contentSection_1.default, { tabsHeight: this.state.tabsHeight })));
     };
     return Home;
 }(React.Component));
@@ -806,15 +854,10 @@ var NewAndTrending = /** @class */ (function (_super) {
     NewAndTrending.prototype.render = function () {
         return (React.createElement("div", { className: 'newAndTrending' },
             React.createElement("h1", { style: { paddingLeft: '10px', flex: '0', minWidth: '200px' } }, "New & Trending"),
-            React.createElement("div", { style: { flex: 1 } },
-                React.createElement("div", { style: { display: 'flex' } },
-                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
-                    React.createElement(LargeContentBox, { bgColour: Constant.ACTIVISM }),
-                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
-                    React.createElement(LargeContentBox, { bgColour: Constant.SCITECH }),
-                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
-                    React.createElement(LargeContentBox, { bgColour: Constant.ART }),
-                    React.createElement("div", { className: 'fillerBox fillerBoxMin' })))));
+            React.createElement("div", { className: 'newAndTrendingContainer' },
+                React.createElement(LargeContentBox, { bgColour: Constant.ACTIVISM }),
+                React.createElement(LargeContentBox, { bgColour: Constant.SCITECH }),
+                React.createElement(LargeContentBox, { bgColour: Constant.ART }))));
     };
     return NewAndTrending;
 }(React.Component));
@@ -1789,7 +1832,7 @@ module.exports = exports;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "/* Basics*/\r\nhtml, body {\r\n    height: 100%;\r\n    margin: 0;\r\n}\r\n\r\nh1 {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    height: 30px;\r\n}\r\n\r\nh2 {\r\n    font-size: 13pt;\r\n    font-weight: normal;\r\n}\r\n\r\n.fillerBox {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBoxMin {\r\n    min-width: 10px;\r\n}\r\n\r\na:link {\r\n    color: #3FB39A;\r\n    text-decoration: underline;\r\n}\r\n\r\na:visited {\r\n    color: #9013FE;\r\n    text-decoration: underline;\r\n}\r\n\r\na:hover {\r\n    color: #ffffff;\r\n    text-decoration: underline;\r\n}\r\n\r\na:active {\r\n    color: #4A74A5;\r\n    text-decoration: underline;\r\n}\r\n\r\n::-webkit-scrollbar {\r\n    width: 10px;\r\n}\r\n\r\n    ::-webkit-scrollbar:vertical {\r\n        height: 100%;\r\n    }\r\n\r\n::-webkit-scrollbar-track {\r\n    background: #EEEEEE;\r\n    border-radius: 5px;\r\n}\r\n\r\n    ::-webkit-scrollbar-track:vertical {\r\n        height: calc(auto - 20px);\r\n    }\r\n\r\n::-webkit-scrollbar-thumb {\r\n    background: #787878;\r\n    border-radius: 5px;\r\n}\r\n\r\n.checkBox {\r\n    flex: 0;\r\n    min-width: 40px;\r\n    height: 40px;\r\n}\r\n\r\n.checkBoxLabel {\r\n    flex: 1 1 auto;\r\n    line-height: 46px;\r\n    padding-left: 10px;\r\n}\r\n\r\n/*Header*/\r\n.header {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0;\r\n    background: #142636;\r\n    z-index: 50;\r\n    align-self: flex-start;\r\n}\r\n\r\n    .header > .logo {\r\n        flex-basis: 0;\r\n        min-width: 230px;\r\n        line-height: 100px;\r\n        height: 100px;\r\n        width: 230px;\r\n        text-align: center;\r\n        align-items: center;\r\n        justify-content: center;\r\n    }\r\n\r\n.headerNavBar {\r\n    flex: 1;\r\n}\r\n\r\n.headerButton {\r\n    color: #D8D8D8;\r\n    min-width: 100px;\r\n    width: 100px;\r\n    height: 60px;\r\n    text-align: center;\r\n    line-height: 60px;\r\n    flex: 0;\r\n}\r\n\r\n.searchButton {\r\n    flex: 0;\r\n    min-width: 150px;\r\n    width: 150px;\r\n    height: 34px;\r\n    border-radius: 0px 10px 10px 0px;\r\n    border: 0px;\r\n    background: #4A74A5;\r\n}\r\n\r\n.searchBar {\r\n    flex: 1;\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    height: 34px;\r\n    border-radius: 10px 0px 0px 10px;\r\n    border: 0px;\r\n    background: #787878;\r\n    padding-left: 20px;\r\n}\r\n\r\n    .searchBar:focus {\r\n        outline: none;\r\n    }\r\n\r\n    .searchBar::placeholder {\r\n        color: #ffffff;\r\n        font-family: Roboto;\r\n        font-weight: bold;\r\n    }\r\n\r\n/*Modal*/\r\n.modal {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    outline: 0;\r\n    z-index: 1000;\r\n    overflow-y: scroll;\r\n}\r\n\r\n.fade {\r\n    transition: opacity 0.01s linear;\r\n}\r\n\r\n    .fade:not(.show) {\r\n        opacity: 0;\r\n    }\r\n\r\n.modal-backdrop.show {\r\n    opacity: 1;\r\n}\r\n\r\n.modal-backdrop {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 990;\r\n    width: 100vw;\r\n    height: 100vh;\r\n    background-color: rgba(238, 238, 238, 0.3);\r\n    backdrop-filter: blur(5px);\r\n}\r\n\r\n.modal-content {\r\n    position: relative;\r\n    display: flex;\r\n    flex-direction: column;\r\n    width: 100%;\r\n    pointer-events: auto;\r\n    background-color: #142636;\r\n}\r\n\r\n.modal-dialog {\r\n    max-width: 650px;\r\n    margin: 1.75rem auto;\r\n}\r\n\r\n.modal-header {\r\n    padding: 16px;\r\n}\r\n\r\n.modal-title {\r\n    margin: 0px;\r\n    font-size: 12pt;\r\n}\r\n\r\n.modal-body {\r\n    padding: 5px 16px;\r\n}\r\n\r\n    .modal-body input {\r\n        width: 100%;\r\n        height: 40px;\r\n        background-color: #142636;\r\n        border: 1px #ffffff solid;\r\n        border-radius: 2px;\r\n        box-sizing: border-box;\r\n    }\r\n\r\n.modalButton {\r\n    color: #ffffff;\r\n    background-color: #4A74A5;\r\n    width: 100%;\r\n    height: 50px;\r\n    border: none;\r\n    border-radius: 5px;\r\n}\r\n\r\n.modal-footer {\r\n    padding: 16px;\r\n}\r\n\r\n.modalCenteredLink {\r\n    width: 100%;\r\n    padding-top: 10px;\r\n    text-align: center;\r\n}\r\n\r\n.horizontalLineText {\r\n    width: 100%;\r\n}\r\n\r\n    .horizontalLineText > p {\r\n        display: flex;\r\n        font-size: 10pt;\r\n    }\r\n\r\n        .horizontalLineText > p:before, .horizontalLineText > p:after {\r\n            content: '';\r\n            flex: 1 1;\r\n            border-bottom: 1px solid #ffffff;\r\n            margin: auto;\r\n        }\r\n\r\n        .horizontalLineText > p:before {\r\n            margin-right: 10px;\r\n        }\r\n\r\n        .horizontalLineText > p:after {\r\n            margin-left: 10px;\r\n        }\r\n\r\n/*Social*/\r\n.socialButton {\r\n    flex: 2 1 auto;\r\n    height: 45px;\r\n    min-width: 180px;\r\n    border: 1px solid #ffffff;\r\n    border-radius: 5px;\r\n    font-weight: bold;\r\n}\r\n\r\n.google {\r\n    background-color: #ffffff;\r\n    color: #000000;\r\n}\r\n\r\n.facebook {\r\n    background-color: #4267B2;\r\n    color: #ffffff;\r\n}\r\n\r\n.twitter {\r\n    background-color: #1DA1F2;\r\n    color: #ffffff;\r\n}\r\n\r\n/*Forms*/\r\n.inputLabel {\r\n    margin: 0;\r\n}\r\n\r\n/*HOME PAGE*/\r\n/*Tabs*/\r\n.tabHeader {\r\n    padding: 0px;\r\n    width: 25%;\r\n}\r\n\r\n.tabs {\r\n    height: 100px;\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    color: #000000;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0px;\r\n    z-index: 100;\r\n}\r\n\r\n.home {\r\n    display: flex;\r\n    flex-direction: column;\r\n    height: 100vh;\r\n}\r\n\r\n.contentBackground {\r\n    padding: 10px;\r\n    box-sizing: content-box;\r\n    width: 100%;\r\n    height: 10000px;\r\n}\r\n\r\n.newAndTrending {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.largeContentBox {\r\n    flex: 0;\r\n    height: 340px;\r\n    width: 566px;\r\n    min-width: 566px;\r\n}\r\n\r\n.announcementsContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.announcement {\r\n    height: 150px;\r\n    min-width: 620px;\r\n    padding: 0px 5px;\r\n    background-color: #0f0f0f;\r\n}\r\n\r\n/*MAP PAGE*/\r\n.mapSection {\r\n    display: flex;\r\n    flex-direction: row;\r\n    height: 100%;\r\n}\r\n\r\n.mapSideBar {\r\n    flex: 0 0 auto;\r\n    max-width: 610px;\r\n    max-height: calc(100vh - 100px);\r\n}\r\n\r\n.mapContainer {\r\n    min-height: 100px;\r\n    min-width: 100px;\r\n    flex: 1 0 auto;\r\n}\r\n\r\n.goToLocLabels {\r\n    background-color: #4A74A5;\r\n    min-width: 70px;\r\n    flex: 0;\r\n    text-align: center;\r\n    font-size: 14pt;\r\n    line-height: 50px;\r\n}\r\n\r\n.goToLocSearch {\r\n    background-color: #ffffff;\r\n    flex: 1 0 auto;\r\n    min-width: 100px;\r\n    border: 0px;\r\n}\r\n\r\n    .goToLocSearch:focus {\r\n        outline: none;\r\n        background-color: #D8D8D8;\r\n    }\r\n\r\n.goToLocButton {\r\n    background-color: #3FB39A;\r\n    flex: 0;\r\n    width: 100px;\r\n    min-width: 100px;\r\n    padding: 0px;\r\n    border: 0px;\r\n}\r\n\r\n.mapLocationInfo {\r\n    display: flex;\r\n    border-bottom: 1px solid;\r\n    border-bottom-color: #FFFFFF;\r\n    margin-top: 10px;\r\n    max-width: 590px;\r\n}\r\n\r\n    .mapLocationInfo:hover {\r\n        background-color: #4A74A5;\r\n    }\r\n\r\n.listTitle {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    margin: 5px 5px 0px 5px;\r\n    max-width: 480px;\r\n}\r\n\r\n.listDesc {\r\n    margin: 5px;\r\n    flex: 1;\r\n    display: -webkit-box;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-line-clamp: 3;\r\n    overflow: hidden;\r\n    max-width: 480px;\r\n}\r\n\r\n.scrollableList {\r\n    display: flex;\r\n    flex-direction: column;\r\n    overflow-y: scroll;\r\n    max-height: calc(100vh - 150px);\r\n}\r\n", ""]);
+exports.push([module.i, "/* Basics*/\r\nhtml, body {\r\n    height: 100%;\r\n    margin: 0;\r\n}\r\n\r\nh1 {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    height: 30px;\r\n}\r\n\r\nh2 {\r\n    font-size: 13pt;\r\n    font-weight: normal;\r\n}\r\n\r\n.fillerBox {\r\n    flex: 1;\r\n}\r\n\r\n.fillerBoxMinW {\r\n    min-width: 10px;\r\n}\r\n\r\n.fillerBoxMinH {\r\n    min-height: 10px;\r\n}\r\n\r\na:link {\r\n    color: #3FB39A;\r\n    text-decoration: underline;\r\n}\r\n\r\na:visited {\r\n    color: #9013FE;\r\n    text-decoration: underline;\r\n}\r\n\r\na:hover {\r\n    color: #ffffff;\r\n    text-decoration: underline;\r\n}\r\n\r\na:active {\r\n    color: #4A74A5;\r\n    text-decoration: underline;\r\n}\r\n\r\n::-webkit-scrollbar {\r\n    width: 10px;\r\n}\r\n\r\n    ::-webkit-scrollbar:vertical {\r\n        height: 100%;\r\n    }\r\n\r\n::-webkit-scrollbar-track {\r\n    background: #EEEEEE;\r\n    border-radius: 5px;\r\n}\r\n\r\n    ::-webkit-scrollbar-track:vertical {\r\n        height: calc(auto - 20px);\r\n    }\r\n\r\n::-webkit-scrollbar-thumb {\r\n    background: #787878;\r\n    border-radius: 5px;\r\n}\r\n\r\n.checkBox {\r\n    flex: 0;\r\n    min-width: 40px;\r\n    height: 40px;\r\n}\r\n\r\n.checkBoxLabel {\r\n    flex: 1 1 auto;\r\n    line-height: 46px;\r\n    padding-left: 10px;\r\n}\r\n\r\n/*Header*/\r\n.header {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    width: 100%;\r\n    height: 100px;\r\n    text-align: center;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0;\r\n    background: #142636;\r\n    z-index: 50;\r\n    align-self: flex-start;\r\n}\r\n\r\n    .header > .logo {\r\n        flex-basis: 0;\r\n        min-width: 230px;\r\n        line-height: 100px;\r\n        height: 100px;\r\n        width: 230px;\r\n        text-align: center;\r\n        align-items: center;\r\n        justify-content: center;\r\n    }\r\n\r\n.headerNavBar {\r\n    flex: 1;\r\n}\r\n\r\n.headerButton {\r\n    color: #D8D8D8;\r\n    min-width: 100px;\r\n    width: 100px;\r\n    height: 60px;\r\n    text-align: center;\r\n    line-height: 60px;\r\n    flex: 0;\r\n}\r\n\r\n.searchButton {\r\n    flex: 0;\r\n    min-width: 150px;\r\n    width: 150px;\r\n    height: 34px;\r\n    border-radius: 0px 10px 10px 0px;\r\n    border: 0px;\r\n    background: #4A74A5;\r\n}\r\n\r\n.searchBar {\r\n    flex: 1;\r\n    color: #ffffff;\r\n    font-family: Roboto;\r\n    height: 34px;\r\n    border-radius: 10px 0px 0px 10px;\r\n    border: 0px;\r\n    background: #787878;\r\n    padding-left: 20px;\r\n}\r\n\r\n    .searchBar:focus {\r\n        outline: none;\r\n    }\r\n\r\n    .searchBar::placeholder {\r\n        color: #ffffff;\r\n        font-family: Roboto;\r\n        font-weight: bold;\r\n    }\r\n\r\n/*Modal*/\r\n.modal {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    outline: 0;\r\n    z-index: 1000;\r\n    overflow-y: scroll;\r\n}\r\n\r\n.fade {\r\n    transition: opacity 0.01s linear;\r\n}\r\n\r\n    .fade:not(.show) {\r\n        opacity: 0;\r\n    }\r\n\r\n.modal-backdrop.show {\r\n    opacity: 1;\r\n}\r\n\r\n.modal-backdrop {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 990;\r\n    width: 100vw;\r\n    height: 100vh;\r\n    background-color: rgba(238, 238, 238, 0.3);\r\n    backdrop-filter: blur(5px);\r\n}\r\n\r\n.modal-content {\r\n    position: relative;\r\n    display: flex;\r\n    flex-direction: column;\r\n    width: 100%;\r\n    pointer-events: auto;\r\n    background-color: #142636;\r\n}\r\n\r\n.modal-dialog {\r\n    max-width: 650px;\r\n    margin: 1.75rem auto;\r\n}\r\n\r\n.modal-header {\r\n    padding: 16px;\r\n}\r\n\r\n.modal-title {\r\n    margin: 0px;\r\n    font-size: 12pt;\r\n}\r\n\r\n.modal-body {\r\n    padding: 5px 16px;\r\n}\r\n\r\n    .modal-body input {\r\n        width: 100%;\r\n        height: 40px;\r\n        background-color: #142636;\r\n        border: 1px #ffffff solid;\r\n        border-radius: 2px;\r\n        box-sizing: border-box;\r\n    }\r\n\r\n.modalButton {\r\n    color: #ffffff;\r\n    background-color: #4A74A5;\r\n    width: 100%;\r\n    height: 50px;\r\n    border: none;\r\n    border-radius: 5px;\r\n}\r\n\r\n.modal-footer {\r\n    padding: 16px;\r\n}\r\n\r\n.modalCenteredLink {\r\n    width: 100%;\r\n    padding-top: 10px;\r\n    text-align: center;\r\n}\r\n\r\n.horizontalLineText {\r\n    width: 100%;\r\n}\r\n\r\n    .horizontalLineText > p {\r\n        display: flex;\r\n        font-size: 10pt;\r\n    }\r\n\r\n        .horizontalLineText > p:before, .horizontalLineText > p:after {\r\n            content: '';\r\n            flex: 1 1;\r\n            border-bottom: 1px solid #ffffff;\r\n            margin: auto;\r\n        }\r\n\r\n        .horizontalLineText > p:before {\r\n            margin-right: 10px;\r\n        }\r\n\r\n        .horizontalLineText > p:after {\r\n            margin-left: 10px;\r\n        }\r\n\r\n/*Social*/\r\n.socialButton {\r\n    flex: 2 1 auto;\r\n    height: 45px;\r\n    min-width: 180px;\r\n    border: 1px solid #ffffff;\r\n    border-radius: 5px;\r\n    font-weight: bold;\r\n}\r\n\r\n.google {\r\n    background-color: #ffffff;\r\n    color: #000000;\r\n}\r\n\r\n.facebook {\r\n    background-color: #4267B2;\r\n    color: #ffffff;\r\n}\r\n\r\n.twitter {\r\n    background-color: #1DA1F2;\r\n    color: #ffffff;\r\n}\r\n\r\n/*Forms*/\r\n.inputLabel {\r\n    margin: 0;\r\n}\r\n\r\n/*HOME PAGE*/\r\n/*Tabs*/\r\n.tabHeader {\r\n    padding: 0px;\r\n    width: 25%;\r\n}\r\n\r\n.tabs {\r\n    height: 100px;\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    color: #000000;\r\n    padding: 0px;\r\n    box-sizing: border-box;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    top: 0px;\r\n    z-index: 100;\r\n}\r\n\r\n.rootPage {\r\n    display: flex;\r\n    flex-direction: column;\r\n    height: 100vh;\r\n}\r\n\r\n.home {\r\n    overflow-y: scroll;\r\n}\r\n\r\n.contentSection {\r\n    flex: 1 0 auto;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.contentBackground {\r\n    padding: 10px;\r\n    box-sizing: border-box;\r\n    width: 100%;\r\n    height: 10000px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    flex: 1 1 auto;\r\n}\r\n\r\n.smallContentBox {\r\n    flex: 1 1 auto;\r\n    width: 460px;\r\n    height: 300px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    margin: 0px;\r\n    padding: 5px;\r\n}\r\n\r\n.smallContentBoxBar {\r\n    background-color: #142636;\r\n    height: 50px;\r\n    flex: 0 0 auto;\r\n    padding: 5px;\r\n}\r\n\r\n.contentContainer {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    justify-content: center;\r\n}\r\n\r\n.buttonBar {\r\n    width: 100%;\r\n    height: 50px;\r\n}\r\n\r\n    .buttonBar > Button {\r\n        border: 3px solid #000000;\r\n        color: #000000;\r\n        background: border-box #ffffff;\r\n        width: 100px;\r\n        height: 40px;\r\n        border-radius: 2px;\r\n    }\r\n\r\n    .buttonBar > .gapRight {\r\n        margin-right: 20px;\r\n    }\r\n\r\n.newAndTrending {\r\n    display: flex;\r\n    flex-direction: column;\r\n    flex: 1 0 auto;\r\n}\r\n\r\n.newAndTrendingContainer {\r\n    display: flex;\r\n    flex: 0 0 auto;\r\n    justify-content: center;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n    .newAndTrendingContainer:first-child {\r\n        margin-left: 0px;\r\n    }\r\n\r\n    .newAndTrendingContainer:last-child {\r\n        margin-right: 0px;\r\n    }\r\n\r\n.largeContentBox {\r\n    flex: 1 1 auto;\r\n    height: 340px;\r\n    width: 566px;\r\n    min-width: 566px;\r\n    margin: 0px 5px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.announcementsContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n    flex: 1 1 auto;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.announcement {\r\n    height: 150px;\r\n    min-width: 620px;\r\n    padding: 0px 5px;\r\n    background-color: #0f0f0f;\r\n}\r\n\r\n/*MAP PAGE*/\r\n.mapSection {\r\n    display: flex;\r\n    flex-direction: row;\r\n    height: 100%;\r\n}\r\n\r\n.mapSideBar {\r\n    flex: 0 0 auto;\r\n    max-width: 610px;\r\n    max-height: calc(100vh - 100px);\r\n}\r\n\r\n.mapContainer {\r\n    min-height: 100px;\r\n    min-width: 100px;\r\n    flex: 1 0 auto;\r\n}\r\n\r\n.goToLocLabels {\r\n    background-color: #4A74A5;\r\n    min-width: 70px;\r\n    flex: 0;\r\n    text-align: center;\r\n    font-size: 14pt;\r\n    line-height: 50px;\r\n}\r\n\r\n.goToLocSearch {\r\n    background-color: #ffffff;\r\n    flex: 1 0 auto;\r\n    min-width: 100px;\r\n    border: 0px;\r\n}\r\n\r\n    .goToLocSearch:focus {\r\n        outline: none;\r\n        background-color: #D8D8D8;\r\n    }\r\n\r\n.goToLocButton {\r\n    background-color: #3FB39A;\r\n    flex: 0;\r\n    width: 100px;\r\n    min-width: 100px;\r\n    padding: 0px;\r\n    border: 0px;\r\n}\r\n\r\n.mapLocationInfo {\r\n    display: flex;\r\n    border-bottom: 1px solid;\r\n    border-bottom-color: #FFFFFF;\r\n    margin-top: 10px;\r\n    max-width: 590px;\r\n}\r\n\r\n    .mapLocationInfo:hover {\r\n        background-color: #4A74A5;\r\n    }\r\n\r\n.listTitle {\r\n    font-size: 15pt;\r\n    font-weight: normal;\r\n    margin: 5px 5px 0px 5px;\r\n    max-width: 480px;\r\n}\r\n\r\n.listDesc {\r\n    margin: 5px;\r\n    flex: 1;\r\n    display: -webkit-box;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-line-clamp: 3;\r\n    overflow: hidden;\r\n    max-width: 480px;\r\n}\r\n\r\n.scrollableList {\r\n    display: flex;\r\n    flex-direction: column;\r\n    overflow-y: scroll;\r\n    max-height: calc(100vh - 150px);\r\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 

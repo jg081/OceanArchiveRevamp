@@ -27,16 +27,10 @@ export default class NewAndTrending extends React.Component {
         return (
             <div className='newAndTrending'>
                 <h1 style={{ paddingLeft: '10px', flex: '0', minWidth: '200px' }}>New & Trending</h1>
-                <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex' }}>
-                        <div className='fillerBox fillerBoxMin' />
-                        <LargeContentBox bgColour={Constant.ACTIVISM} />
-                        <div className='fillerBox fillerBoxMin' />
-                        <LargeContentBox bgColour={Constant.SCITECH} />
-                        <div className='fillerBox fillerBoxMin' />
-                        <LargeContentBox bgColour={Constant.ART} />
-                        <div className='fillerBox fillerBoxMin' />
-                    </div>
+                <div className='newAndTrendingContainer'>
+                    <LargeContentBox bgColour={Constant.ACTIVISM} />
+                    <LargeContentBox bgColour={Constant.SCITECH} />
+                    <LargeContentBox bgColour={Constant.ART} />
                 </div>
             </div>
         );

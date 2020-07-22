@@ -18,12 +18,33 @@ document.body.style.padding = '0px';
 document.body.style.margin = '0px';
 
 export default class Home extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tabsHeight: '100px'
+        };
+    }
+
+    handleScroll = () => {
+        console.log(document.getElementById('contentSection').offsetTop + ' || ' + document.getElementById('home').scrollTop);
+        if (document.getElementById('contentSection').offsetTop - document.getElementById('home').scrollTop <= 0) {
+            this.setState({
+                tabsHeight: '50px'
+            });
+        } else {
+            this.setState({
+                tabsHeight: '100px'
+            });
+        }
+
+    }
+
     render() {
         return (
-            <div style={{ overflow: 'scroll' }}>
+            <div id='home' className='home' onScroll={this.handleScroll}>
                 <NewAndTrending />
                 <AnnouncementsContainer />
-                <ContentSection />
+                <ContentSection tabsHeight={this.state.tabsHeight} />
             </div>
         );
     }

@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require('react');
 var Constant = require("../constants");
+var reactstrap_1 = require("reactstrap");
 var tabState = 8;
 var TableHeader = /** @class */ (function (_super) {
     __extends(TableHeader, _super);
@@ -50,6 +51,19 @@ var TableHeader = /** @class */ (function (_super) {
         return (React.createElement("th", { className: "tabHeader", style: { background: this.state.bgColour }, onClick: this.props.stateUpdate }, this.state.title));
     };
     return TableHeader;
+}(React.Component));
+var SmallContentBox = /** @class */ (function (_super) {
+    __extends(SmallContentBox, _super);
+    function SmallContentBox(props) {
+        return _super.call(this, props) || this;
+    }
+    SmallContentBox.prototype.render = function () {
+        return (React.createElement("div", { className: 'smallContentBox', style: { background: this.props.img } },
+            React.createElement("div", { className: 'smallContentBoxBar' }, "HEADER"),
+            React.createElement("div", { className: 'fillerBox' }),
+            React.createElement("div", { className: 'smallContentBoxBar' }, "FOOTER")));
+    };
+    return SmallContentBox;
 }(React.Component));
 var ContentSection = /** @class */ (function (_super) {
     __extends(ContentSection, _super);
@@ -106,6 +120,9 @@ var ContentSection = /** @class */ (function (_super) {
                     bgContent: secColour
                 });
         }; };
+        _this.handleScroll = function () {
+            console.log("Scrolled");
+        };
         _this.Tabs = [
             React.createRef(),
             React.createRef(),
@@ -119,15 +136,30 @@ var ContentSection = /** @class */ (function (_super) {
         return _this;
     }
     ContentSection.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement("table", { className: "tabs" },
+        return (React.createElement("div", { id: 'contentSection', className: 'contentSection' },
+            React.createElement("table", { className: "tabs", style: { height: this.props.tabsHeight } },
                 React.createElement("tbody", null,
                     React.createElement("tr", null,
                         React.createElement(TableHeader, { ref: this.Tabs[0], title: "ALL", isActive: true, colourCode: Constant.SECONDARY_COLOUR, stateUpdate: this.updateBackground(0) }),
                         React.createElement(TableHeader, { ref: this.Tabs[1], title: "SCIENCE & TECHNOLOGY", isActive: false, colourCode: Constant.SCITECH, stateUpdate: this.updateBackground(1) }),
                         React.createElement(TableHeader, { ref: this.Tabs[2], title: "ART", isActive: false, colourCode: Constant.ART, stateUpdate: this.updateBackground(2) }),
                         React.createElement(TableHeader, { ref: this.Tabs[3], title: "ACTIVISM", isActive: false, colourCode: Constant.ACTIVISM, stateUpdate: this.updateBackground(3) })))),
-            React.createElement("div", { className: 'contentBackground', style: { background: this.state.bgContent } }, "Content Goes Here")));
+            React.createElement("div", { className: 'contentBackground', style: { background: this.state.bgContent } },
+                React.createElement(reactstrap_1.ButtonGroup, { className: 'buttonBar' },
+                    React.createElement(reactstrap_1.Button, { className: 'gapRight' }, "NEW"),
+                    React.createElement(reactstrap_1.Button, null, "TOP")),
+                React.createElement("div", { className: 'contentContainer' },
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null),
+                    React.createElement(SmallContentBox, null)))));
     };
     return ContentSection;
 }(React.Component));

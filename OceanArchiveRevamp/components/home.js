@@ -27,14 +27,31 @@ document.body.style.padding = '0px';
 document.body.style.margin = '0px';
 var Home = /** @class */ (function (_super) {
     __extends(Home, _super);
-    function Home() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Home(props) {
+        var _this = _super.call(this, props) || this;
+        _this.handleScroll = function () {
+            console.log(document.getElementById('contentSection').offsetTop + ' || ' + document.getElementById('home').scrollTop);
+            if (document.getElementById('contentSection').offsetTop - document.getElementById('home').scrollTop <= 50) {
+                _this.setState({
+                    tabsHeight: '50px'
+                });
+            }
+            else {
+                _this.setState({
+                    tabsHeight: '100px'
+                });
+            }
+        };
+        _this.state = {
+            tabsHeight: '100px'
+        };
+        return _this;
     }
     Home.prototype.render = function () {
-        return (React.createElement("div", { style: { overflow: 'scroll' } },
+        return (React.createElement("div", { id: 'home', className: 'home', onScroll: this.handleScroll },
             React.createElement(newAndTrending_1.default, null),
             React.createElement(announcementsContainer_1.default, null),
-            React.createElement(contentSection_1.default, null)));
+            React.createElement(contentSection_1.default, { tabsHeight: this.state.tabsHeight })));
     };
     return Home;
 }(React.Component));

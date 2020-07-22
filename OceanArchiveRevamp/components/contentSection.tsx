@@ -3,6 +3,7 @@
 var React = require('react');
 
 import * as Constant from '../constants';
+import { Button, ButtonGroup } from 'reactstrap';
 
 var tabState = 0b1000;
 
@@ -39,6 +40,26 @@ class TableHeader extends React.Component {
             <th className="tabHeader" style={{ background: this.state.bgColour }} onClick={this.props.stateUpdate} >
                 {this.state.title}
             </th>
+        );
+    }
+}
+
+class SmallContentBox extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className='smallContentBox' style={{ background: this.props.img }}>
+                <div className='smallContentBoxBar'>
+                    HEADER
+                </div>
+                <div className='fillerBox' />
+                <div className='smallContentBoxBar'>
+                    FOOTER
+                </div>
+            </div>
         );
     }
 }
@@ -111,11 +132,15 @@ export default class ContentSection extends React.Component {
                 bgContent: secColour
             });
     }
+    
+    handleScroll = () => {
+        console.log("Scrolled");
+    }
 
     render() {
         return (
-            <div>
-                <table className="tabs">
+            <div id='contentSection' className='contentSection'>
+                <table className="tabs" style={{ height: this.props.tabsHeight }}>
                     <tbody>
                         <tr>
                             <TableHeader ref={this.Tabs[0]} title="ALL" isActive={true} colourCode={Constant.SECONDARY_COLOUR} stateUpdate={this.updateBackground(0)} />
@@ -126,7 +151,23 @@ export default class ContentSection extends React.Component {
                     </tbody>
                 </table>
                 <div className='contentBackground' style={{ background: this.state.bgContent }}>
-                    Content Goes Here
+                    <ButtonGroup className='buttonBar'>
+                        <Button className='gapRight'>NEW</Button>
+                        <Button>TOP</Button>
+                    </ButtonGroup>
+                    <div className='contentContainer'>
+                        <SmallContentBox />
+                        <SmallContentBox />
+                        <SmallContentBox />
+                        <SmallContentBox />
+                        <SmallContentBox />
+                        <SmallContentBox />
+                        <SmallContentBox />
+                        <SmallContentBox />
+                        <SmallContentBox />
+                        <SmallContentBox />
+                        <SmallContentBox />
+                    </div>
                 </div>
             </div>
         );

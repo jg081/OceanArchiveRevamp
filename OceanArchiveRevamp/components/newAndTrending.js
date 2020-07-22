@@ -37,15 +37,10 @@ var NewAndTrending = /** @class */ (function (_super) {
     NewAndTrending.prototype.render = function () {
         return (React.createElement("div", { className: 'newAndTrending' },
             React.createElement("h1", { style: { paddingLeft: '10px', flex: '0', minWidth: '200px' } }, "New & Trending"),
-            React.createElement("div", { style: { flex: 1 } },
-                React.createElement("div", { style: { display: 'flex' } },
-                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
-                    React.createElement(LargeContentBox, { bgColour: Constant.ACTIVISM }),
-                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
-                    React.createElement(LargeContentBox, { bgColour: Constant.SCITECH }),
-                    React.createElement("div", { className: 'fillerBox fillerBoxMin' }),
-                    React.createElement(LargeContentBox, { bgColour: Constant.ART }),
-                    React.createElement("div", { className: 'fillerBox fillerBoxMin' })))));
+            React.createElement("div", { className: 'newAndTrendingContainer' },
+                React.createElement(LargeContentBox, { bgColour: Constant.ACTIVISM }),
+                React.createElement(LargeContentBox, { bgColour: Constant.SCITECH }),
+                React.createElement(LargeContentBox, { bgColour: Constant.ART }))));
     };
     return NewAndTrending;
 }(React.Component));
