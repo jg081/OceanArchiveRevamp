@@ -349,16 +349,49 @@ a:active {
     height: 300px;
     display: flex;
     flex-direction: column;
-    margin: 0px;
-    padding: 5px;
+    margin: 5px;
+    padding: 0px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #142636;
 }
 
 .smallContentBoxBar {
     background-color: #142636;
     height: 50px;
     flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
     padding: 5px;
 }
+
+    .smallContentBoxBar > .titleAndType {
+        flex: 1 1 auto;
+    }
+
+    .smallContentBoxBar > .year {
+        flex: 0 0 100px;
+        text-align: right;
+    }
+
+    .smallContentBoxBar > .icon {
+        flex: 0 0 50px;
+        margin-right: 5px;
+    }
+
+    .smallContentBoxBar > .collections_in_collection_icon {
+        flex: 0 0 50px;
+        margin-right: 5px;
+    }
+
+    .smallContentBoxBar > div > h1 {
+        margin: 0px;
+    }
+
+    .smallContentBoxBar > div > h2 {
+        margin: 0px;
+    }
 
 .contentContainer {
     display: flex;
@@ -412,7 +445,48 @@ a:active {
     min-width: 566px;
     margin: 0px 5px;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #000000
 }
+
+.largeContentBoxBar {
+    display: flex;
+    height: 50px;
+    padding: 5px;
+}
+
+    .largeContentBoxBar > .titleAndType > h1 {
+        margin: 0px;
+    }
+
+    .largeContentBoxBar > .titleAndType > h2 {
+        margin: 0px;
+    }
+
+    .largeContentBoxBar > .icon {
+        flex: 0 0 50px;
+        padding-right: 5px;
+    }
+
+    .largeContentBoxBar > .collections_in_collection_icon {
+        flex: 0 0 50px;
+        padding-right: 5px;
+    }
+
+    .largeContentBoxBar > .itemsAndCollectionsCount {
+        flex: 0 0 150px;
+        border-right: 1px solid #000000;
+    }
+
+    .largeContentBoxBar > .itemsAndCollectionsCount > h1 {
+        margin: 0px;
+        font-size: 12pt;
+        height: 20px;
+    }
 
 .announcementsContainer {
     display: flex;
@@ -487,6 +561,12 @@ a:active {
 
     .mapLocationInfo:hover {
         background-color: #4A74A5;
+    }
+
+    .mapLocationInfo > img {
+        height: 100px;
+        width: 100px;
+        flex: 0 0 100px;
     }
 
 .listTitle {

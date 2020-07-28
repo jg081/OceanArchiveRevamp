@@ -51,13 +51,65 @@ class SmallContentBox extends React.Component {
 
     render() {
         return (
-            <div className='smallContentBox' style={{ background: this.props.img }}>
+            <div className='smallContentBox' style={{ backgroundImage: "url(" + this.props.img + ")" }}>
                 <div className='smallContentBoxBar'>
-                    HEADER
+                    <div className='titleAndType'>
+                        <h1>{this.props.title}</h1>
+                        <h2>{this.props.type}</h2>
+                    </div>
+                    <div className='year'>
+                        <h2>{this.props.year}</h2>
+                    </div>
                 </div>
                 <div className='fillerBox' />
                 <div className='smallContentBoxBar'>
-                    FOOTER
+                    <svg
+                        className="collections_in_collection_icon"
+                        viewBox="-18 0 40 20"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlnsXlink="http://www.w3.org/1999/xlink"
+                    >
+                        <g stroke="none" strokeWidth="1" fill="#fff">
+                            <g id="Circle1">
+                                <circle cx="15.5" cy="15.5" r="3.5" />
+                            </g>
+                            <g id="Circle2">
+                                <circle cx="-8.5" cy="15.5" r="3.5" />
+                            </g>
+                            <g id="Circle3">
+                                <circle cx="3.5" cy="3.5" r="3.5" />
+                            </g>
+                            <g id="Circle4">
+                                <circle cx="3.5" cy="15.5" r="3.5" />
+                            </g>
+                            <g id="Line1">
+                                <rect x="3" y="3.5" width="1" height="12" />
+                            </g>
+                            <g id="Line2">
+                                <rect
+                                    x="3"
+                                    y="3.5"
+                                    width="1"
+                                    height="17"
+                                    transform="rotate(-45 3 3.5)"
+                                />
+                            </g>
+                            <g id="Line3">
+                                <rect
+                                    x="3"
+                                    y="3.5"
+                                    width="1"
+                                    height="17"
+                                    transform="rotate(45 3 3.5)"
+                                />
+                            </g>
+                        </g>
+                    </svg>
+                    <div>
+                        <h2>{this.props.numCollections} Collections</h2>
+                        <h2>{this.props.numItems} Items</h2>
+                    </div>
                 </div>
             </div>
         );
@@ -132,7 +184,7 @@ export default class ContentSection extends React.Component {
                 bgContent: secColour
             });
     }
-    
+
     handleScroll = () => {
         console.log("Scrolled");
     }
@@ -156,17 +208,17 @@ export default class ContentSection extends React.Component {
                         <Button>TOP</Button>
                     </ButtonGroup>
                     <div className='contentContainer'>
-                        <SmallContentBox />
-                        <SmallContentBox />
-                        <SmallContentBox />
-                        <SmallContentBox />
-                        <SmallContentBox />
-                        <SmallContentBox />
-                        <SmallContentBox />
-                        <SmallContentBox />
-                        <SmallContentBox />
-                        <SmallContentBox />
-                        <SmallContentBox />
+                        <SmallContentBox title='Fish in the Ocean' type='Research Paper' year='2019' numCollections='2' numItems='5' img="https://live.staticflickr.com/2736/4098744853_0c65ccb710_b.jpg" />
+                        <SmallContentBox title='Ocean Waves' type='Research Paper' year='2019' numCollections='5' numItems='1' img='https://live.staticflickr.com/7309/9787099472_f24d4766e5_b.jpg' />
+                        <SmallContentBox title='Sharks Electromagnetic Sense' type='Documentry' year='2019' numCollections='2' numItems='5' img='https://live.staticflickr.com/6018/5951373622_3146ed0aab_b.jpg' />
+                        <SmallContentBox title='Coral Research' type='Research Paper' year='2019' numCollections='2' numItems='5' img='https://live.staticflickr.com/1688/26104103086_766619aeb8_b.jpg' />
+                        <SmallContentBox title='Plastic Island' type='Gallery' year='2018' numCollections='1' numItems='10' img='https://live.staticflickr.com/3182/2785503884_8b0b76f781_b.jpg' />
+                        <SmallContentBox title='Sunset Shore' type='Painting' year='2018' numCollections='2' numItems='1' img='https://live.staticflickr.com/65535/49112821866_f88763e374_b.jpg' />
+                        <SmallContentBox title='Deep Ocean Mining' type='Series' year='2018' numCollections='1' numItems='5' img='https://live.staticflickr.com/6178/6207340169_32c7846a32_b.jpg' />
+                        <SmallContentBox title='Oil Pollution' type='Gallery' year='2018' numCollections='1' numItems='10' img='https://farm9.staticflickr.com/8746/17022954452_3c3fefafe0_b.jpg' />
+                        <SmallContentBox title='Deep Ocean Life' type='Research Paper' year='2017' numCollections='2' numItems='3' img='https://live.staticflickr.com/5463/8880188144_f2e22d06c1.jpg' />
+                        <SmallContentBox title='Whale Spotting' type='Gallery' year='2017' numCollections='1' numItems='6' img='https://live.staticflickr.com/32/49470279_74b8873c7c_b.jpg' />
+                        <SmallContentBox title='Octopus Learning Habits' type='Research Paper' year='2017' numCollections='2' numItems='1' img='https://live.staticflickr.com/3463/3306513983_f8269902ee_b.jpg' />
                     </div>
                 </div>
             </div>

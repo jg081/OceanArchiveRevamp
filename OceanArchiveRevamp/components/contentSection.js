@@ -58,10 +58,38 @@ var SmallContentBox = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     SmallContentBox.prototype.render = function () {
-        return (React.createElement("div", { className: 'smallContentBox', style: { background: this.props.img } },
-            React.createElement("div", { className: 'smallContentBoxBar' }, "HEADER"),
+        return (React.createElement("div", { className: 'smallContentBox', style: { backgroundImage: "url(" + this.props.img + ")" } },
+            React.createElement("div", { className: 'smallContentBoxBar' },
+                React.createElement("div", { className: 'titleAndType' },
+                    React.createElement("h1", null, this.props.title),
+                    React.createElement("h2", null, this.props.type)),
+                React.createElement("div", { className: 'year' },
+                    React.createElement("h2", null, this.props.year))),
             React.createElement("div", { className: 'fillerBox' }),
-            React.createElement("div", { className: 'smallContentBoxBar' }, "FOOTER")));
+            React.createElement("div", { className: 'smallContentBoxBar' },
+                React.createElement("svg", { className: "collections_in_collection_icon", viewBox: "-18 0 40 20", version: "1.1", xmlns: "http://www.w3.org/2000/svg", xmlnsXlink: "http://www.w3.org/1999/xlink" },
+                    React.createElement("g", { stroke: "none", strokeWidth: "1", fill: "#fff" },
+                        React.createElement("g", { id: "Circle1" },
+                            React.createElement("circle", { cx: "15.5", cy: "15.5", r: "3.5" })),
+                        React.createElement("g", { id: "Circle2" },
+                            React.createElement("circle", { cx: "-8.5", cy: "15.5", r: "3.5" })),
+                        React.createElement("g", { id: "Circle3" },
+                            React.createElement("circle", { cx: "3.5", cy: "3.5", r: "3.5" })),
+                        React.createElement("g", { id: "Circle4" },
+                            React.createElement("circle", { cx: "3.5", cy: "15.5", r: "3.5" })),
+                        React.createElement("g", { id: "Line1" },
+                            React.createElement("rect", { x: "3", y: "3.5", width: "1", height: "12" })),
+                        React.createElement("g", { id: "Line2" },
+                            React.createElement("rect", { x: "3", y: "3.5", width: "1", height: "17", transform: "rotate(-45 3 3.5)" })),
+                        React.createElement("g", { id: "Line3" },
+                            React.createElement("rect", { x: "3", y: "3.5", width: "1", height: "17", transform: "rotate(45 3 3.5)" })))),
+                React.createElement("div", null,
+                    React.createElement("h2", null,
+                        this.props.numCollections,
+                        " Collections"),
+                    React.createElement("h2", null,
+                        this.props.numItems,
+                        " Items")))));
     };
     return SmallContentBox;
 }(React.Component));
@@ -149,17 +177,17 @@ var ContentSection = /** @class */ (function (_super) {
                     React.createElement(reactstrap_1.Button, { className: 'gapRight' }, "NEW"),
                     React.createElement(reactstrap_1.Button, null, "TOP")),
                 React.createElement("div", { className: 'contentContainer' },
-                    React.createElement(SmallContentBox, null),
-                    React.createElement(SmallContentBox, null),
-                    React.createElement(SmallContentBox, null),
-                    React.createElement(SmallContentBox, null),
-                    React.createElement(SmallContentBox, null),
-                    React.createElement(SmallContentBox, null),
-                    React.createElement(SmallContentBox, null),
-                    React.createElement(SmallContentBox, null),
-                    React.createElement(SmallContentBox, null),
-                    React.createElement(SmallContentBox, null),
-                    React.createElement(SmallContentBox, null)))));
+                    React.createElement(SmallContentBox, { title: 'Fish in the Ocean', type: 'Research Paper', year: '2019', numCollections: '2', numItems: '5', img: "https://live.staticflickr.com/2736/4098744853_0c65ccb710_b.jpg" }),
+                    React.createElement(SmallContentBox, { title: 'Ocean Waves', type: 'Research Paper', year: '2019', numCollections: '5', numItems: '1', img: 'https://live.staticflickr.com/7309/9787099472_f24d4766e5_b.jpg' }),
+                    React.createElement(SmallContentBox, { title: 'Sharks Electromagnetic Sense', type: 'Documentry', year: '2019', numCollections: '2', numItems: '5', img: 'https://live.staticflickr.com/6018/5951373622_3146ed0aab_b.jpg' }),
+                    React.createElement(SmallContentBox, { title: 'Coral Research', type: 'Research Paper', year: '2019', numCollections: '2', numItems: '5', img: 'https://live.staticflickr.com/1688/26104103086_766619aeb8_b.jpg' }),
+                    React.createElement(SmallContentBox, { title: 'Plastic Island', type: 'Gallery', year: '2018', numCollections: '1', numItems: '10', img: 'https://live.staticflickr.com/3182/2785503884_8b0b76f781_b.jpg' }),
+                    React.createElement(SmallContentBox, { title: 'Sunset Shore', type: 'Painting', year: '2018', numCollections: '2', numItems: '1', img: 'https://live.staticflickr.com/65535/49112821866_f88763e374_b.jpg' }),
+                    React.createElement(SmallContentBox, { title: 'Deep Ocean Mining', type: 'Series', year: '2018', numCollections: '1', numItems: '5', img: 'https://live.staticflickr.com/6178/6207340169_32c7846a32_b.jpg' }),
+                    React.createElement(SmallContentBox, { title: 'Oil Pollution', type: 'Gallery', year: '2018', numCollections: '1', numItems: '10', img: 'https://farm9.staticflickr.com/8746/17022954452_3c3fefafe0_b.jpg' }),
+                    React.createElement(SmallContentBox, { title: 'Deep Ocean Life', type: 'Research Paper', year: '2017', numCollections: '2', numItems: '3', img: 'https://live.staticflickr.com/5463/8880188144_f2e22d06c1.jpg' }),
+                    React.createElement(SmallContentBox, { title: 'Whale Spotting', type: 'Gallery', year: '2017', numCollections: '1', numItems: '6', img: 'https://live.staticflickr.com/32/49470279_74b8873c7c_b.jpg' }),
+                    React.createElement(SmallContentBox, { title: 'Octopus Learning Habits', type: 'Research Paper', year: '2017', numCollections: '2', numItems: '1', img: 'https://live.staticflickr.com/3463/3306513983_f8269902ee_b.jpg' })))));
     };
     return ContentSection;
 }(React.Component));

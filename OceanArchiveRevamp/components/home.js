@@ -31,7 +31,7 @@ var Home = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.handleScroll = function () {
             console.log(document.getElementById('contentSection').offsetTop + ' || ' + document.getElementById('home').scrollTop);
-            if (document.getElementById('contentSection').offsetTop - document.getElementById('home').scrollTop <= 50) {
+            if (document.getElementById('contentSection').offsetTop - document.getElementById('home').scrollTop <= 0) {
                 _this.setState({
                     tabsHeight: '50px'
                 });
