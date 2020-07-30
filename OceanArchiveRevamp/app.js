@@ -17,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //node_modules\.bin\webpack app.tsx --config webpack-config.js
 require("./styles/styles.css");
 require("./styles/carousel.css");
+require("./styles/dropdown.css");
 var React = require('react');
 var ReactDOM = require('react-dom');
 var react_router_dom_1 = require("react-router-dom");

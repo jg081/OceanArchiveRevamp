@@ -53,6 +53,9 @@
     <Content Include="styles\carousel.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="styles\dropdown.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="styles\styles.css">
       <SubType>Code</SubType>
     </Content>

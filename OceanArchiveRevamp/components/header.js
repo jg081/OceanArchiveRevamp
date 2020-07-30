@@ -56,10 +56,10 @@ var LoginModal = /** @class */ (function (_super) {
                 React.createElement(reactstrap_1.ModalBody, null,
                     React.createElement("form", null,
                         React.createElement("p", { className: 'inputLabel' }, "EMAIL"),
-                        React.createElement("input", { type: 'text', id: 'email', name: 'email' }),
+                        React.createElement("input", { className: 'whiteText', type: 'text', id: 'email', name: 'email' }),
                         React.createElement("div", { style: { height: '20px' } }),
                         React.createElement("p", { className: 'inputLabel' }, "PASSWORD"),
-                        React.createElement("input", { type: 'password', id: 'passwrd', name: 'password' }))),
+                        React.createElement("input", { className: 'whiteText', type: 'password', id: 'passwrd', name: 'password' }))),
                 React.createElement(reactstrap_1.ModalFooter, null,
                     React.createElement(reactstrap_1.Button, { className: 'modalButton', onClick: this.props.loginFunc }, "LOGIN"),
                     React.createElement("div", { className: 'modalCenteredLink' },
@@ -141,10 +141,22 @@ var SignUpModal = /** @class */ (function (_super) {
 var Contribute = /** @class */ (function (_super) {
     __extends(Contribute, _super);
     function Contribute(props) {
-        return _super.call(this, props) || this;
+        var _this = _super.call(this, props) || this;
+        _this.toggle = function () { return _this.setState({
+            isOpen: !_this.state.isOpen
+        }); };
+        _this.state = {
+            isOpen: false
+        };
+        return _this;
     }
     Contribute.prototype.render = function () {
-        return (React.createElement(HeaderButton, { name: 'CONTRIBUTE' }));
+        return (React.createElement(reactstrap_1.ButtonDropdown, { className: 'headerButton', style: { minWidth: '130px' }, isOpen: this.state.isOpen, toggle: this.toggle, direction: 'down' },
+            React.createElement(reactstrap_1.DropdownToggle, { caret: true }, "CONTRIBUTE"),
+            React.createElement(reactstrap_1.DropdownMenu, null,
+                React.createElement(reactstrap_1.DropdownItem, null, "ITEM"),
+                React.createElement(reactstrap_1.DropdownItem, null, "COLLECTION"),
+                React.createElement(reactstrap_1.DropdownItem, null, "ANNOUNCEMENT"))));
     };
     return Contribute;
 }(React.Component));

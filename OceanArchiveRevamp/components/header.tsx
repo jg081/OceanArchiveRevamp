@@ -3,7 +3,7 @@
 var React = require('react');
 
 import { NavLink } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 import * as Constant from '../constants';
 
@@ -153,11 +153,27 @@ class SignUpModal extends React.Component {
 class Contribute extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isOpen: false
+        };
     }
+
+    toggle = () => this.setState({
+        isOpen: !this.state.isOpen
+    });
 
     render() {
         return (
-            <HeaderButton name='CONTRIBUTE'/>
+            <ButtonDropdown className='headerButton' style={{minWidth: '130px'}} isOpen={this.state.isOpen} toggle={this.toggle} direction='down'>
+                <DropdownToggle caret>
+                    CONTRIBUTE
+                </DropdownToggle>
+                <DropdownMenu>
+                    <DropdownItem>ITEM</DropdownItem>
+                    <DropdownItem>COLLECTION</DropdownItem>
+                    <DropdownItem>ANNOUNCEMENT</DropdownItem>
+                </DropdownMenu>
+            </ButtonDropdown>
         );
     }
 }

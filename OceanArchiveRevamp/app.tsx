@@ -2,6 +2,7 @@
 //node_modules\.bin\webpack app.tsx --config webpack-config.js
 import "./styles/styles.css";
 import "./styles/carousel.css";
+import "./styles/dropdown.css";
 
 declare var require: any
 
