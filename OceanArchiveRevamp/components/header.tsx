@@ -54,14 +54,14 @@ class LoginModal extends React.Component {
                     <ModalBody>
                         <form>
                             <p className='inputLabel'>EMAIL</p>
-                            <input type='text' id='email' name='email' />
+                            <input className='whiteText' type='text' id='email' name='email' />
                             <div style={{ height: '20px' }} />
                             <p className='inputLabel'>PASSWORD</p>
-                            <input type='password' id='passwrd' name='password' />
+                            <input className='whiteText' type='password' id='passwrd' name='password' />
                         </form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button className='modalButton' onClick={this.toggle}>LOGIN</Button>
+                        <Button className='modalButton' onClick={this.props.loginFunc}>LOGIN</Button>
                         <div className='modalCenteredLink'>
                             <a href='https://www.google.com'>Forgot password?</a>
                         </div>
@@ -112,19 +112,19 @@ class SignUpModal extends React.Component {
                         </div>
                         <form>
                             <p className='inputLabel'>FIRST NAME</p>
-                            <input type='text' id='fName' name='firstName' />
+                            <input className='whiteText' type='text' id='fName' name='firstName' />
                             <div style={{ height: '20px' }} />
                             <p className='inputLabel'>LAST NAME</p>
-                            <input type='text' id='lName' name='lastName' />
+                            <input className='whiteText' type='text' id='lName' name='lastName' />
                             <div style={{ height: '20px' }} />
                             <p className='inputLabel'>USERNAME</p>
-                            <input type='text' id='uName' name='userName' />
+                            <input className='whiteText' type='text' id='uName' name='userName' />
                             <div style={{ height: '20px' }} />
                             <p className='inputLabel'>EMAIL</p>
-                            <input type='text' id='email' name='email' />
+                            <input className='whiteText' type='text' id='email' name='email' />
                             <div style={{ height: '20px' }} />
                             <p className='inputLabel'>PASSWORD</p>
-                            <input type='password' id='passwrd' name='password' />
+                            <input className='whiteText' type='password' id='passwrd' name='password' />
                             <div style={{ height: '20px' }} />
                             <div style={{ display: 'flex' }}>
                                 <input className='checkBox' type='checkbox' id='termsAndConditions' name='termsAndConditions' value='TAC' />
@@ -150,6 +150,30 @@ class SignUpModal extends React.Component {
     }
 }
 
+class Contribute extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <HeaderButton name='CONTRIBUTE'/>
+        );
+    }
+}
+
+class Logout extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <HeaderButton name='LOGOUT' onClick={this.props.logoutFunc} />
+        );
+    }
+}
+
 class SeachBar extends React.Component {
     constructor(props) {
         super(props);
@@ -166,6 +190,21 @@ class SeachBar extends React.Component {
 }
 
 export default class Header extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loggedIn: false
+        };
+    }
+
+    login = () => this.setState({
+        loggedIn: true
+    });
+
+    logout = () => this.setState({
+        loggedIn: false
+    });
+
     render() {
         return (
             <div className="header">
@@ -183,8 +222,8 @@ export default class Header extends React.Component {
                                 <HeaderButton name='TERMS' />
                                 <HeaderButton name='PRIVACY' />
                                 <div className='fillerBox' />
-                                <LoginModal />
-                                <SignUpModal />
+                                {this.state.loggedIn ? <Contribute /> : <LoginModal loginFunc={this.login} />}
+                                {this.state.loggedIn ? <Logout logoutFunc={this.logout} /> : <SignUpModal />}
                             </div>
                         </div>
                         <div style={{ flex: '1' }}>

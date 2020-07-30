@@ -61,7 +61,7 @@ var LoginModal = /** @class */ (function (_super) {
                         React.createElement("p", { className: 'inputLabel' }, "PASSWORD"),
                         React.createElement("input", { type: 'password', id: 'passwrd', name: 'password' }))),
                 React.createElement(reactstrap_1.ModalFooter, null,
-                    React.createElement(reactstrap_1.Button, { className: 'modalButton', onClick: this.toggle }, "LOGIN"),
+                    React.createElement(reactstrap_1.Button, { className: 'modalButton', onClick: this.props.loginFunc }, "LOGIN"),
                     React.createElement("div", { className: 'modalCenteredLink' },
                         React.createElement("a", { href: 'https://www.google.com' }, "Forgot password?"))))));
     };
@@ -102,19 +102,19 @@ var SignUpModal = /** @class */ (function (_super) {
                         React.createElement("p", { style: { fontSize: '10pt' } }, "or")),
                     React.createElement("form", null,
                         React.createElement("p", { className: 'inputLabel' }, "FIRST NAME"),
-                        React.createElement("input", { type: 'text', id: 'fName', name: 'firstName' }),
+                        React.createElement("input", { className: 'whiteText', type: 'text', id: 'fName', name: 'firstName' }),
                         React.createElement("div", { style: { height: '20px' } }),
                         React.createElement("p", { className: 'inputLabel' }, "LAST NAME"),
-                        React.createElement("input", { type: 'text', id: 'lName', name: 'lastName' }),
+                        React.createElement("input", { className: 'whiteText', type: 'text', id: 'lName', name: 'lastName' }),
                         React.createElement("div", { style: { height: '20px' } }),
                         React.createElement("p", { className: 'inputLabel' }, "USERNAME"),
-                        React.createElement("input", { type: 'text', id: 'uName', name: 'userName' }),
+                        React.createElement("input", { className: 'whiteText', type: 'text', id: 'uName', name: 'userName' }),
                         React.createElement("div", { style: { height: '20px' } }),
                         React.createElement("p", { className: 'inputLabel' }, "EMAIL"),
-                        React.createElement("input", { type: 'text', id: 'email', name: 'email' }),
+                        React.createElement("input", { className: 'whiteText', type: 'text', id: 'email', name: 'email' }),
                         React.createElement("div", { style: { height: '20px' } }),
                         React.createElement("p", { className: 'inputLabel' }, "PASSWORD"),
-                        React.createElement("input", { type: 'password', id: 'passwrd', name: 'password' }),
+                        React.createElement("input", { className: 'whiteText', type: 'password', id: 'passwrd', name: 'password' }),
                         React.createElement("div", { style: { height: '20px' } }),
                         React.createElement("div", { style: { display: 'flex' } },
                             React.createElement("input", { className: 'checkBox', type: 'checkbox', id: 'termsAndConditions', name: 'termsAndConditions', value: 'TAC' }),
@@ -138,6 +138,26 @@ var SignUpModal = /** @class */ (function (_super) {
     };
     return SignUpModal;
 }(React.Component));
+var Contribute = /** @class */ (function (_super) {
+    __extends(Contribute, _super);
+    function Contribute(props) {
+        return _super.call(this, props) || this;
+    }
+    Contribute.prototype.render = function () {
+        return (React.createElement(HeaderButton, { name: 'CONTRIBUTE' }));
+    };
+    return Contribute;
+}(React.Component));
+var Logout = /** @class */ (function (_super) {
+    __extends(Logout, _super);
+    function Logout(props) {
+        return _super.call(this, props) || this;
+    }
+    Logout.prototype.render = function () {
+        return (React.createElement(HeaderButton, { name: 'LOGOUT', onClick: this.props.logoutFunc }));
+    };
+    return Logout;
+}(React.Component));
 var SeachBar = /** @class */ (function (_super) {
     __extends(SeachBar, _super);
     function SeachBar(props) {
@@ -152,8 +172,18 @@ var SeachBar = /** @class */ (function (_super) {
 }(React.Component));
 var Header = /** @class */ (function (_super) {
     __extends(Header, _super);
-    function Header() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Header(props) {
+        var _this = _super.call(this, props) || this;
+        _this.login = function () { return _this.setState({
+            loggedIn: true
+        }); };
+        _this.logout = function () { return _this.setState({
+            loggedIn: false
+        }); };
+        _this.state = {
+            loggedIn: false
+        };
+        return _this;
     }
     Header.prototype.render = function () {
         return (React.createElement("div", { className: "header" },
@@ -169,8 +199,8 @@ var Header = /** @class */ (function (_super) {
                             React.createElement(HeaderButton, { name: 'TERMS' }),
                             React.createElement(HeaderButton, { name: 'PRIVACY' }),
                             React.createElement("div", { className: 'fillerBox' }),
-                            React.createElement(LoginModal, null),
-                            React.createElement(SignUpModal, null))),
+                            this.state.loggedIn ? React.createElement(Contribute, null) : React.createElement(LoginModal, { loginFunc: this.login }),
+                            this.state.loggedIn ? React.createElement(Logout, { logoutFunc: this.logout }) : React.createElement(SignUpModal, null))),
                     React.createElement("div", { style: { flex: '1' } },
                         React.createElement(SeachBar, null)))),
             React.createElement(Logo, { name: 'ARCHIVE' })));

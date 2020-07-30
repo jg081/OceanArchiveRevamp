@@ -69,7 +69,7 @@ export default class Map extends React.Component {
                         </div>
                     </div>
                     <div className='mapContainer'>
-                        <GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }} defaultZoom={10} defaultCenter={{ lat: 33.8688, lng: 151.2093 }} />
+                        <GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }} defaultZoom={10} defaultCenter={{ lat: -33.8688, lng: 151.2093 }} />
                     </div>
                 </div>
             </div>

@@ -81,6 +81,10 @@ a:active {
     padding-left: 10px;
 }
 
+.whiteText {
+    color: #ffffff;
+}
+
 /*Header*/
 .header {
     display: flex;
