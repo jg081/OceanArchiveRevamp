@@ -21,19 +21,22 @@ export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tabsHeight: '100px'
+            tabsHeight: '100px',
+            tabsCollapsed: false
         };
     }
 
     handleScroll = () => {
         console.log(document.getElementById('contentSection').offsetTop + ' || ' + document.getElementById('home').scrollTop);
-        if (document.getElementById('contentSection').offsetTop - document.getElementById('home').scrollTop <= 0) {
+        if (document.getElementById('contentSection').offsetTop - document.getElementById('home').scrollTop < 0 && !this.state.tabsCollapsed) {
             this.setState({
-                tabsHeight: '50px'
+                tabsHeight: '50px',
+                tabsCollapsed: true
             });
-        } else {
+        } else if (document.getElementById('contentSection').offsetTop - document.getElementById('home').scrollTop > 50 && this.state.tabsCollapsed) {
             this.setState({
-                tabsHeight: '100px'
+                tabsHeight: '100px',
+                tabsCollapsed: false
             });
         }
 

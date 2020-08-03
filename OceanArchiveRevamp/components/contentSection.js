@@ -165,7 +165,7 @@ var ContentSection = /** @class */ (function (_super) {
     }
     ContentSection.prototype.render = function () {
         return (React.createElement("div", { id: 'contentSection', className: 'contentSection' },
-            React.createElement("table", { className: "tabs", style: { height: this.props.tabsHeight } },
+            React.createElement("table", { id: 'tabs', className: "tabs", style: { maxHeight: this.props.tabsHeight } },
                 React.createElement("tbody", null,
                     React.createElement("tr", null,
                         React.createElement(TableHeader, { ref: this.Tabs[0], title: "ALL", isActive: true, colourCode: Constant.SECONDARY_COLOUR, stateUpdate: this.updateBackground(0) }),

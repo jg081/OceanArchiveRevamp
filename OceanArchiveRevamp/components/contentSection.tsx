@@ -192,7 +192,7 @@ export default class ContentSection extends React.Component {
     render() {
         return (
             <div id='contentSection' className='contentSection'>
-                <table className="tabs" style={{ height: this.props.tabsHeight }}>
+                <table id='tabs' className="tabs" style={{ maxHeight: this.props.tabsHeight }}>
                     <tbody>
                         <tr>
                             <TableHeader ref={this.Tabs[0]} title="ALL" isActive={true} colourCode={Constant.SECONDARY_COLOUR} stateUpdate={this.updateBackground(0)} />
