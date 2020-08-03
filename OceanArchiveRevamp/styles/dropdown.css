@@ -274,3 +274,32 @@
         .btn-group-vertical > .btn.active {
             z-index: 1;
         }
+
+.altDropdown {
+    background-color: #3FB39A;
+    width: 150px;
+    height: inherit;
+    font-weight: bold;
+    flex: 0 0 inherit;
+    border-radius: inherit;
+    color: #000000;
+}
+
+.altDropdownMenu {
+    background-color: #3FB39A;
+    font-size: 12pt;
+    width: 150px;
+    color: #000000;
+    min-width: 150px;
+}
+
+.altDropdownMenu > .dropdown-item {
+    color: #000000;
+    font-size: 12pt;
+    font-family: Roboto;
+}
+
+    .altDropdownMenu > .dropdown-item:hover {
+        background-color: #A6FFEC;
+        color: #000000;
+    }

@@ -154,11 +154,34 @@ var Contribute = /** @class */ (function (_super) {
         return (React.createElement(reactstrap_1.ButtonDropdown, { className: 'headerButton', style: { minWidth: '130px' }, isOpen: this.state.isOpen, toggle: this.toggle, direction: 'down' },
             React.createElement(reactstrap_1.DropdownToggle, { caret: true }, "CONTRIBUTE"),
             React.createElement(reactstrap_1.DropdownMenu, null,
-                React.createElement(reactstrap_1.DropdownItem, null, "ITEM"),
+                React.createElement(react_router_dom_1.NavLink, { to: "/myItems" },
+                    React.createElement(reactstrap_1.DropdownItem, null, "ITEM")),
                 React.createElement(reactstrap_1.DropdownItem, null, "COLLECTION"),
                 React.createElement(reactstrap_1.DropdownItem, null, "ANNOUNCEMENT"))));
     };
     return Contribute;
+}(React.Component));
+var Admin = /** @class */ (function (_super) {
+    __extends(Admin, _super);
+    function Admin(props) {
+        var _this = _super.call(this, props) || this;
+        _this.toggle = function () { return _this.setState({
+            isOpen: !_this.state.isOpen
+        }); };
+        _this.state = {
+            isOpen: false
+        };
+        return _this;
+    }
+    Admin.prototype.render = function () {
+        return (React.createElement(reactstrap_1.ButtonDropdown, { className: 'headerButton', isOpen: this.state.isOpen, toggle: this.toggle, direction: 'down' },
+            React.createElement(reactstrap_1.DropdownToggle, { caret: true }, "ADMIN"),
+            React.createElement(reactstrap_1.DropdownMenu, null,
+                React.createElement(reactstrap_1.DropdownItem, null, "ITEM"),
+                React.createElement(reactstrap_1.DropdownItem, null, "COLLECTION"),
+                React.createElement(reactstrap_1.DropdownItem, null, "ANNOUNCEMENT"))));
+    };
+    return Admin;
 }(React.Component));
 var Logout = /** @class */ (function (_super) {
     __extends(Logout, _super);
@@ -178,7 +201,7 @@ var SeachBar = /** @class */ (function (_super) {
     SeachBar.prototype.render = function () {
         return (React.createElement("form", { method: "post", style: { display: 'flex' } },
             React.createElement("input", { type: "search", className: "searchBar", placeholder: "Search..." }),
-            React.createElement("input", { type: "submit", className: 'searchButton' })));
+            React.createElement("input", { type: "submit", className: 'searchButton', value: 'Search' })));
     };
     return SeachBar;
 }(React.Component));
@@ -211,7 +234,9 @@ var Header = /** @class */ (function (_super) {
                             React.createElement(HeaderButton, { name: 'TERMS' }),
                             React.createElement(HeaderButton, { name: 'PRIVACY' }),
                             React.createElement("div", { className: 'fillerBox' }),
-                            this.state.loggedIn ? React.createElement(Contribute, null) : React.createElement(LoginModal, { loginFunc: this.login }),
+                            this.state.loggedIn ? React.createElement(Admin, null) : React.createElement("div", null),
+                            this.state.loggedIn ? React.createElement(Contribute, null) : React.createElement("div", null),
+                            this.state.loggedIn ? React.createElement(HeaderButton, { name: 'PROFILE' }) : React.createElement(LoginModal, { loginFunc: this.login }),
                             this.state.loggedIn ? React.createElement(Logout, { logoutFunc: this.logout }) : React.createElement(SignUpModal, null))),
                     React.createElement("div", { style: { flex: '1' } },
                         React.createElement(SeachBar, null)))),

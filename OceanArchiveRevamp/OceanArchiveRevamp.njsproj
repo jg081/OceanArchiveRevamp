@@ -82,6 +82,9 @@
     <TypeScriptCompile Include="components\map.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="components\myItems.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="components\newAndTrending.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>

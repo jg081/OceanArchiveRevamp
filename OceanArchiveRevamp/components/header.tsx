@@ -164,9 +164,39 @@ class Contribute extends React.Component {
 
     render() {
         return (
-            <ButtonDropdown className='headerButton' style={{minWidth: '130px'}} isOpen={this.state.isOpen} toggle={this.toggle} direction='down'>
+            <ButtonDropdown className='headerButton' style={{ minWidth: '130px' }} isOpen={this.state.isOpen} toggle={this.toggle} direction='down'>
                 <DropdownToggle caret>
                     CONTRIBUTE
+                </DropdownToggle>
+                <DropdownMenu>
+                    <NavLink to="/myItems">
+                        <DropdownItem>ITEM</DropdownItem>
+                    </NavLink>
+                    <DropdownItem>COLLECTION</DropdownItem>
+                    <DropdownItem>ANNOUNCEMENT</DropdownItem>
+                </DropdownMenu>
+            </ButtonDropdown>
+        );
+    }
+}
+
+class Admin extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: false
+        };
+    }
+
+    toggle = () => this.setState({
+        isOpen: !this.state.isOpen
+    });
+
+    render() {
+        return (
+            <ButtonDropdown className='headerButton' isOpen={this.state.isOpen} toggle={this.toggle} direction='down'>
+                <DropdownToggle caret>
+                    ADMIN
                 </DropdownToggle>
                 <DropdownMenu>
                     <DropdownItem>ITEM</DropdownItem>
@@ -199,7 +229,7 @@ class SeachBar extends React.Component {
         return (
             <form method="post" style={{ display: 'flex' }}>
                 <input type="search" className="searchBar" placeholder="Search..." />
-                <input type="submit" className='searchButton' />
+                <input type="submit" className='searchButton' value='Search' />
             </form>
         );
     }
@@ -238,7 +268,9 @@ export default class Header extends React.Component {
                                 <HeaderButton name='TERMS' />
                                 <HeaderButton name='PRIVACY' />
                                 <div className='fillerBox' />
-                                {this.state.loggedIn ? <Contribute /> : <LoginModal loginFunc={this.login} />}
+                                {this.state.loggedIn ? <Admin /> : <div />}
+                                {this.state.loggedIn ? <Contribute /> : <div />}
+                                {this.state.loggedIn ? <HeaderButton name='PROFILE' /> : <LoginModal loginFunc={this.login} />}
                                 {this.state.loggedIn ? <Logout logoutFunc={this.logout} /> : <SignUpModal />}
                             </div>
                         </div>

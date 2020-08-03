@@ -14,6 +14,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Header from './components/header';
 import Home from './components/home';
 import Map from './components/map';
+import MyItems from './components/myItems';
 
 import * as Constant from './constants';
 
@@ -31,6 +32,7 @@ class Homepage extends React.Component {
                 <Switch>
                     <Route path="/" component={Home} exact />
                     <Route path="/map" component={Map} />
+                    <Route path="/myItems" component={MyItems} />
                 </Switch>
             </div>
         );
