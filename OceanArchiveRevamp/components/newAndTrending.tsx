@@ -3,6 +3,7 @@
 var React = require('react');
 
 import * as Constant from '../constants';
+import { NavLink } from 'react-router-dom';
 
 class LargeContentBox extends React.Component {
     constructor(props) {
@@ -82,7 +83,9 @@ export default class NewAndTrending extends React.Component {
             <div className='newAndTrending'>
                 <h1 style={{ paddingLeft: '10px', flex: '0', minWidth: '200px' }}>New & Trending</h1>
                 <div className='newAndTrendingContainer'>
-                    <LargeContentBox bgColour={Constant.ACTIVISM} title='Pacific Ocean Garbage Patch' type='Other' numCollections='2' numItems='1' img='https://live.staticflickr.com/2490/4214811049_1264c95738_b.jpg'/>
+                    <NavLink to='/itemPage'>
+                        <LargeContentBox bgColour={Constant.ACTIVISM} title='Pacific Ocean Garbage Patch' type='Other' numCollections='2' numItems='1' img='https://live.staticflickr.com/2490/4214811049_1264c95738_b.jpg' />
+                    </NavLink>
                     <LargeContentBox bgColour={Constant.SCITECH} title='The Various Shark Species' type='Research Paper' numCollections='3' numItems='2' img='https://live.staticflickr.com/194/463483080_828f04aba3_b.jpg' />
                     <LargeContentBox bgColour={Constant.ART} title='Under The Ocean: Life with Turtles' type='Video' numCollections='1' numItems='4' img='https://live.staticflickr.com/2534/32899940111_6d3f8956d7_b.jpg' />
                 </div>

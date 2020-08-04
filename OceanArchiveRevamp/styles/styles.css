@@ -489,11 +489,11 @@ a:active {
         border-right: 1px solid #000000;
     }
 
-    .largeContentBoxBar > .itemsAndCollectionsCount > h1 {
-        margin: 0px;
-        font-size: 12pt;
-        height: 20px;
-    }
+        .largeContentBoxBar > .itemsAndCollectionsCount > h1 {
+            margin: 0px;
+            font-size: 12pt;
+            height: 20px;
+        }
 
 .announcementsContainer {
     display: flex;
@@ -615,7 +615,7 @@ a:active {
     height: 60px;
     margin-bottom: 10px;
     width: 100%;
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
 
 .altSearchBar {
@@ -684,12 +684,12 @@ a:active {
     height: 50px;
 }
 
-.listItemContainer > div {
-    padding: 10px;
-    border: 1px solid #ffffff;
-    border-collapse: collapse;
-    line-height: 25px;
-}
+    .listItemContainer > div {
+        padding: 10px;
+        border: 1px solid #ffffff;
+        border-collapse: collapse;
+        line-height: 25px;
+    }
 
 .listFixedWidth {
     flex: 0 0 100px;
@@ -697,4 +697,137 @@ a:active {
 
 .listVariableWidth {
     flex: 1 1 0px;
+}
+
+/*ITEM AND COLLECTION PAGE*/
+.itemCollectionPage {
+}
+
+.breadcrumbsContainer {
+    height: 30px;
+    font-size: 10pt;
+    color: #787878;
+    line-height: 30px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+    .breadcrumbsContainer > .lastCrumb {
+        color: #ffffff;
+        text-decoration: underline #ffffff;
+    }
+
+.itemCollectionContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 1300px;
+    border-right: 2px solid #787878;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    min-width: 850px;
+    max-height: calc(100vh - 130px);
+}
+
+    .itemCollectionContainer > .title {
+        height: 50px;
+        font-size: 12pt;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+.thumbnailAndInfoContainer {
+    display: flex;
+    flex: 1 0 auto;
+    flex-wrap: wrap;
+}
+
+.thumbnail {
+    width: 500px;
+    min-width: 500px;
+    height: 280px;
+    min-height: 280px;
+    flex: 1 1 auto;
+}
+
+.infoContainer {
+    display: flex;
+    flex: 1 1 0px;
+    width: 100%;
+    min-height: 230px;
+    min-width: 850px;
+    box-sizing: border-box;
+}
+
+.info {
+    flex: 1 1 0px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+    .info.left {
+        border-right: 1px solid #787878;
+    }
+
+.tagsBox {
+    max-height: 50px;
+    min-height: 50px;
+    border: 1px solid #787878;
+    border-left: 0px;
+    border-right: 0px;
+    flex: 1 1 0px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.description {
+    height: 150px;
+    max-height: 150px;
+    min-height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.itemsAndSubcollContainer {
+}
+
+.contentContainer > .content {
+    width: 420px;
+    height: 300px;
+    background-color: #787878;
+    margin: 5px;
+}
+
+.itemsAndSubcollContainer > .contentBackground {
+    background-color: #4A74A5;
+}
+
+.itemTabs {
+    display: flex;
+    border-top: 1px solid #787878;
+}
+
+    .itemTabs > div {
+        flex: 1 1 0px;
+        min-height: 40px;
+        max-height: 40px;
+        text-align: center;
+        line-height: 40px;
+    }
+
+.recommendationsContainer {
+    flex: 0 2 540px;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+    .recommendationsContainer > .title {
+        padding: 10px;
+        box-sizing: border-box;
+        height: 50px;
+        font-size: 12pt;
+    }
+
+.recommendationsList {
+    overflow-y: scroll;
 }

@@ -25,6 +25,7 @@ var header_1 = require("./components/header");
 var home_1 = require("./components/home");
 var map_1 = require("./components/map");
 var myItems_1 = require("./components/myItems");
+var itemCollectionPage_1 = require("./components/itemCollectionPage");
 var Constant = require("./constants");
 document.body.style.backgroundColor = Constant.MAIN_COLOUR;
 document.body.style.fontFamily = 'Roboto';
@@ -42,7 +43,8 @@ var Homepage = /** @class */ (function (_super) {
             React.createElement(react_router_dom_1.Switch, null,
                 React.createElement(react_router_dom_1.Route, { path: "/", component: home_1.default, exact: true }),
                 React.createElement(react_router_dom_1.Route, { path: "/map", component: map_1.default }),
-                React.createElement(react_router_dom_1.Route, { path: "/myItems", component: myItems_1.default }))));
+                React.createElement(react_router_dom_1.Route, { path: "/myItems", component: myItems_1.default }),
+                React.createElement(react_router_dom_1.Route, { path: "/itemPage", component: itemCollectionPage_1.default }))));
     };
     return Homepage;
 }(React.Component));

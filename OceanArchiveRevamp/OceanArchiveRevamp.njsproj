@@ -88,6 +88,9 @@
     <TypeScriptCompile Include="components\newAndTrending.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="components\itemCollectionPage.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="constants\" />

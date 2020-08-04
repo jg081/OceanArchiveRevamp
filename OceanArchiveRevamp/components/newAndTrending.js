@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require('react');
 var Constant = require("../constants");
+var react_router_dom_1 = require("react-router-dom");
 var LargeContentBox = /** @class */ (function (_super) {
     __extends(LargeContentBox, _super);
     function LargeContentBox(props) {
@@ -65,7 +66,8 @@ var NewAndTrending = /** @class */ (function (_super) {
         return (React.createElement("div", { className: 'newAndTrending' },
             React.createElement("h1", { style: { paddingLeft: '10px', flex: '0', minWidth: '200px' } }, "New & Trending"),
             React.createElement("div", { className: 'newAndTrendingContainer' },
-                React.createElement(LargeContentBox, { bgColour: Constant.ACTIVISM, title: 'Pacific Ocean Garbage Patch', type: 'Other', numCollections: '2', numItems: '1', img: 'https://live.staticflickr.com/2490/4214811049_1264c95738_b.jpg' }),
+                React.createElement(react_router_dom_1.NavLink, { to: '/itemPage' },
+                    React.createElement(LargeContentBox, { bgColour: Constant.ACTIVISM, title: 'Pacific Ocean Garbage Patch', type: 'Other', numCollections: '2', numItems: '1', img: 'https://live.staticflickr.com/2490/4214811049_1264c95738_b.jpg' })),
                 React.createElement(LargeContentBox, { bgColour: Constant.SCITECH, title: 'The Various Shark Species', type: 'Research Paper', numCollections: '3', numItems: '2', img: 'https://live.staticflickr.com/194/463483080_828f04aba3_b.jpg' }),
                 React.createElement(LargeContentBox, { bgColour: Constant.ART, title: 'Under The Ocean: Life with Turtles', type: 'Video', numCollections: '1', numItems: '4', img: 'https://live.staticflickr.com/2534/32899940111_6d3f8956d7_b.jpg' }))));
     };
