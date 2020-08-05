@@ -779,12 +779,37 @@ a:active {
     box-sizing: border-box;
 }
 
+.descriptionContainer {
+    min-height: 149px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    /*transition: flex 0.5s ease-out;*/
+    /*flex: 1 1 auto;*/
+}
+
+    .descriptionContainer > .expandToggle {
+        min-height: 30px;
+        max-height: 30px;
+        flex: 0 0 30px;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .descriptionContainer > h2 {
+        padding: 10px;
+        margin: 0px;
+        color: #CCCCCC;
+        flex: 0 0 auto;
+    }
+
 .description {
-    height: 150px;
-    max-height: 150px;
-    min-height: 150px;
-    padding: 10px;
-    box-sizing: border-box;
+    /*flex: 1 1 auto;*/
+    padding: 0px 10px;
+    overflow: hidden;
+    /*transition: flex 0.5s ease-out 0.5s;*/
 }
 
 .itemsAndSubcollContainer {
@@ -806,7 +831,7 @@ a:active {
     border-top: 1px solid #787878;
 }
 
-    .itemTabs > div {
+    .itemTabs > .tab {
         flex: 1 1 0px;
         min-height: 40px;
         max-height: 40px;

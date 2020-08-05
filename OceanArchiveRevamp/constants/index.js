@@ -6,3 +6,5 @@ export const ACTIVISM = '#50E3C2';
 export const SCITECH_ART = '#4845FF';
 export const ART_ACTIVISM = '#707BE0';
 export const ACTIVISM_SCITECH = '#28ADE1';
+export const WHITE = '#FFFFFF';
+export const BLACK = '#000000';
