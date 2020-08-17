@@ -729,7 +729,7 @@ a:active {
 }
 
     .itemCollectionContainer > .title {
-        height: 50px;
+        flex: 0 0 30px;
         font-size: 12pt;
         padding: 10px;
         box-sizing: border-box;
@@ -737,8 +737,9 @@ a:active {
 
 .thumbnailAndInfoContainer {
     display: flex;
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     flex-wrap: wrap;
+    transition: all 0.5s linear;
 }
 
 .thumbnail {
@@ -746,6 +747,7 @@ a:active {
     min-width: 500px;
     height: 280px;
     min-height: 280px;
+    max-height: 280px;
     flex: 1 1 auto;
 }
 
@@ -768,15 +770,51 @@ a:active {
         border-right: 1px solid #787878;
     }
 
-.tagsBox {
-    max-height: 50px;
+.tagsContainer {
+    /*max-height: 50px;*/
     min-height: 50px;
     border: 1px solid #787878;
     border-left: 0px;
     border-right: 0px;
-    flex: 1 1 0px;
+    flex: 1 1 auto;
     padding: 5px;
     box-sizing: border-box;
+    display: flex;
+}
+
+.tagsLabel {
+    flex: 0 0 50px;
+    height: 30px;
+}
+
+.tags {
+    flex: 1 1 auto;
+    display: flex;
+    max-width: 100%;
+    min-width: 100%;
+    flex-wrap: wrap;
+    overflow: hidden;
+    min-height: 40px;
+    box-sizing: border-box;
+}
+
+.tag {
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    color: #ffffff;
+    margin: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+.tagsContainerController {
+    flex: 0 0 50px;
+    height: 40px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .descriptionContainer {
@@ -849,10 +887,27 @@ a:active {
     .recommendationsContainer > .title {
         padding: 10px;
         box-sizing: border-box;
-        height: 50px;
+        flex: 0 0 30px;
         font-size: 12pt;
     }
 
 .recommendationsList {
     overflow-y: scroll;
 }
+
+.recommendation {
+    display: flex;
+    border-bottom: 1px solid;
+    border-bottom-color: #FFFFFF;
+    margin-top: 10px;
+}
+
+    .recommendation:hover {
+        background-color: #4A74A5;
+    }
+
+    .recommendation > img {
+        height: 100px;
+        width: 100px;
+        flex: 0 0 100px;
+    }

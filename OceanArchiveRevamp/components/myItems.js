@@ -68,12 +68,12 @@ var ListItem = /** @class */ (function (_super) {
         return (React.createElement("div", { className: 'listItemContainer' },
             React.createElement("div", { className: 'listFixedWidth' }, this.props.published ?
                 React.createElement("svg", { width: '30', height: '30' },
-                    React.createElement("polyline", { points: '5,20 10,25 25,5', "stroke-linecap": 'round', style: { fill: 'none', stroke: '#05B336', strokeWidth: '5' } }),
+                    React.createElement("polyline", { points: '5,20 10,25 25,5', strokeLinecap: 'round', style: { fill: 'none', stroke: '#05B336', strokeWidth: '5' } }),
                     "Yes")
                 : React.createElement("svg", { width: '30', height: '30' },
                     React.createElement("g", { fill: 'none', stroke: '#FF3A3A', "stroke-width": '5' },
-                        React.createElement("line", { x1: '5', y1: '5', x2: '25', y2: '25', "stroke-linecap": 'round' }),
-                        React.createElement("line", { x1: '25', y1: '5', x2: '5', y2: '25', "stroke-linecap": 'round' })))),
+                        React.createElement("line", { x1: '5', y1: '5', x2: '25', y2: '25', strokeLinecap: 'round' }),
+                        React.createElement("line", { x1: '25', y1: '5', x2: '5', y2: '25', strokeLinecap: 'round' })))),
             React.createElement("div", { className: 'listFixedWidth' }, this.props.dateCreated),
             React.createElement("div", { className: 'listVariableWidth' }, this.props.title),
             React.createElement("div", { className: 'listVariableWidth' }, this.props.creators),

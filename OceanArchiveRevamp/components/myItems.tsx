@@ -71,14 +71,14 @@ class ListItem extends React.Component {
                     this.props.published ?
                         <svg width='30' height='30'>
                             <polyline points='5,20 10,25 25,5'
-                                stroke-linecap='round'
+                                strokeLinecap='round'
                                 style={{fill:'none', stroke:'#05B336', strokeWidth:'5'}} />
                             Yes
                         </svg>
                         : <svg width='30' height='30'>
                             <g fill='none' stroke='#FF3A3A' stroke-width='5'>
-                                <line x1='5' y1='5' x2='25' y2='25' stroke-linecap='round' />
-                                <line x1='25' y1='5' x2='5' y2='25' stroke-linecap='round' />
+                                <line x1='5' y1='5' x2='25' y2='25' strokeLinecap='round' />
+                                <line x1='25' y1='5' x2='5' y2='25' strokeLinecap='round' />
                             </g>
                         </svg>
                 }</div>

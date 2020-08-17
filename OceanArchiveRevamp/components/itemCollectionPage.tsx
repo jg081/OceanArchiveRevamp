@@ -34,8 +34,8 @@ class Tab extends React.Component {
     }
 }
 
-const firstTrans = 'flex 0.3s ease-out';
-const secTrans = 'flex 0.3s ease-out 0.3s';
+const firstTrans = 'flex 0.3s linear';
+const secTrans = 'flex 0.3s linear 0.3s';
 
 class Description extends React.Component {
     constructor(props) {
@@ -50,7 +50,7 @@ class Description extends React.Component {
     }
 
     expand = () => {
-        console.log('Clicked');
+        //console.log('Clicked');
         if (this.state.isOpen) {
             this.setState({
                 isOpen: false,
@@ -84,13 +84,134 @@ The amber droplet hung from the branch, reaching fullness and ready to drop. It 
                     {this.state.isOpen ?
                         <svg width='40px' height='20px'>
                             <polyline points='5,15 20,5 35,15'
-                                stroke-linecap='round'
+                                strokeLinecap='round'
                                 style={{ fill: 'none', stroke: Constant.SECONDARY_COLOUR, strokeWidth: '5' }} />
                             Close
                         </svg>
                         : <svg width='40px' height='20px'>
                             <polyline points='5,5 20,15 35,5'
-                                stroke-linecap='round'
+                                strokeLinecap='round'
+                                style={{ fill: 'none', stroke: Constant.SECONDARY_COLOUR, strokeWidth: '5' }} />
+                            Open
+                        </svg>
+                    }
+                </div>
+            </div>
+        );
+    }
+}
+
+class Recommendation extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className='recommendation'>
+                <img src={this.props.src} alt={this.props.title + " thumbnail"} />
+                <div style={{ flex: '1 1 auto' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', height: '100px' }}>
+                        <h2 className='listTitle'>{this.props.title}</h2>
+                        <p className='listDesc'>{this.props.desc}</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+class Tag extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className='tag'>#{this.props.name}</div>
+        );
+    }
+}
+
+class TagsSection extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tagsIsOpen: false,
+            flex: '0 1 0px',
+            outerTrans: secTrans,
+            innerTrans: firstTrans
+        }
+    }
+
+    expand = () => {
+        //console.log('Clicked');
+        if (this.state.tagsIsOpen) {
+            this.setState({
+                tagsIsOpen: false,
+                flex: '0 1 0px',
+                outerTrans: secTrans,
+                innerTrans: firstTrans,
+            });
+        } else {
+            this.setState({
+                tagsIsOpen: true,
+                flex: '1 0 auto',
+                outerTrans: firstTrans,
+                innerTrans: secTrans,
+            });
+        }
+    }
+
+    render() {
+        return (
+            <div className='tagsContainer' style={{ transition: this.state.outerTrans, flex: this.state.flex }}>
+                <div className='tagsLabel'>TAGS</div>
+                <div style={{ display: 'flex', width: '100%' }}>
+                    <div className='tags' style={{ transition: this.state.innerTrans, flex: this.state.flex }}>
+                        <Tag name='waste' />
+                        <Tag name='infrastructure' />
+                        <Tag name='ocean habitats' />
+                        <Tag name='marine ecology' />
+                        <Tag name='sharks' />
+                        <Tag name='whales' />
+                        <Tag name='deep ocean' />
+                        <Tag name='coral' />
+                        <Tag name='seaweed' />
+                        <Tag name='marine technology' />
+                        <Tag name='wave' />
+                        <Tag name='ocean current' />
+                        <Tag name='climate change' />
+                        <Tag name='fish' />
+                        <Tag name='pollution' />
+                        <Tag name='waste' />
+                        <Tag name='infrastructure' />
+                        <Tag name='ocean habitats' />
+                        <Tag name='marine ecology' />
+                        <Tag name='sharks' />
+                        <Tag name='whales' />
+                        <Tag name='deep ocean' />
+                        <Tag name='coral' />
+                        <Tag name='seaweed' />
+                        <Tag name='marine technology' />
+                        <Tag name='wave' />
+                        <Tag name='ocean current' />
+                        <Tag name='climate change' />
+                        <Tag name='fish' />
+                        <Tag name='pollution' />
+                    </div>
+                </div>
+                <div className='tagsContainerController' onClick={() => this.expand()}>
+                    {this.state.tagsIsOpen ?
+                        <svg width='40px' height='20px'>
+                            <polyline points='5,15 20,5 35,15'
+                                strokeLinecap='round'
+                                style={{ fill: 'none', stroke: Constant.SECONDARY_COLOUR, strokeWidth: '5' }} />
+                            Close
+                        </svg>
+                        : <svg width='40px' height='20px'>
+                            <polyline points='5,5 20,15 35,5'
+                                strokeLinecap='round'
                                 style={{ fill: 'none', stroke: Constant.SECONDARY_COLOUR, strokeWidth: '5' }} />
                             Open
                         </svg>
@@ -135,13 +256,13 @@ export default class ItemCollectionPage extends React.Component {
                     <div className='itemCollectionContainer'>
                         <div className='title'>TITLE</div>
                         <div className='thumbnailAndInfoContainer'>
-                            <img className='thumbnail' />
+                            <img className='thumbnail' src='url("https://live.staticflickr.com/3463/3306513983_f8269902ee_b.jpg")' />
                             <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 0px' }}>
                                 <div className='infoContainer'>
                                     <div className='info left'>INFO LEFT</div>
                                     <div className='info'>INFO RIGHT</div>
                                 </div>
-                                <div className='tagsBox'>TAGS</div>
+                                <TagsSection />
                             </div>
                         </div>
                         <Description />
@@ -164,7 +285,22 @@ export default class ItemCollectionPage extends React.Component {
                     </div>
                     <div className='recommendationsContainer'>
                         <div className='title'>RECOMMENTDATIONS</div>
-                        <div className='scrollable recommendationsList'>LIST</div>
+                        <div className='scrollableList recommendationsList'>
+                            <Recommendation title='Pacific Ocean Garbage Patch' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/2490/4214811049_1264c95738_b.jpg' />
+                            <Recommendation title='The Various Shark Species' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/194/463483080_828f04aba3_b.jpg' />
+                            <Recommendation title='Under The Ocean: Life with Turtles' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/2534/32899940111_6d3f8956d7_b.jpg' />
+                            <Recommendation title='Fish in the Ocean' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/2736/4098744853_0c65ccb710_b.jpg' />
+                            <Recommendation title='Ocean Waves' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/7309/9787099472_f24d4766e5_b.jpg' />
+                            <Recommendation title='Sharks Electromagnetic Sense' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/6018/5951373622_3146ed0aab_b.jpg' />
+                            <Recommendation title='Coral Research' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/1688/26104103086_766619aeb8_b.jpg' />
+                            <Recommendation title='Plastic Island' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/3182/2785503884_8b0b76f781_b.jpg' />
+                            <Recommendation title='Sunset Shore' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/65535/49112821866_f88763e374_b.jpg' />
+                            <Recommendation title='Deep Ocean Mining' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/6178/6207340169_32c7846a32_b.jpg' />
+                            <Recommendation title='Oil Pollution' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://farm9.staticflickr.com/8746/17022954452_3c3fefafe0_b.jpg' />
+                            <Recommendation title='Deep Ocean Life' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/5463/8880188144_f2e22d06c1.jpg' />
+                            <Recommendation title='Whale Spotting' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/32/49470279_74b8873c7c_b.jpg' />
+                            <Recommendation title='Octopus Learning Habits' desc='Some description He sat staring at the person in the train stopped at the station going in the opposite direction. She sat staring ahead, never noticing that she was being watched. Both trains began to move and he knew that in another timeline or in another universe, they had been happy together.' src='https://live.staticflickr.com/3463/3306513983_f8269902ee_b.jpg' />
+                        </div>
                     </div>
                 </div>
             </div>
