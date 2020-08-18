@@ -12,6 +12,7 @@
     "node_modules"
   ],
   "files": [
-    "app.tsx"
+    "app.tsx",
+    "custom.d.ts"
   ]
 }

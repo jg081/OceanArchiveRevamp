@@ -3,33 +3,35 @@
 var React = require('react');
 
 import * as Constant from '../constants';
+import BlogShare from '../logos/Blog.svg';
+import FaceBookShare from '../logos/Facebook.svg';
+import InstagramShare from '../logos/Instagram.svg';
+import TwitterShare from '../logos/Twitter.svg';
+import YoutubeShare from '../logos/Youtube.svg';
 
 class Tab extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bgColour: this.props.bgColour,
-            fontColour: this.props.fontColour
+            bgColour: this.props.bgColour
         }
     }
 
     changeColour(active) {
         if (active) {
             this.setState({
-                bgColour: Constant.SECONDARY_COLOUR,
-                fontColour: Constant.BLACK
+                bgColour: Constant.SECONDARY_COLOUR
             });
         } else {
             this.setState({
-                bgColour: Constant.MAIN_COLOUR,
-                fontColour: Constant.WHITE
+                bgColour: Constant.MAIN_COLOUR
             });
         }
     }
 
     render() {
         return (
-            <div className='tab' style={{ backgroundColor: this.state.bgColour, color: this.state.fontColour }} onClick={this.props.changeColour}>{this.props.title}</div>
+            <div className='tab' style={{ backgroundColor: this.state.bgColour }} onClick={this.props.changeColour}>{this.props.title}</div>
         );
     }
 }
@@ -222,6 +224,35 @@ class TagsSection extends React.Component {
     }
 }
 
+class Info extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className='infoBar'>
+                <div className='infoLabel'>{this.props.label}</div>
+                <div className='infoText'>{this.props.children}</div>
+            </div>
+        );
+    }
+}
+
+class ShareButton extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className='shareButton' alt={this.props.name + ' share button'}>
+                {this.props.children}
+            </div>
+        );
+    }
+}
+
 export default class ItemCollectionPage extends React.Component {
     constructor(props) {
         super(props);
@@ -236,7 +267,7 @@ export default class ItemCollectionPage extends React.Component {
 
     changeTabs = tabNum => () => {
         if (tabNum != this.state.currentActiveTab) {
-            console.log(tabNum);
+            //console.log(tabNum);
             for (var i = 0; i < 2; i++) {
                 if (i == tabNum) {
                     this.Tabs[i].current.changeColour(true);
@@ -259,8 +290,27 @@ export default class ItemCollectionPage extends React.Component {
                             <img className='thumbnail' src='url("https://live.staticflickr.com/3463/3306513983_f8269902ee_b.jpg")' />
                             <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 0px' }}>
                                 <div className='infoContainer'>
-                                    <div className='info left'>INFO LEFT</div>
-                                    <div className='info'>INFO RIGHT</div>
+                                    <div className='info left'>
+                                        <Info label='Uploader:'><a>Nathan Moore</a></Info>
+                                        <Info label='Date:'><span>09/06/2020</span></Info>
+                                        <Info label='License:'><a>CC BY-NC</a></Info>
+                                        <Info label='Copyright Owner:'><span>TBA21 Academy</span></Info>
+                                        <div style={{ height: '50px', display: 'flex', alignItems: 'center' }}>
+                                            <div className='infoButton'>FOLLOW</div>
+                                            <div className='infoButton'>LIKE</div>
+                                        </div>
+                                        <div style={{ height: '30px' }}>Share</div>
+                                        <div style={{ height: '40px', display: 'flex' }}>
+                                            <ShareButton><BlogShare /></ShareButton>
+                                            <ShareButton><FaceBookShare /></ShareButton>
+                                            <ShareButton><InstagramShare /></ShareButton>
+                                            <ShareButton><TwitterShare /></ShareButton>
+                                            <ShareButton><YoutubeShare /></ShareButton>
+                                        </div>
+                                    </div>
+                                    <div className='info'>INFO RIGHT
+
+                                        </div>
                                 </div>
                                 <TagsSection />
                             </div>
@@ -268,8 +318,8 @@ export default class ItemCollectionPage extends React.Component {
                         <Description />
                         <div className='itemsAndSubcollContainer'>
                             <div className='itemTabs'>
-                                <Tab ref={this.Tabs[0]} title='ITEMS' bgColour={Constant.SECONDARY_COLOUR} fontColour={Constant.BLACK} changeColour={this.changeTabs(0)} />
-                                <Tab ref={this.Tabs[1]} title='SUB-COLLECTIONS' bgColour={Constant.MAIN_COLOUR} fontColour={Constant.WHITE} changeColour={this.changeTabs(1)} />
+                                <Tab ref={this.Tabs[0]} title='ITEMS' bgColour={Constant.SECONDARY_COLOUR} changeColour={this.changeTabs(0)} />
+                                <Tab ref={this.Tabs[1]} title='SUB-COLLECTIONS' bgColour={Constant.MAIN_COLOUR} changeColour={this.changeTabs(1)} />
                             </div>
                             <div className='contentBackground'>
                                 <div className='scrollable contentContainer'>

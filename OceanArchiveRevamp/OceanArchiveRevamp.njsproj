@@ -48,6 +48,11 @@
     <Content Include="index.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="logos\Blog.svg" />
+    <Content Include="logos\Facebook.svg" />
+    <Content Include="logos\Instagram.svg" />
+    <Content Include="logos\Twitter.svg" />
+    <Content Include="logos\Youtube.svg" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="styles\carousel.css">
@@ -91,11 +96,15 @@
     <TypeScriptCompile Include="components\itemCollectionPage.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="custom.d.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="constants\" />
     <Folder Include="dist\" />
     <Folder Include="components\" />
+    <Folder Include="logos\" />
     <Folder Include="styles\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->

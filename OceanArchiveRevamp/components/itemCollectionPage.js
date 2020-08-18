@@ -15,32 +15,34 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require('react');
 var Constant = require("../constants");
+var Blog_svg_1 = require("../logos/Blog.svg");
+var Facebook_svg_1 = require("../logos/Facebook.svg");
+var Instagram_svg_1 = require("../logos/Instagram.svg");
+var Twitter_svg_1 = require("../logos/Twitter.svg");
+var Youtube_svg_1 = require("../logos/Youtube.svg");
 var Tab = /** @class */ (function (_super) {
     __extends(Tab, _super);
     function Tab(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
-            bgColour: _this.props.bgColour,
-            fontColour: _this.props.fontColour
+            bgColour: _this.props.bgColour
         };
         return _this;
     }
     Tab.prototype.changeColour = function (active) {
         if (active) {
             this.setState({
-                bgColour: Constant.SECONDARY_COLOUR,
-                fontColour: Constant.BLACK
+                bgColour: Constant.SECONDARY_COLOUR
             });
         }
         else {
             this.setState({
-                bgColour: Constant.MAIN_COLOUR,
-                fontColour: Constant.WHITE
+                bgColour: Constant.MAIN_COLOUR
             });
         }
     };
     Tab.prototype.render = function () {
-        return (React.createElement("div", { className: 'tab', style: { backgroundColor: this.state.bgColour, color: this.state.fontColour }, onClick: this.props.changeColour }, this.props.title));
+        return (React.createElement("div", { className: 'tab', style: { backgroundColor: this.state.bgColour }, onClick: this.props.changeColour }, this.props.title));
     };
     return Tab;
 }(React.Component));
@@ -196,13 +198,35 @@ var TagsSection = /** @class */ (function (_super) {
     };
     return TagsSection;
 }(React.Component));
+var Info = /** @class */ (function (_super) {
+    __extends(Info, _super);
+    function Info(props) {
+        return _super.call(this, props) || this;
+    }
+    Info.prototype.render = function () {
+        return (React.createElement("div", { className: 'infoBar' },
+            React.createElement("div", { className: 'infoLabel' }, this.props.label),
+            React.createElement("div", { className: 'infoText' }, this.props.children)));
+    };
+    return Info;
+}(React.Component));
+var ShareButton = /** @class */ (function (_super) {
+    __extends(ShareButton, _super);
+    function ShareButton(props) {
+        return _super.call(this, props) || this;
+    }
+    ShareButton.prototype.render = function () {
+        return (React.createElement("div", { className: 'shareButton', alt: this.props.name + ' share button' }, this.props.children));
+    };
+    return ShareButton;
+}(React.Component));
 var ItemCollectionPage = /** @class */ (function (_super) {
     __extends(ItemCollectionPage, _super);
     function ItemCollectionPage(props) {
         var _this = _super.call(this, props) || this;
         _this.changeTabs = function (tabNum) { return function () {
             if (tabNum != _this.state.currentActiveTab) {
-                console.log(tabNum);
+                //console.log(tabNum);
                 for (var i = 0; i < 2; i++) {
                     if (i == tabNum) {
                         _this.Tabs[i].current.changeColour(true);
@@ -233,14 +257,37 @@ var ItemCollectionPage = /** @class */ (function (_super) {
                         React.createElement("img", { className: 'thumbnail', src: 'url("https://live.staticflickr.com/3463/3306513983_f8269902ee_b.jpg")' }),
                         React.createElement("div", { style: { display: 'flex', flexDirection: 'column', flex: '1 1 0px' } },
                             React.createElement("div", { className: 'infoContainer' },
-                                React.createElement("div", { className: 'info left' }, "INFO LEFT"),
+                                React.createElement("div", { className: 'info left' },
+                                    React.createElement(Info, { label: 'Uploader:' },
+                                        React.createElement("a", null, "Nathan Moore")),
+                                    React.createElement(Info, { label: 'Date:' },
+                                        React.createElement("span", null, "09/06/2020")),
+                                    React.createElement(Info, { label: 'License:' },
+                                        React.createElement("a", null, "CC BY-NC")),
+                                    React.createElement(Info, { label: 'Copyright Owner:' },
+                                        React.createElement("span", null, "TBA21 Academy")),
+                                    React.createElement("div", { style: { height: '50px', display: 'flex', alignItems: 'center' } },
+                                        React.createElement("div", { className: 'infoButton' }, "FOLLOW"),
+                                        React.createElement("div", { className: 'infoButton' }, "LIKE")),
+                                    React.createElement("div", { style: { height: '30px' } }, "Share"),
+                                    React.createElement("div", { style: { height: '40px', display: 'flex' } },
+                                        React.createElement(ShareButton, null,
+                                            React.createElement(Blog_svg_1.default, null)),
+                                        React.createElement(ShareButton, null,
+                                            React.createElement(Facebook_svg_1.default, null)),
+                                        React.createElement(ShareButton, null,
+                                            React.createElement(Instagram_svg_1.default, null)),
+                                        React.createElement(ShareButton, null,
+                                            React.createElement(Twitter_svg_1.default, null)),
+                                        React.createElement(ShareButton, null,
+                                            React.createElement(Youtube_svg_1.default, null)))),
                                 React.createElement("div", { className: 'info' }, "INFO RIGHT")),
                             React.createElement(TagsSection, null))),
                     React.createElement(Description, null),
                     React.createElement("div", { className: 'itemsAndSubcollContainer' },
                         React.createElement("div", { className: 'itemTabs' },
-                            React.createElement(Tab, { ref: this.Tabs[0], title: 'ITEMS', bgColour: Constant.SECONDARY_COLOUR, fontColour: Constant.BLACK, changeColour: this.changeTabs(0) }),
-                            React.createElement(Tab, { ref: this.Tabs[1], title: 'SUB-COLLECTIONS', bgColour: Constant.MAIN_COLOUR, fontColour: Constant.WHITE, changeColour: this.changeTabs(1) })),
+                            React.createElement(Tab, { ref: this.Tabs[0], title: 'ITEMS', bgColour: Constant.SECONDARY_COLOUR, changeColour: this.changeTabs(0) }),
+                            React.createElement(Tab, { ref: this.Tabs[1], title: 'SUB-COLLECTIONS', bgColour: Constant.MAIN_COLOUR, changeColour: this.changeTabs(1) })),
                         React.createElement("div", { className: 'contentBackground' },
                             React.createElement("div", { className: 'scrollable contentContainer' },
                                 React.createElement("div", { className: 'content' }, "Content"),
