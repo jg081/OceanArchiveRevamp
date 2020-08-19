@@ -9,6 +9,11 @@ import InstagramShare from '../logos/Instagram.svg';
 import TwitterShare from '../logos/Twitter.svg';
 import YoutubeShare from '../logos/Youtube.svg';
 
+import SmallContentBox from './smallContentBox';
+
+const firstTrans = 'flex 0.1s linear';
+const secTrans = 'flex 0.1s linear 0.1s';
+
 class Tab extends React.Component {
     constructor(props) {
         super(props);
@@ -35,9 +40,6 @@ class Tab extends React.Component {
         );
     }
 }
-
-const firstTrans = 'flex 0.3s linear';
-const secTrans = 'flex 0.3s linear 0.3s';
 
 class Description extends React.Component {
     constructor(props) {
@@ -287,7 +289,7 @@ export default class ItemCollectionPage extends React.Component {
                     <div className='itemCollectionContainer'>
                         <div className='title'>TITLE</div>
                         <div className='thumbnailAndInfoContainer'>
-                            <img className='thumbnail' src='url("https://live.staticflickr.com/3463/3306513983_f8269902ee_b.jpg")' />
+                            <img className='thumbnail' src="https://live.staticflickr.com/3463/3306513983_f8269902ee_b.jpg" />
                             <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 0px' }}>
                                 <div className='infoContainer'>
                                     <div className='info left'>
@@ -308,9 +310,26 @@ export default class ItemCollectionPage extends React.Component {
                                             <ShareButton><YoutubeShare /></ShareButton>
                                         </div>
                                     </div>
-                                    <div className='info'>INFO RIGHT
-
-                                        </div>
+                                    <div className='info'>
+                                        <Info label='Regions:'>
+                                            <div className='infoRight' style={{ marginBottom: '16px' }}>
+                                                <span>Atlantic Ocean</span>
+                                                <span>Arctic Ocean</span>
+                                                <span>Indian Ocean</span>
+                                                <span>Pacific Ocean</span>
+                                                <span>Southern Ocean</span>
+                                            </div>
+                                        </Info>
+                                        <Info label='Location:'>
+                                            <div className='infoRight'>
+                                                <span>151.090909 N</span>
+                                                <span>234.897867 S</span>
+                                            </div>
+                                            <div className='infoButton'>
+                                                See On Map
+                                            </div>
+                                        </Info>
+                                    </div>
                                 </div>
                                 <TagsSection />
                             </div>
@@ -323,12 +342,17 @@ export default class ItemCollectionPage extends React.Component {
                             </div>
                             <div className='contentBackground'>
                                 <div className='scrollable contentContainer'>
-                                    <div className='content'>Content</div>
-                                    <div className='content'>Content</div>
-                                    <div className='content'>Content</div>
-                                    <div className='content'>Content</div>
-                                    <div className='content'>Content</div>
-                                    <div className='content'>Content</div>
+                                    <SmallContentBox title='Fish in the Ocean' type='Research Paper' year='2019' numCollections='2' numItems='5' img="https://live.staticflickr.com/2736/4098744853_0c65ccb710_b.jpg" />
+                                    <SmallContentBox title='Ocean Waves' type='Research Paper' year='2019' numCollections='5' numItems='1' img='https://live.staticflickr.com/7309/9787099472_f24d4766e5_b.jpg' />
+                                    <SmallContentBox title='Sharks Electromagnetic Sense' type='Documentry' year='2019' numCollections='2' numItems='5' img='https://live.staticflickr.com/6018/5951373622_3146ed0aab_b.jpg' />
+                                    <SmallContentBox title='Coral Research' type='Research Paper' year='2019' numCollections='2' numItems='5' img='https://live.staticflickr.com/1688/26104103086_766619aeb8_b.jpg' />
+                                    <SmallContentBox title='Plastic Island' type='Gallery' year='2018' numCollections='1' numItems='10' img='https://live.staticflickr.com/3182/2785503884_8b0b76f781_b.jpg' />
+                                    <SmallContentBox title='Sunset Shore' type='Painting' year='2018' numCollections='2' numItems='1' img='https://live.staticflickr.com/65535/49112821866_f88763e374_b.jpg' />
+                                    <SmallContentBox title='Deep Ocean Mining' type='Series' year='2018' numCollections='1' numItems='5' img='https://live.staticflickr.com/6178/6207340169_32c7846a32_b.jpg' />
+                                    <SmallContentBox title='Oil Pollution' type='Gallery' year='2018' numCollections='1' numItems='10' img='https://farm9.staticflickr.com/8746/17022954452_3c3fefafe0_b.jpg' />
+                                    <SmallContentBox title='Deep Ocean Life' type='Research Paper' year='2017' numCollections='2' numItems='3' img='https://live.staticflickr.com/5463/8880188144_f2e22d06c1.jpg' />
+                                    <SmallContentBox title='Whale Spotting' type='Gallery' year='2017' numCollections='1' numItems='6' img='https://live.staticflickr.com/32/49470279_74b8873c7c_b.jpg' />
+                                    <SmallContentBox title='Octopus Learning Habits' type='Research Paper' year='2017' numCollections='2' numItems='1' img='https://live.staticflickr.com/3463/3306513983_f8269902ee_b.jpg' />
                                 </div>
                             </div>
                         </div>

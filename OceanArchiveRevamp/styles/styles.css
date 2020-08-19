@@ -774,7 +774,7 @@ a:active {
 
 .infoBar {
     display: flex;
-    height: 30px;
+    min-height: 30px;
 }
 
 .infoLabel {
@@ -784,6 +784,7 @@ a:active {
 
 .infoText {
     flex: 1 1 0px;
+    display: flex;
 }
 
 .infoButton {
@@ -795,6 +796,16 @@ a:active {
     background-color: #4A74A5;
     text-align: center;
     line-height: 30px;
+}
+
+.infoRight {
+    display: flex;
+    flex-direction: column;
+    margin-right: 16px;
+}
+
+.infoRight > span {
+    padding-bottom: 10px;
 }
 
 .shareButton {
@@ -900,6 +911,9 @@ a:active {
 .itemTabs {
     display: flex;
     border-top: 1px solid #787878;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 
     .itemTabs > .tab {

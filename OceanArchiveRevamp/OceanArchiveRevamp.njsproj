@@ -96,6 +96,9 @@
     <TypeScriptCompile Include="components\itemCollectionPage.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="components\smallContentBox.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="custom.d.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
