@@ -804,9 +804,9 @@ a:active {
     margin-right: 16px;
 }
 
-.infoRight > span {
-    padding-bottom: 10px;
-}
+    .infoRight > span {
+        padding-bottom: 10px;
+    }
 
 .shareButton {
     width: 30px;
@@ -958,3 +958,7 @@ a:active {
         width: 100px;
         flex: 0 0 100px;
     }
+
+.pagination {
+    display: flex;
+}

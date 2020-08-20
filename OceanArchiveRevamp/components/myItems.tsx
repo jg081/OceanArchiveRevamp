@@ -3,7 +3,7 @@
 var React = require('react');
 
 import { NavLink } from 'react-router-dom';
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -72,7 +72,7 @@ class ListItem extends React.Component {
                         <svg width='30' height='30'>
                             <polyline points='5,20 10,25 25,5'
                                 strokeLinecap='round'
-                                style={{fill:'none', stroke:'#05B336', strokeWidth:'5'}} />
+                                style={{ fill: 'none', stroke: '#05B336', strokeWidth: '5' }} />
                             Yes
                         </svg>
                         : <svg width='30' height='30'>
@@ -94,26 +94,73 @@ class ListItem extends React.Component {
 export default class MyItems extends React.Component {
     constructor(props) {
         super(props);
+
+        this.dataSet = new Array(100);
+        for (var i = 0; i < this.dataSet.length; i++) {
+            this.dataSet[i] = "Title " + (i + 1);
+        }
+        //console.log("items: ", this.dataSet);
+
+        this.itemsPerPage = Math.floor((window.innerHeight - 350) / 50);
+        this.pagesCount = Math.ceil(100 / this.itemsPerPage);
+        //console.log("itemsPerPage: ", this.itemsPerPage, " | pagesCount: ", this.pagesCount);
+
+        this.pages = new Array(this.pagesCount);
+        for (var i = 0; i < this.pages.length; i++) {
+            this.pages[i] = (i + 1);
+        }
+
+        this.state = {
+            currentPage: 0
+        }
+    }
+
+    switchPage = (index) => {
+        this.setState({
+            currentPage: index
+        });
     }
 
     render() {
+        const { currentPage } = this.state;
         return (
             <div className="ICAcontainer">
                 <h1>MY ITEMS</h1>
                 <SearchBar />
                 <div className='listSection'>
                     <ListHeader />
-                    <ListItem published={true} dateCreated="02-Jun-2020" title='A long title that refelects the ocean' creators='Territorial Agency' />
-                    <ListItem published={false} dateCreated="02-Jun-2020" title='TEST' creators='Various People Working on it' />
-                    <ListItem published={true} dateCreated="02-Jun-2020" title='Atlantic Whale Songs' creators='Jack White' />
+                    {this.dataSet.slice(
+                        currentPage * this.itemsPerPage,
+                        (currentPage + 1) * this.itemsPerPage
+                    ).map((data, i) =>
+                        <ListItem key={i} published={true} dateCreated="02-Jun-2020" title={data} creators='Territorial Agency' />
+                    )}
                 </div>
                 <div className='footerMenu'>
                     <div className='buttonSmall'>+ Add New</div>
-                    <div>
-                        PAGES
-                    </div>
+                    <Pagination>
+                        <PaginationItem disabled={currentPage <= 0}>
+                            <PaginationLink onClick={() => this.switchPage(0)} first href='#' />
+                        </PaginationItem>
+                        <PaginationItem disabled={currentPage <= 0}>
+                            <PaginationLink onClick={() => this.switchPage(currentPage - 1)} previous href='#' />
+                        </PaginationItem>
+                        {this.pages.map((i) =>
+                            <PaginationItem active={i === currentPage} key={i}>
+                                <PaginationLink onClick={() => this.switchPage(i)} href='#'>
+                                    {i}
+                                </PaginationLink>
+                            </PaginationItem>
+                        )}
+                        <PaginationItem disabled={currentPage >= this.pagesCount}>
+                            <PaginationLink onClick={() => this.switchPage(this.state.current + 1)} next href='#' />
+                        </PaginationItem>
+                        <PaginationItem disabled={currentPage >= this.pagesCount}>
+                            <PaginationLink onClick={() => this.switchPage(this.pagesCount - 1)} last href='#' />
+                        </PaginationItem>
+                    </Pagination>
                 </div>
-            </div>
+            </div >
         );
     }
 }

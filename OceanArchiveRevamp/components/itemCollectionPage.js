@@ -21,6 +21,8 @@ var Instagram_svg_1 = require("../logos/Instagram.svg");
 var Twitter_svg_1 = require("../logos/Twitter.svg");
 var Youtube_svg_1 = require("../logos/Youtube.svg");
 var smallContentBox_1 = require("./smallContentBox");
+var firstTrans = 'flex 0.1s linear';
+var secTrans = 'flex 0.1s linear 0.1s';
 var Tab = /** @class */ (function (_super) {
     __extends(Tab, _super);
     function Tab(props) {
@@ -47,8 +49,6 @@ var Tab = /** @class */ (function (_super) {
     };
     return Tab;
 }(React.Component));
-var firstTrans = 'flex 0.3s linear';
-var secTrans = 'flex 0.3s linear 0.3s';
 var Description = /** @class */ (function (_super) {
     __extends(Description, _super);
     function Description(props) {

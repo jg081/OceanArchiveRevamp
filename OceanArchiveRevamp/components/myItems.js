@@ -84,20 +84,55 @@ var ListItem = /** @class */ (function (_super) {
 var MyItems = /** @class */ (function (_super) {
     __extends(MyItems, _super);
     function MyItems(props) {
-        return _super.call(this, props) || this;
+        var _this = _super.call(this, props) || this;
+        _this.switchPage = function (index) {
+            _this.setState({
+                currentPage: index
+            });
+        };
+        _this.dataSet = new Array(100);
+        for (var i = 0; i < _this.dataSet.length; i++) {
+            _this.dataSet[i] = "Title " + (i + 1);
+        }
+        //console.log("items: ", this.dataSet);
+        _this.itemsPerPage = Math.floor((window.innerHeight - 350) / 50);
+        _this.pagesCount = Math.ceil(100 / _this.itemsPerPage);
+        //console.log("itemsPerPage: ", this.itemsPerPage, " | pagesCount: ", this.pagesCount);
+        _this.pages = new Array(_this.pagesCount);
+        for (var i = 0; i < _this.pages.length; i++) {
+            _this.pages[i] = (i + 1);
+        }
+        _this.state = {
+            currentPage: 0
+        };
+        return _this;
     }
     MyItems.prototype.render = function () {
+        var _this = this;
+        var currentPage = this.state.currentPage;
         return (React.createElement("div", { className: "ICAcontainer" },
             React.createElement("h1", null, "MY ITEMS"),
             React.createElement(SearchBar, null),
             React.createElement("div", { className: 'listSection' },
                 React.createElement(ListHeader, null),
-                React.createElement(ListItem, { published: true, dateCreated: "02-Jun-2020", title: 'A long title that refelects the ocean', creators: 'Territorial Agency' }),
-                React.createElement(ListItem, { published: false, dateCreated: "02-Jun-2020", title: 'TEST', creators: 'Various People Working on it' }),
-                React.createElement(ListItem, { published: true, dateCreated: "02-Jun-2020", title: 'Atlantic Whale Songs', creators: 'Jack White' })),
+                this.dataSet.slice(currentPage * this.itemsPerPage, (currentPage + 1) * this.itemsPerPage).map(function (data, i) {
+                    return React.createElement(ListItem, { key: i, published: true, dateCreated: "02-Jun-2020", title: data, creators: 'Territorial Agency' });
+                })),
             React.createElement("div", { className: 'footerMenu' },
                 React.createElement("div", { className: 'buttonSmall' }, "+ Add New"),
-                React.createElement("div", null, "PAGES"))));
+                React.createElement(reactstrap_1.Pagination, null,
+                    React.createElement(reactstrap_1.PaginationItem, { disabled: currentPage <= 0 },
+                        React.createElement(reactstrap_1.PaginationLink, { onClick: function () { return _this.switchPage(0); }, first: true, href: '#' })),
+                    React.createElement(reactstrap_1.PaginationItem, { disabled: currentPage <= 0 },
+                        React.createElement(reactstrap_1.PaginationLink, { onClick: function () { return _this.switchPage(currentPage - 1); }, previous: true, href: '#' })),
+                    this.pages.map(function (i) {
+                        return React.createElement(reactstrap_1.PaginationItem, { active: i === currentPage, key: i },
+                            React.createElement(reactstrap_1.PaginationLink, { onClick: function () { return _this.switchPage(i); }, href: '#' }, i));
+                    }),
+                    React.createElement(reactstrap_1.PaginationItem, { disabled: currentPage >= this.pagesCount },
+                        React.createElement(reactstrap_1.PaginationLink, { onClick: function () { return _this.switchPage(_this.state.current + 1); }, next: true, href: '#' })),
+                    React.createElement(reactstrap_1.PaginationItem, { disabled: currentPage >= this.pagesCount },
+                        React.createElement(reactstrap_1.PaginationLink, { onClick: function () { return _this.switchPage(_this.pagesCount - 1); }, last: true, href: '#' }))))));
     };
     return MyItems;
 }(React.Component));
