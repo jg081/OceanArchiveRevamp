@@ -116,9 +116,11 @@ export default class MyItems extends React.Component {
     }
 
     switchPage = (index) => {
-        this.setState({
-            currentPage: index
-        });
+        console.log("Index: ", index, " | PagesCount: ", this.pagesCount)
+        if (index >= 0 && index < this.pagesCount)
+            this.setState({
+                currentPage: index
+            });
     }
 
     render() {
@@ -138,6 +140,7 @@ export default class MyItems extends React.Component {
                 </div>
                 <div className='footerMenu'>
                     <div className='buttonSmall'>+ Add New</div>
+                    <div className='fillerBox' />
                     <Pagination>
                         <PaginationItem disabled={currentPage <= 0}>
                             <PaginationLink onClick={() => this.switchPage(0)} first href='#' />
@@ -146,16 +149,16 @@ export default class MyItems extends React.Component {
                             <PaginationLink onClick={() => this.switchPage(currentPage - 1)} previous href='#' />
                         </PaginationItem>
                         {this.pages.map((i) =>
-                            <PaginationItem active={i === currentPage} key={i}>
-                                <PaginationLink onClick={() => this.switchPage(i)} href='#'>
+                            <PaginationItem active={i === currentPage+1} key={i}>
+                                <PaginationLink onClick={() => this.switchPage(i - 1)} href='#'>
                                     {i}
                                 </PaginationLink>
                             </PaginationItem>
                         )}
-                        <PaginationItem disabled={currentPage >= this.pagesCount}>
-                            <PaginationLink onClick={() => this.switchPage(this.state.current + 1)} next href='#' />
+                        <PaginationItem disabled={currentPage >= this.pagesCount-1}>
+                            <PaginationLink onClick={() => this.switchPage(currentPage + 1)} next href='#' />
                         </PaginationItem>
-                        <PaginationItem disabled={currentPage >= this.pagesCount}>
+                        <PaginationItem disabled={currentPage >= this.pagesCount-1}>
                             <PaginationLink onClick={() => this.switchPage(this.pagesCount - 1)} last href='#' />
                         </PaginationItem>
                     </Pagination>
