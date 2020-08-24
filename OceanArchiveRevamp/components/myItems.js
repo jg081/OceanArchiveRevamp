@@ -86,11 +86,30 @@ var MyItems = /** @class */ (function (_super) {
     function MyItems(props) {
         var _this = _super.call(this, props) || this;
         _this.switchPage = function (index) {
-            console.log("Index: ", index, " | PagesCount: ", _this.pagesCount);
+            //console.log("Index: ", index, " | PagesCount: ", this.pagesCount)
             if (index >= 0 && index < _this.pagesCount)
                 _this.setState({
                     currentPage: index
                 });
+        };
+        _this.pageGroup = function (centerPage) {
+            if (_this.pagesCount > 7) {
+                var group = [1, -1, centerPage - 1, centerPage, centerPage + 1, -2, _this.pagesCount];
+                if (centerPage <= 3)
+                    group = [1, 2, 3, 4, -1, _this.pagesCount];
+                else if (centerPage >= _this.pagesCount - 2)
+                    group = [1, -1, _this.pagesCount - 3, _this.pagesCount - 2, _this.pagesCount - 1, _this.pagesCount];
+                //console.log("Group: ", group);
+                return (group.map(function (i) {
+                    return React.createElement(reactstrap_1.PaginationItem, { active: i === _this.state.currentPage + 1, disabled: i < 0, key: i },
+                        React.createElement(reactstrap_1.PaginationLink, { onClick: function () { return _this.switchPage(i - 1); }, href: '#' }, i < 0 ? '...' : i));
+                }));
+            }
+            else
+                return (_this.pages.map(function (i) {
+                    return React.createElement(reactstrap_1.PaginationItem, { active: i === _this.state.currentPage + 1, key: i },
+                        React.createElement(reactstrap_1.PaginationLink, { onClick: function () { return _this.switchPage(i - 1); }, href: '#' }, i));
+                }));
         };
         _this.dataSet = new Array(100);
         for (var i = 0; i < _this.dataSet.length; i++) {
@@ -128,10 +147,7 @@ var MyItems = /** @class */ (function (_super) {
                         React.createElement(reactstrap_1.PaginationLink, { onClick: function () { return _this.switchPage(0); }, first: true, href: '#' })),
                     React.createElement(reactstrap_1.PaginationItem, { disabled: currentPage <= 0 },
                         React.createElement(reactstrap_1.PaginationLink, { onClick: function () { return _this.switchPage(currentPage - 1); }, previous: true, href: '#' })),
-                    this.pages.map(function (i) {
-                        return React.createElement(reactstrap_1.PaginationItem, { active: i === currentPage + 1, key: i },
-                            React.createElement(reactstrap_1.PaginationLink, { onClick: function () { return _this.switchPage(i - 1); }, href: '#' }, i));
-                    }),
+                    this.pageGroup(currentPage + 1),
                     React.createElement(reactstrap_1.PaginationItem, { disabled: currentPage >= this.pagesCount - 1 },
                         React.createElement(reactstrap_1.PaginationLink, { onClick: function () { return _this.switchPage(currentPage + 1); }, next: true, href: '#' })),
                     React.createElement(reactstrap_1.PaginationItem, { disabled: currentPage >= this.pagesCount - 1 },

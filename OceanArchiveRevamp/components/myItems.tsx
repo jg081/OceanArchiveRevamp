@@ -116,11 +116,42 @@ export default class MyItems extends React.Component {
     }
 
     switchPage = (index) => {
-        console.log("Index: ", index, " | PagesCount: ", this.pagesCount)
+        //console.log("Index: ", index, " | PagesCount: ", this.pagesCount)
         if (index >= 0 && index < this.pagesCount)
             this.setState({
                 currentPage: index
             });
+    }
+
+    pageGroup = (centerPage) => {
+        if (this.pagesCount > 7) {
+            var group = [1, -1, centerPage - 1, centerPage, centerPage + 1, -2, this.pagesCount];
+            if (centerPage <= 3)
+                group = [1, 2, 3, 4, -1, this.pagesCount];
+            else if (centerPage >= this.pagesCount - 2)
+                group = [1, -1, this.pagesCount - 3, this.pagesCount - 2, this.pagesCount - 1, this.pagesCount];
+
+            //console.log("Group: ", group);
+            return (
+                group.map((i) =>
+                    <PaginationItem active={i === this.state.currentPage + 1} disabled={i < 0} key={i}>
+                        <PaginationLink onClick={() => this.switchPage(i - 1)} href='#'>
+                            {i < 0 ? '...' : i}
+                        </PaginationLink>
+                    </PaginationItem>
+                )
+            );
+        }
+        else
+            return (
+                this.pages.map((i) =>
+                    <PaginationItem active={i === this.state.currentPage + 1} key={i}>
+                        <PaginationLink onClick={() => this.switchPage(i - 1)} href='#'>
+                            {i}
+                        </PaginationLink>
+                    </PaginationItem>
+                )
+            );
     }
 
     render() {
@@ -148,17 +179,11 @@ export default class MyItems extends React.Component {
                         <PaginationItem disabled={currentPage <= 0}>
                             <PaginationLink onClick={() => this.switchPage(currentPage - 1)} previous href='#' />
                         </PaginationItem>
-                        {this.pages.map((i) =>
-                            <PaginationItem active={i === currentPage+1} key={i}>
-                                <PaginationLink onClick={() => this.switchPage(i - 1)} href='#'>
-                                    {i}
-                                </PaginationLink>
-                            </PaginationItem>
-                        )}
-                        <PaginationItem disabled={currentPage >= this.pagesCount-1}>
+                        {this.pageGroup(currentPage + 1)}
+                        <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
                             <PaginationLink onClick={() => this.switchPage(currentPage + 1)} next href='#' />
                         </PaginationItem>
-                        <PaginationItem disabled={currentPage >= this.pagesCount-1}>
+                        <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
                             <PaginationLink onClick={() => this.switchPage(this.pagesCount - 1)} last href='#' />
                         </PaginationItem>
                     </Pagination>
