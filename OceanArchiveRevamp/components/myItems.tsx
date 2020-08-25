@@ -170,7 +170,9 @@ export default class MyItems extends React.Component {
                     )}
                 </div>
                 <div className='footerMenu'>
-                    <div className='buttonSmall'>+ Add New</div>
+                    <NavLink className='buttonSmall' to="/createItem">
+                        + Add New
+                    </NavLink>
                     <div className='fillerBox' />
                     <Pagination>
                         <PaginationItem disabled={currentPage <= 0}>

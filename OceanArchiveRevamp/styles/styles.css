@@ -969,13 +969,13 @@ a:active {
     border-radius: 5px;
 }
 
-.pagination:first-child {
-    border-radius: 5px 0px 0px 5px;
-}
+    .pagination:first-child {
+        border-radius: 5px 0px 0px 5px;
+    }
 
-.pagination:last-child { 
-    border-radius: 0px 5px 5px 0px;
-}
+    .pagination:last-child {
+        border-radius: 0px 5px 5px 0px;
+    }
 
 .page-item {
     background-color: #ffffff;
@@ -998,9 +998,9 @@ a:active {
         background-color: #4A74A5
     }
 
-    .page-item.active:hover {
-        background-color: #4A74A5
-    }
+        .page-item.active:hover {
+            background-color: #4A74A5
+        }
 
     .page-item > a:link {
         color: #000000;
@@ -1040,3 +1040,58 @@ a:active {
     .page-item.disabled:hover {
         background-color: #ffffff;
     }
+
+/*Create Item*/
+.creationContainer {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 100px);
+    margin: 0px 24px;
+}
+
+.creationHeader {
+    flex: 0 0 auto;
+    height: 100px;
+}
+
+.creationFooter {
+    flex: 0 0 auto;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.creationButton {
+    flex: 0 0 auto;
+    text-align: center;
+    height: 50px;
+    width: 250px;
+    color: #ffffff;
+    background-color: #4A74A5;
+    border-radius: 5px;
+    line-height: 50px;
+}
+
+.creationButton.callToAction {
+    color: #000000;
+    background-color: #3FB39A;
+}
+
+.createItemPage {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 75vw;
+}
+
+.creationContainer > div > .carousel-inner {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.creationContainer > div {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}

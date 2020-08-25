@@ -36,48 +36,57 @@ var AnnouncementsContainer = /** @class */ (function (_super) {
             [
                 {
                     title: 'TITLE 1',
-                    text: 'Text for 1'
+                    text: 'Text for 1',
+                    key: 1
                 },
                 {
                     title: 'TITLE 2',
-                    text: 'Text for 2'
+                    text: 'Text for 2',
+                    key: 2
                 },
                 {
                     title: 'TITLE 3',
-                    text: 'Text for 3'
+                    text: 'Text for 3',
+                    key: 3
                 }
             ],
             [
                 {
                     title: 'TITLE 4',
-                    text: 'Text for 4'
+                    text: 'Text for 4',
+                    key: 4
                 },
                 {
                     title: 'TITLE 5',
-                    text: 'Text for 5'
+                    text: 'Text for 5',
+                    key: 5
                 },
                 {
                     title: 'TITLE 6',
-                    text: 'Text for 6'
+                    text: 'Text for 6',
+                    key: 6
                 }
             ],
             [
                 {
                     title: 'TITLE 7',
-                    text: 'Text for 7'
+                    text: 'Text for 7',
+                    key: 7
                 },
                 {
                     title: 'TITLE 8',
-                    text: 'Text for 8'
+                    text: 'Text for 8',
+                    key: 8
                 },
                 {
                     title: 'TITLE 9',
-                    text: 'Text for 9'
+                    text: 'Text for 9',
+                    key: 9
                 }
             ]
         ];
-        _this.slides = _this.items.map(function (item) {
-            return (React.createElement(reactstrap_1.CarouselItem, { onExiting: function () { return _this.setState({ animating: true }); }, onExited: function () { return _this.setState({ animating: false }); } },
+        _this.slides = _this.items.map(function (item, i) {
+            return (React.createElement(reactstrap_1.CarouselItem, { onExiting: function () { return _this.setState({ animating: true }); }, onExited: function () { return _this.setState({ animating: false }); }, key: i },
                 React.createElement("div", { style: { display: 'flex' } },
                     React.createElement(Announcement, { title: item[0].title, text: item[0].text }),
                     React.createElement(Announcement, { title: item[1].title, text: item[1].text }),

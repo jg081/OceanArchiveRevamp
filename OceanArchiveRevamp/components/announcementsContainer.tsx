@@ -37,50 +37,59 @@ export default class AnnouncementsContainer extends React.Component {
         [
             {
                 title: 'TITLE 1',
-                text: 'Text for 1'
+                text: 'Text for 1',
+                key: 1
             },
             {
                 title: 'TITLE 2',
-                text: 'Text for 2'
+                text: 'Text for 2',
+                key: 2
             },
             {
                 title: 'TITLE 3',
-                text: 'Text for 3'
+                text: 'Text for 3',
+                key: 3
             }
         ],
         [
             {
                 title: 'TITLE 4',
-                text: 'Text for 4'
+                text: 'Text for 4',
+                key: 4
             },
             {
                 title: 'TITLE 5',
-                text: 'Text for 5'
+                text: 'Text for 5',
+                key: 5
             },
             {
                 title: 'TITLE 6',
-                text: 'Text for 6'
+                text: 'Text for 6',
+                key: 6
             }
         ],
         [
             {
                 title: 'TITLE 7',
-                text: 'Text for 7'
+                text: 'Text for 7',
+                key: 7
             },
             {
                 title: 'TITLE 8',
-                text: 'Text for 8'
+                text: 'Text for 8',
+                key: 8
             },
             {
                 title: 'TITLE 9',
-                text: 'Text for 9'
+                text: 'Text for 9',
+                key: 9
             }
         ]
     ];
 
-    slides = this.items.map((item) => {
+    slides = this.items.map((item, i) => {
         return (
-            <CarouselItem onExiting={() => this.setState({ animating: true })} onExited={() => this.setState({ animating: false })}>
+            <CarouselItem onExiting={() => this.setState({ animating: true })} onExited={() => this.setState({ animating: false })} key={i}>
                 <div style={{ display: 'flex' }}>
                     <Announcement title={item[0].title} text={item[0].text} />
                     <Announcement title={item[1].title} text={item[1].text} />

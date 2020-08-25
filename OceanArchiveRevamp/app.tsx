@@ -16,6 +16,7 @@ import Home from './components/home';
 import Map from './components/map';
 import MyItems from './components/myItems';
 import ItemCollectionPage from './components/itemCollectionPage';
+import CreateItem from './components/createItem';
 
 import * as Constant from './constants';
 
@@ -35,6 +36,7 @@ class Homepage extends React.Component {
                     <Route path="/map" component={Map} />
                     <Route path="/myItems" component={MyItems} />
                     <Route path="/itemPage" component={ItemCollectionPage} />
+                    <Route path="/createItem" component={CreateItem} />
                 </Switch>
             </div>
         );

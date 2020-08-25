@@ -14,6 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require('react');
+var react_router_dom_1 = require("react-router-dom");
 var reactstrap_1 = require("reactstrap");
 var SearchBar = /** @class */ (function (_super) {
     __extends(SearchBar, _super);
@@ -140,7 +141,7 @@ var MyItems = /** @class */ (function (_super) {
                     return React.createElement(ListItem, { key: i, published: true, dateCreated: "02-Jun-2020", title: data, creators: 'Territorial Agency' });
                 })),
             React.createElement("div", { className: 'footerMenu' },
-                React.createElement("div", { className: 'buttonSmall' }, "+ Add New"),
+                React.createElement(react_router_dom_1.NavLink, { className: 'buttonSmall', to: "/createItem" }, "+ Add New"),
                 React.createElement("div", { className: 'fillerBox' }),
                 React.createElement(reactstrap_1.Pagination, null,
                     React.createElement(reactstrap_1.PaginationItem, { disabled: currentPage <= 0 },
