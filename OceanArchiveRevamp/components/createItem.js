@@ -25,11 +25,33 @@ var CreateItem = /** @class */ (function (_super) {
                 //Details
                 case 1:
                     return (React.createElement(reactstrap_1.CarouselItem, { className: 'createItemPage', key: '1' },
-                        React.createElement("div", null, "DETAILS")));
+                        React.createElement("div", { className: 'dragAndDrop' }, "DRAG & DROP OR CLICK TO UPLOAD FILE"),
+                        React.createElement(reactstrap_1.FormGroup, null,
+                            React.createElement(reactstrap_1.Label, { for: 'title' }, "Title"),
+                            React.createElement(reactstrap_1.Input, { type: 'text', name: 'title', id: 'title' })),
+                        React.createElement(reactstrap_1.FormGroup, null,
+                            React.createElement(reactstrap_1.Label, { for: 'desc' }, "Description"),
+                            React.createElement(reactstrap_1.Input, { type: 'textarea', name: 'desc', id: 'desc' })),
+                        React.createElement(reactstrap_1.FormGroup, null,
+                            React.createElement(reactstrap_1.Label, { for: 'creator' }, "Creator(s) / Author(s)"),
+                            React.createElement(reactstrap_1.Input, { type: 'text', name: 'creator', id: 'creator' })),
+                        React.createElement(reactstrap_1.FormGroup, null,
+                            React.createElement(reactstrap_1.Label, { for: 'dateStart' }, "Date Started/Made"),
+                            React.createElement(reactstrap_1.Input, { type: 'date', name: 'dateStart', id: 'dateStart' })),
+                        React.createElement(reactstrap_1.FormGroup, null,
+                            React.createElement(reactstrap_1.Label, { for: 'dateFinish' }, "Date Finished"),
+                            React.createElement(reactstrap_1.Input, { type: 'date', name: 'dateFinish', id: 'dateFinish' })),
+                        React.createElement(reactstrap_1.FormGroup, null,
+                            React.createElement(reactstrap_1.Label, { for: 'url' }, "URL"),
+                            React.createElement(reactstrap_1.Input, { type: 'url', name: 'url', id: 'url' })),
+                        React.createElement(reactstrap_1.FormGroup, null,
+                            React.createElement(reactstrap_1.Label, { for: 'lang' }, "Language"),
+                            React.createElement(reactstrap_1.Input, { type: 'text', name: 'lang', id: 'lang' }))));
                 //Category & Tags
                 case 2:
                     return (React.createElement(reactstrap_1.CarouselItem, { className: 'createItemPage', key: '2' },
-                        React.createElement("div", null, "CATEGORY & TAGS")));
+                        "Categories",
+                        React.createElement("hr", null)));
                 //Regions & Legal
                 case 3:
                     return (React.createElement(reactstrap_1.CarouselItem, { className: 'createItemPage', key: '3' },
@@ -62,17 +84,16 @@ var CreateItem = /** @class */ (function (_super) {
         return _this;
     }
     CreateItem.prototype.render = function () {
-        return (React.createElement("div", { className: 'creationContainer' },
-            React.createElement(reactstrap_1.Carousel, { ride: false, pause: false, interval: false, activeIndex: this.state.activeIndex, next: this.next, previous: this.prev },
-                React.createElement("div", { className: 'creationHeader' },
-                    "Create Item",
-                    React.createElement(reactstrap_1.CarouselIndicators, { items: this.formPages, activeIndex: this.state.activeIndex, onClickHandler: this.goToIndex })),
-                this.formPages,
-                React.createElement("div", { className: 'creationFooter' },
-                    React.createElement("div", { className: 'creationButton', onClick: this.prev }, "BACK"),
-                    React.createElement("div", { className: 'fillerBox' }),
-                    React.createElement("div", { className: 'creationButton', style: { marginRight: '16px' } }, "SAVE DRAFT"),
-                    React.createElement("div", { className: 'creationButton callToAction', onClick: this.next }, "NEXT")))));
+        return (React.createElement(reactstrap_1.Form, { className: 'creationContainer' },
+            React.createElement("div", { className: 'creationHeader' },
+                "Create Item",
+                React.createElement(reactstrap_1.CarouselIndicators, { items: this.formPages, activeIndex: this.state.activeIndex, onClickHandler: this.goToIndex })),
+            React.createElement(reactstrap_1.Carousel, { pause: false, interval: false, activeIndex: this.state.activeIndex, next: this.next, previous: this.prev }, this.formPages),
+            React.createElement("div", { className: 'creationFooter' },
+                React.createElement("div", { className: 'creationButton', onClick: this.prev }, "BACK"),
+                React.createElement("div", { className: 'fillerBox' }),
+                React.createElement("div", { className: 'creationButton', style: { marginRight: '16px' } }, "SAVE DRAFT"),
+                React.createElement("div", { className: 'creationButton callToAction', onClick: this.next }, "NEXT"))));
     };
     return CreateItem;
 }(React.Component));

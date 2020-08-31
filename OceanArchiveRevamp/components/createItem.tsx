@@ -6,7 +6,11 @@ import {
     Carousel,
     CarouselItem,
     CarouselIndicators,
-    CarouselControl
+    CarouselControl,
+    Form,
+    FormGroup,
+    Label,
+    Input
 } from 'reactstrap';
 
 export default class CreateItem extends React.Component {
@@ -26,18 +30,46 @@ export default class CreateItem extends React.Component {
             case 1:
                 return (
                     <CarouselItem className='createItemPage' key='1'>
-                        <div>
-                            DETAILS
-                    </div>
+                        <div className='dragAndDrop'>
+                            DRAG & DROP OR CLICK TO UPLOAD FILE
+                        </div>
+                        <FormGroup>
+                            <Label for='title'>Title</Label>
+                            <Input type='text' name='title' id='title' />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for='desc'>Description</Label>
+                            <Input type='textarea' name='desc' id='desc' />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for='creator'>Creator(s) / Author(s)</Label>
+                            <Input type='text' name='creator' id='creator' />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for='dateStart'>Date Started/Made</Label>
+                            <Input type='date' name='dateStart' id='dateStart' />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for='dateFinish'>Date Finished</Label>
+                            <Input type='date' name='dateFinish' id='dateFinish' />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for='url'>URL</Label>
+                            <Input type='url' name='url' id='url' />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for='lang'>Language</Label>
+                            <Input type='text' name='lang' id='lang' />
+                        </FormGroup>
                     </CarouselItem>
                 );
             //Category & Tags
             case 2:
                 return (
                     <CarouselItem className='createItemPage' key='2'>
-                        <div>
-                            CATEGORY & TAGS
-                    </div>
+                        Categories
+                        <hr />
+
                     </CarouselItem>
                 );
             //Regions & Legal
@@ -79,27 +111,27 @@ export default class CreateItem extends React.Component {
 
     render() {
         return (
-            <div className='creationContainer'>
-                <Carousel ride={false} pause={false} interval={false} activeIndex={this.state.activeIndex} next={this.next} previous={this.prev}>
-                    <div className='creationHeader'>
-                        Create Item
+            <Form className='creationContainer'>
+                <div className='creationHeader'>
+                    Create Item
                         <CarouselIndicators items={this.formPages} activeIndex={this.state.activeIndex} onClickHandler={this.goToIndex} />
-                    </div>
+                </div>
+                <Carousel pause={false} interval={false} activeIndex={this.state.activeIndex} next={this.next} previous={this.prev}>
                     {this.formPages}
-                    <div className='creationFooter'>
-                        <div className='creationButton' onClick={this.prev}>
-                            BACK
-                        </div>
-                        <div className='fillerBox' />
-                        <div className='creationButton' style={{ marginRight: '16px' }}>
-                            SAVE DRAFT
-                            </div>
-                        <div className='creationButton callToAction' onClick={this.next}>
-                            NEXT
-                            </div>
-                    </div>
                 </Carousel>
-            </div>
+                <div className='creationFooter'>
+                    <div className='creationButton' onClick={this.prev}>
+                        BACK
+                        </div>
+                    <div className='fillerBox' />
+                    <div className='creationButton' style={{ marginRight: '16px' }}>
+                        SAVE DRAFT
+                            </div>
+                    <div className='creationButton callToAction' onClick={this.next}>
+                        NEXT
+                            </div>
+                </div>
+            </Form>
         );
     }
 }
