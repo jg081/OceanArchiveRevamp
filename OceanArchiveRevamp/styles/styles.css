@@ -87,6 +87,7 @@ a:active {
 
 hr {
     border-color: #D8D8D8;
+    width: 100%;
 }
 
 /*Header*/
@@ -1145,6 +1146,16 @@ hr {
             transition: 0.3s;
         }
 
+.form-check {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+
+.form-check-label {
+    height: 30px;
+}
+
 /*Create Item - Details*/
 .dragAndDrop {
     flex: 1 1 auto;
@@ -1158,3 +1169,36 @@ hr {
     margin-right: 16px;
     align-items: center;
 }
+
+select {
+    background-color: #142636;
+    color: #ffffff;
+    border: solid 1px #ffffff;
+    border-radius: 5px;
+    font-family: Roboto;
+    height: 30px;
+    outline: none;
+}
+
+/*Create Item - Categories & Tags*/
+.mainFocus {
+    display: flex;
+}
+
+    .mainFocus > .btn {
+        background-color: #142636;
+        color: #ffffff;
+        border: solid 1px #ffffff;
+        height: 40px;
+        font-family: Roboto;
+        outline: none;
+    }
+
+        .mainFocus > .btn.left {
+            border-radius: 5px 0px 0px 5px;
+        }
+
+        .mainFocus > .btn.right {
+            border-radius: 0px 5px 5px 0px;
+        }
+
