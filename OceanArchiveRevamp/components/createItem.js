@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require('react');
 var Constant = require("../constants");
 var reactstrap_1 = require("reactstrap");
+var react_select_1 = require("react-select");
 var DetailsPage = /** @class */ (function (_super) {
     __extends(DetailsPage, _super);
     function DetailsPage(props) {
@@ -118,15 +119,49 @@ var CategoryAndTagsPage = /** @class */ (function (_super) {
     };
     return CategoryAndTagsPage;
 }(React.Component));
+var RegionAndLegalPage = /** @class */ (function (_super) {
+    __extends(RegionAndLegalPage, _super);
+    function RegionAndLegalPage(props) {
+        return _super.call(this, props) || this;
+    }
+    RegionAndLegalPage.prototype.render = function () {
+        return (React.createElement("div", { className: 'createItemPage' },
+            "Regions",
+            React.createElement("hr", null),
+            React.createElement(reactstrap_1.FormGroup, null,
+                React.createElement(reactstrap_1.Label, { for: 'oceans' }, "Ocean Region/s (optional)"),
+                React.createElement(react_select_1.default, { className: 'react-select-contianer', classNamePrefix: 'react-select', options: Constant.oceans, isMulti: true, isSearchable: true })),
+            React.createElement(reactstrap_1.FormGroup, null,
+                React.createElement(reactstrap_1.Label, { for: 'countries' }, "Country/s (optional)"),
+                React.createElement(react_select_1.default, { className: 'react-select-contianer', classNamePrefix: 'react-select', options: Constant.countries, value: Constant.countries.value, isMulti: true, isSeachable: true })),
+            React.createElement("div", { style: { height: '50px' } }),
+            "Legal",
+            React.createElement("hr", null),
+            React.createElement(reactstrap_1.FormGroup, null,
+                React.createElement(reactstrap_1.Label, { for: 'license' }, "License"),
+                React.createElement(reactstrap_1.Input, { type: 'select', name: 'license' },
+                    React.createElement("option", null, "CC BY (Least Restrictive)"),
+                    React.createElement("option", null, "CC BY-SA"),
+                    React.createElement("option", null, "CC BY-ND"),
+                    React.createElement("option", null, "CC BY-NC"),
+                    React.createElement("option", null, "CC BY-NC-SA"),
+                    React.createElement("option", null, "CC BY-NC-ND (Most Restrictive CC)"),
+                    React.createElement("option", null, "Ocean Archive (Most Restrictive)"))),
+            React.createElement(reactstrap_1.FormGroup, null,
+                React.createElement(reactstrap_1.Label, { for: 'copyr' }, "Copyright Owner (optional)"),
+                React.createElement(reactstrap_1.Input, { type: 'text', name: 'copyr' }))));
+    };
+    return RegionAndLegalPage;
+}(React.Component));
 var CreateItem = /** @class */ (function (_super) {
     __extends(CreateItem, _super);
     function CreateItem(props) {
         var _this = _super.call(this, props) || this;
         _this.focusAreas = ['sci', 'art', 'act'];
         _this.setMainFocus = function (index) {
-            console.log("mainFocus Before: ", _this.mainFocus);
+            //console.log("mainFocus Before: ", this.mainFocus);
             _this.mainFocus = _this.focusAreas[index];
-            console.log("mainFocus After: ", _this.mainFocus);
+            //console.log("mainFocus After: ", this.mainFocus);
         };
         _this.formNumbers = [1, 2, 3, 4];
         _this.formPages = _this.formNumbers.map(function (i) {
@@ -141,8 +176,8 @@ var CreateItem = /** @class */ (function (_super) {
                         React.createElement(CategoryAndTagsPage, { setMainFocus: _this.setMainFocus })));
                 //Regions & Legal
                 case 3:
-                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'createItemPage', key: '3' },
-                        React.createElement("div", null, "REGIONS & LEGAL")));
+                    return (React.createElement(reactstrap_1.CarouselItem, { key: '3' },
+                        React.createElement(RegionAndLegalPage, null)));
                 //Location/s
                 case 4:
                     return (React.createElement(reactstrap_1.CarouselItem, { className: 'createItemPage', key: '4' },

@@ -15,6 +15,7 @@ import {
     ButtonGroup,
     Button
 } from 'reactstrap';
+import Select from 'react-select'; 
 
 class DetailsPage extends React.Component {
     constructor(props) {
@@ -96,7 +97,8 @@ class CategoryAndTagsPage extends React.Component {
                         <Button className='left'
                             type='button'
                             style={{
-                                backgroundColor: this.state.activeFocus == 0 ? Constant.SECONDARY_COLOUR : Constant.MAIN_COLOUR }}
+                                backgroundColor: this.state.activeFocus == 0 ? Constant.SECONDARY_COLOUR : Constant.MAIN_COLOUR
+                            }}
                             onClick={() => this.setMainFocus(0)}
                         >Science & Tech</Button>
                         <Button type='button'
@@ -163,6 +165,48 @@ class CategoryAndTagsPage extends React.Component {
     }
 }
 
+class RegionAndLegalPage extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className='createItemPage'>
+                Regions
+                <hr />
+                <FormGroup>
+                    <Label for='oceans'>Ocean Region/s (optional)</Label>
+                    <Select className='react-select-contianer' classNamePrefix='react-select' options={Constant.oceans} isMulti isSearchable/>
+                </FormGroup>
+                <FormGroup>
+                    <Label for='countries'>Country/s (optional)</Label>
+                    <Select className='react-select-contianer' classNamePrefix='react-select' options={Constant.countries} value={Constant.countries.value} isMulti isSeachable/>
+                </FormGroup>
+                <div style={{ height: '50px' }} />
+                Legal
+                <hr />
+                <FormGroup>
+                    <Label for='license'>License</Label>
+                    <Input type='select' name='license'>
+                        <option>CC BY (Least Restrictive)</option>
+                        <option>CC BY-SA</option>
+                        <option>CC BY-ND</option>
+                        <option>CC BY-NC</option>
+                        <option>CC BY-NC-SA</option>
+                        <option>CC BY-NC-ND (Most Restrictive CC)</option>
+                        <option>Ocean Archive (Most Restrictive)</option>
+                    </Input>
+                </FormGroup>
+                <FormGroup>
+                    <Label for='copyr'>Copyright Owner (optional)</Label>
+                    <Input type='text' name='copyr' />
+                </FormGroup>
+            </div>
+        );
+    }
+}
+
 export default class CreateItem extends React.Component {
     constructor(props) {
         super(props);
@@ -202,10 +246,8 @@ export default class CreateItem extends React.Component {
             //Regions & Legal
             case 3:
                 return (
-                    <CarouselItem className='createItemPage' key='3'>
-                        <div>
-                            REGIONS & LEGAL
-                    </div>
+                    <CarouselItem key='3'>
+                        <RegionAndLegalPage />
                     </CarouselItem>
                 );
             //Location/s
