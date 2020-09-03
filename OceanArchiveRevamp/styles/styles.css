@@ -1086,6 +1086,7 @@ hr {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
+    max-width: 75vw;
 }
 
 .creationContainer > .carousel {
@@ -1096,7 +1097,17 @@ hr {
 .creationContainer > div > .carousel-inner {
     overflow-y: auto;
     height: calc(100vh - 300px);
-    width: 75vw;
+}
+
+.creationCarouselItem.carousel-item.active {
+    display: flex;
+    justify-content: center;
+}
+
+.centerCarouselItem {
+    display: flex;
+    justify-content: center;
+    flex: 1 1 auto;
 }
 
 .form-group {
@@ -1136,7 +1147,7 @@ hr {
         color: #ffffff;
         height: 30px;
         padding: 16px;
-        outline: none;
+        outline: 0;
         height: 100px;
         resize: vertical;
     }
@@ -1207,7 +1218,7 @@ select {
     border-radius: 5px;
     font-family: Roboto;
     height: 30px;
-    outline: none;
+    outline: 0;
 }
 
 /*Create Item - Categories & Tags*/
@@ -1221,7 +1232,7 @@ select {
         border: solid 1px #ffffff;
         height: 40px;
         font-family: Roboto;
-        outline: none;
+        outline: 0;
     }
 
         .mainFocus > .btn.left {
@@ -1232,3 +1243,141 @@ select {
             border-radius: 0px 5px 5px 0px;
         }
 
+/*Locations Page*/
+.locationsPage {
+    max-width: 100%;
+    flex-direction: row;
+}
+
+.mapContainer {
+    flex: 1 1 auto;
+}
+
+.coordListContainer {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.coordListTabs {
+    flex: 1 1 auto;
+    display: flex;
+}
+
+.coordListTab {
+    flex: 1 1 0px;
+    height: 60px;
+    background-color: #ffffff;
+    color: #000000;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    outline: 0;
+}
+
+    .coordListTab:focus {
+        text-decoration: underline;
+    }
+
+    .coordListTab.center {
+        border-style: none solid;
+        border-width: 1px;
+        border-color: #787878;
+    }
+
+.coordList {
+    flex: 1 1 auto;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #4A74A5;
+    height: calc(100vh - 380px);
+    display: flex;
+    flex-direction: column
+}
+
+.coordContainer {
+    flex: 1 1 auto;
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    background-color: #CCCCCC;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding-left: 10px;
+    outline: 0;
+}
+
+    .coordContainer.focused {
+        background-color: #142636;
+    }
+
+.coordFormGroup {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0px;
+}
+
+label.coordLabel {
+    flex: 0 0 75px;
+    height: 40px;
+    background-color: #4A74A5;
+    border-radius: 5px 0px 0px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input.coordInput {
+    flex: 1 1 auto;
+    height: 38px;
+    max-height: 38px;
+    min-height: 38px;
+    min-width: 100px;
+    border: solid 1px #4A74A5;
+    border-radius: 0px 5px 5px 0px;
+    background-color: #ffffff;
+    -moz-appearance: textfield;
+    color: #000000;
+}
+
+    input.coordInput::-webkit-outer-spin-button,
+    input.coordInput::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input .coordInput:focus {
+        border-color: #142636;
+    }
+
+.coordBtnGroup {
+    display: flex;
+    flex: 1 1 100px;
+    max-width: 0px;
+    border-radius: 0px 5px 5px 0px;
+    transition: width .5s ease;
+    -webkit-transition: width .5s ease;
+    overflow-x: hidden;
+}
+
+    .coordBtnGroup.focused {
+        max-width: 100px;
+    }
+
+.coordButton {
+    flex: 0 0 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .coordButton.centerHere {
+        background-color: #3FB39A;
+    }
+
+    .coordButton.delete {
+        background-color: #FF3A3A;
+        border-radius: 0px 5px 5px 0px;
+    }

@@ -153,6 +153,62 @@ var RegionAndLegalPage = /** @class */ (function (_super) {
     };
     return RegionAndLegalPage;
 }(React.Component));
+var CoordinateBox = /** @class */ (function (_super) {
+    __extends(CoordinateBox, _super);
+    function CoordinateBox(props) {
+        var _this = _super.call(this, props) || this;
+        _this.inFocus = function () {
+            _this.setState({
+                isFocused: true
+            });
+        };
+        _this.outFocus = function () {
+            _this.setState({
+                isFocused: false
+            });
+        };
+        _this.state = {
+            isFocused: false
+        };
+        return _this;
+    }
+    CoordinateBox.prototype.render = function () {
+        return (React.createElement("div", { tabindex: '0', className: this.state.isFocused ? 'coordContainer focused' : 'coordContainer', onFocus: this.inFocus, onBlur: this.outFocus },
+            React.createElement(reactstrap_1.FormGroup, { className: 'coordFormGroup' },
+                React.createElement(reactstrap_1.Label, { for: 'lat', className: 'coordLabel' }, "LAT"),
+                React.createElement(reactstrap_1.Input, { className: 'coordInput', type: 'number', maxLength: '10', name: 'lat' })),
+            React.createElement(reactstrap_1.FormGroup, { className: 'coordFormGroup' },
+                React.createElement(reactstrap_1.Label, { for: 'lng', className: 'coordLabel' }, "LONG"),
+                React.createElement(reactstrap_1.Input, { className: 'coordInput', type: 'number', maxLength: '10', name: 'lng' })),
+            React.createElement("div", { className: 'fillerBox' }),
+            React.createElement("div", { className: this.state.isFocused ? 'coordBtnGroup focused' : 'coordBtnGroup' },
+                React.createElement("div", { tabindex: this.state.isFocused ? '0' : '-1', className: 'coordButton centerHere' }, "+"),
+                React.createElement("div", { tabindex: this.state.isFocused ? '0' : '-1', className: 'coordButton delete' }, "x"))));
+    };
+    return CoordinateBox;
+}(React.Component));
+var LocationPage = /** @class */ (function (_super) {
+    __extends(LocationPage, _super);
+    function LocationPage(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            currentFocus: -1
+        };
+        return _this;
+    }
+    LocationPage.prototype.render = function () {
+        return (React.createElement("div", { className: 'createItemPage locationsPage' },
+            React.createElement("div", { className: 'mapContainer' }),
+            React.createElement("div", { className: 'coordListContainer' },
+                React.createElement("div", { className: 'coordListTabs' },
+                    React.createElement("div", { tabindex: '0', className: 'coordListTab' }, "POINTS"),
+                    React.createElement("div", { tabindex: '0', className: 'coordListTab center' }, "PATH"),
+                    React.createElement("div", { tabindex: '0', className: 'coordListTab' }, "AREA")),
+                React.createElement("div", { className: 'coordList' },
+                    React.createElement(CoordinateBox, null)))));
+    };
+    return LocationPage;
+}(React.Component));
 var CreateItem = /** @class */ (function (_super) {
     __extends(CreateItem, _super);
     function CreateItem(props) {
@@ -168,20 +224,24 @@ var CreateItem = /** @class */ (function (_super) {
             switch (i) {
                 //Details
                 case 1:
-                    return (React.createElement(reactstrap_1.CarouselItem, { key: '1' },
-                        React.createElement(DetailsPage, null)));
+                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: '1' },
+                        React.createElement("div", { className: 'centerCarouselItem' },
+                            React.createElement(DetailsPage, null))));
                 //Category & Tags
                 case 2:
-                    return (React.createElement(reactstrap_1.CarouselItem, { key: '2' },
-                        React.createElement(CategoryAndTagsPage, { setMainFocus: _this.setMainFocus })));
+                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: '2' },
+                        React.createElement("div", { className: 'centerCarouselItem' },
+                            React.createElement(CategoryAndTagsPage, { setMainFocus: _this.setMainFocus }))));
                 //Regions & Legal
                 case 3:
-                    return (React.createElement(reactstrap_1.CarouselItem, { key: '3' },
-                        React.createElement(RegionAndLegalPage, null)));
+                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: '3' },
+                        React.createElement("div", { className: 'centerCarouselItem' },
+                            React.createElement(RegionAndLegalPage, null))));
                 //Location/s
                 case 4:
-                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'createItemPage', key: '4' },
-                        React.createElement("div", null, "LOCATION/S")));
+                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: '4' },
+                        React.createElement("div", { className: 'centerCarouselItem' },
+                            React.createElement(LocationPage, null))));
             }
         });
         _this.next = function () {

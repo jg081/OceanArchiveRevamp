@@ -15,7 +15,7 @@ import {
     ButtonGroup,
     Button
 } from 'reactstrap';
-import Select from 'react-select'; 
+import Select from 'react-select';
 
 class DetailsPage extends React.Component {
     constructor(props) {
@@ -177,11 +177,11 @@ class RegionAndLegalPage extends React.Component {
                 <hr />
                 <FormGroup>
                     <Label for='oceans'>Ocean Region/s (optional)</Label>
-                    <Select className='react-select-contianer' classNamePrefix='react-select' options={Constant.oceans} isMulti isSearchable/>
+                    <Select className='react-select-contianer' classNamePrefix='react-select' options={Constant.oceans} isMulti isSearchable />
                 </FormGroup>
                 <FormGroup>
                     <Label for='countries'>Country/s (optional)</Label>
-                    <Select className='react-select-contianer' classNamePrefix='react-select' options={Constant.countries} value={Constant.countries.value} isMulti isSeachable/>
+                    <Select className='react-select-contianer' classNamePrefix='react-select' options={Constant.countries} value={Constant.countries.value} isMulti isSeachable />
                 </FormGroup>
                 <div style={{ height: '50px' }} />
                 Legal
@@ -202,6 +202,75 @@ class RegionAndLegalPage extends React.Component {
                     <Label for='copyr'>Copyright Owner (optional)</Label>
                     <Input type='text' name='copyr' />
                 </FormGroup>
+            </div>
+        );
+    }
+}
+
+class CoordinateBox extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isFocused: false
+        };
+    }
+
+    inFocus = () => {
+        this.setState({
+            isFocused: true
+        });
+    }
+
+    outFocus = () => {
+        this.setState({
+            isFocused: false
+        });
+    }
+
+    render() {
+        return (
+            <div tabindex='0' className={this.state.isFocused ? 'coordContainer focused' : 'coordContainer'} onFocus={this.inFocus} onBlur={this.outFocus}>
+                <FormGroup className='coordFormGroup'>
+                    <Label for='lat' className='coordLabel'>LAT</Label>
+                    <Input className='coordInput' type='number' maxLength='10' name='lat' />
+                </FormGroup>
+                <FormGroup className='coordFormGroup'>
+                    <Label for='lng' className='coordLabel'>LONG</Label>
+                    <Input className='coordInput' type='number' maxLength='10' name='lng' />
+                </FormGroup>
+                <div className='fillerBox' />
+                <div className={this.state.isFocused ? 'coordBtnGroup focused' : 'coordBtnGroup'}>
+                    <div tabindex={this.state.isFocused ? '0' : '-1'} className='coordButton centerHere'>+</div>
+                    <div tabindex={this.state.isFocused ? '0' : '-1'} className='coordButton delete'>x</div>
+                </div>
+            </div>
+        );
+    }
+}
+
+class LocationPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentFocus: -1
+        }
+    }
+
+    render() {
+        return (
+            <div className='createItemPage locationsPage'>
+                <div className='mapContainer'>
+                </div>
+                <div className='coordListContainer'>
+                    <div className='coordListTabs'>
+                        <div tabindex='0' className='coordListTab'>POINTS</div>
+                        <div tabindex='0' className='coordListTab center'>PATH</div>
+                        <div tabindex='0' className='coordListTab'>AREA</div>
+                    </div>
+                    <div className='coordList'>
+                        <CoordinateBox />
+                    </div>
+                </div>
             </div>
         );
     }
@@ -232,31 +301,37 @@ export default class CreateItem extends React.Component {
             //Details
             case 1:
                 return (
-                    <CarouselItem key='1'>
-                        <DetailsPage />
-                    </CarouselItem>
+                    <CarouselItem className='creationCarouselItem' key='1'>
+                        <div className='centerCarouselItem'>
+                            <DetailsPage />
+                        </div>
+                    </CarouselItem >
                 );
             //Category & Tags
             case 2:
                 return (
-                    <CarouselItem key='2'>
-                        <CategoryAndTagsPage setMainFocus={this.setMainFocus} />
+                    <CarouselItem className='creationCarouselItem' key='2'>
+                        <div className='centerCarouselItem'>
+                            <CategoryAndTagsPage setMainFocus={this.setMainFocus} />
+                        </div>
                     </CarouselItem>
                 );
             //Regions & Legal
             case 3:
                 return (
-                    <CarouselItem key='3'>
-                        <RegionAndLegalPage />
+                    <CarouselItem className='creationCarouselItem' key='3'>
+                        <div className='centerCarouselItem'>
+                            <RegionAndLegalPage />
+                        </div>
                     </CarouselItem>
                 );
             //Location/s
             case 4:
                 return (
-                    <CarouselItem className='createItemPage' key='4'>
-                        <div>
-                            LOCATION/S
-                    </div>
+                    <CarouselItem className='creationCarouselItem' key='4'>
+                        <div className='centerCarouselItem'>
+                            <LocationPage />
+                        </div>
                     </CarouselItem>
                 );
         }
