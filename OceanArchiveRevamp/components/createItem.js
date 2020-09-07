@@ -167,23 +167,37 @@ var CoordinateBox = /** @class */ (function (_super) {
                 isFocused: false
             });
         };
+        _this.updateLat = function (e) {
+            _this.setState({ lat: e.target.value });
+            _this.props.updateLatLong(_this.state.index, e.target.value, _this.state.lng);
+        };
+        _this.updateLng = function (e) {
+            _this.setState({ lng: e.target.value });
+            _this.props.updateLatLong(_this.state.index, _this.state.lat, e.target.value);
+        };
+        _this.remove = function () {
+            _this.props.remove(_this.state.index);
+        };
         _this.state = {
-            isFocused: false
+            isFocused: false,
+            lat: 0,
+            lng: 0,
+            index: _this.props.index
         };
         return _this;
     }
     CoordinateBox.prototype.render = function () {
-        return (React.createElement("div", { tabindex: '0', className: this.state.isFocused ? 'coordContainer focused' : 'coordContainer', onFocus: this.inFocus, onBlur: this.outFocus },
+        return (React.createElement("div", { tabIndex: '0', className: this.state.isFocused ? 'coordContainer focused' : 'coordContainer', onFocus: this.inFocus, onBlur: this.outFocus },
             React.createElement(reactstrap_1.FormGroup, { className: 'coordFormGroup' },
                 React.createElement(reactstrap_1.Label, { for: 'lat', className: 'coordLabel' }, "LAT"),
-                React.createElement(reactstrap_1.Input, { className: 'coordInput', type: 'number', maxLength: '10', name: 'lat' })),
+                React.createElement(reactstrap_1.Input, { className: 'coordInput', type: 'number', maxLength: '10', name: 'lat', onChange: this.updateLat })),
             React.createElement(reactstrap_1.FormGroup, { className: 'coordFormGroup' },
                 React.createElement(reactstrap_1.Label, { for: 'lng', className: 'coordLabel' }, "LONG"),
-                React.createElement(reactstrap_1.Input, { className: 'coordInput', type: 'number', maxLength: '10', name: 'lng' })),
+                React.createElement(reactstrap_1.Input, { className: 'coordInput', type: 'number', maxLength: '10', name: 'lng', onChange: this.updateLng })),
             React.createElement("div", { className: 'fillerBox' }),
             React.createElement("div", { className: this.state.isFocused ? 'coordBtnGroup focused' : 'coordBtnGroup' },
-                React.createElement("div", { tabindex: this.state.isFocused ? '0' : '-1', className: 'coordButton centerHere' }, "+"),
-                React.createElement("div", { tabindex: this.state.isFocused ? '0' : '-1', className: 'coordButton delete' }, "x"))));
+                React.createElement("div", { tabIndex: this.state.isFocused ? '0' : '-1', className: 'coordButton centerHere' }, "+"),
+                React.createElement("div", { tabIndex: this.state.isFocused ? '0' : '-1', className: 'coordButton delete', onClick: this.remove }, "x"))));
     };
     return CoordinateBox;
 }(React.Component));
@@ -191,21 +205,58 @@ var LocationPage = /** @class */ (function (_super) {
     __extends(LocationPage, _super);
     function LocationPage(props) {
         var _this = _super.call(this, props) || this;
+        _this.addCoord = function () {
+            _this.state.coords.push({ 'id': _this.state.nextId, 'lat': 0, 'lng': 0 });
+            _this.setState({
+                coords: _this.state.coords,
+                nextId: _this.state.nextId + 1
+            });
+        };
+        _this.removeCoord = function (id) {
+            console.log("remove id: ", id);
+            var i = _this.state.coords.findIndex(function (coord) { return coord.id === id; });
+            console.log("remove i: ", i);
+            if (i >= 0) {
+                _this.state.coords.splice(i, 1);
+                _this.setState({
+                    coords: _this.state.coords
+                });
+                console.log(_this.state.coords);
+            }
+        };
+        _this.updateLatLng = function (id, newLat, newLng) {
+            var i = _this.state.coords.findIndex(function (coord) { return coord.id === id; });
+            if (i >= 0) {
+                _this.state.coords[i] = { 'id': id, 'lat': newLat, 'lng': newLng };
+                _this.setState({ coords: _this.state.coords });
+            }
+        };
+        _this.Tabs = [
+            React.createRef(),
+            React.createRef(),
+            React.createRef()
+        ];
         _this.state = {
-            currentFocus: -1
+            currentFocus: -1,
+            coords: [{ 'lat': 0, 'lng': 0 }],
+            nextId: 1
         };
         return _this;
     }
     LocationPage.prototype.render = function () {
+        var _this = this;
         return (React.createElement("div", { className: 'createItemPage locationsPage' },
             React.createElement("div", { className: 'mapContainer' }),
             React.createElement("div", { className: 'coordListContainer' },
                 React.createElement("div", { className: 'coordListTabs' },
-                    React.createElement("div", { tabindex: '0', className: 'coordListTab' }, "POINTS"),
-                    React.createElement("div", { tabindex: '0', className: 'coordListTab center' }, "PATH"),
-                    React.createElement("div", { tabindex: '0', className: 'coordListTab' }, "AREA")),
+                    React.createElement("div", { tabIndex: '0', className: 'coordListTab' }, "POINTS"),
+                    React.createElement("div", { tabIndex: '0', className: 'coordListTab center' }, "PATH"),
+                    React.createElement("div", { tabIndex: '0', className: 'coordListTab' }, "AREA")),
                 React.createElement("div", { className: 'coordList' },
-                    React.createElement(CoordinateBox, null)))));
+                    this.state.coords.map(function (coord, i) {
+                        return (React.createElement(CoordinateBox, { index: coord.id, remove: _this.removeCoord, updateLatLong: _this.updateLatLng, key: 'coord' + coord.id }));
+                    }),
+                    React.createElement("div", { className: 'addCoordButton', onClick: this.addCoord }, "+")))));
     };
     return LocationPage;
 }(React.Component));

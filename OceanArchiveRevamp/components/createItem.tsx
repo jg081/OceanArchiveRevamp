@@ -211,7 +211,10 @@ class CoordinateBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isFocused: false
+            isFocused: false,
+            lat: 0,
+            lng: 0,
+            index: this.props.index
         };
     }
 
@@ -227,21 +230,35 @@ class CoordinateBox extends React.Component {
         });
     }
 
+    updateLat = (e) => {
+        this.setState({ lat: e.target.value });
+        this.props.updateLatLong(this.state.index, e.target.value, this.state.lng);
+    }
+
+    updateLng = (e) => {
+        this.setState({ lng: e.target.value });
+        this.props.updateLatLong(this.state.index, this.state.lat, e.target.value);
+    }
+
+    remove = () => {
+        this.props.remove(this.state.index);
+    }
+
     render() {
         return (
-            <div tabindex='0' className={this.state.isFocused ? 'coordContainer focused' : 'coordContainer'} onFocus={this.inFocus} onBlur={this.outFocus}>
+            <div tabIndex='0' className={this.state.isFocused ? 'coordContainer focused' : 'coordContainer'} onFocus={this.inFocus} onBlur={this.outFocus}>
                 <FormGroup className='coordFormGroup'>
                     <Label for='lat' className='coordLabel'>LAT</Label>
-                    <Input className='coordInput' type='number' maxLength='10' name='lat' />
+                    <Input className='coordInput' type='number' maxLength='10' name='lat' onChange={this.updateLat} />
                 </FormGroup>
                 <FormGroup className='coordFormGroup'>
                     <Label for='lng' className='coordLabel'>LONG</Label>
-                    <Input className='coordInput' type='number' maxLength='10' name='lng' />
+                    <Input className='coordInput' type='number' maxLength='10' name='lng' onChange={this.updateLng} />
                 </FormGroup>
                 <div className='fillerBox' />
                 <div className={this.state.isFocused ? 'coordBtnGroup focused' : 'coordBtnGroup'}>
-                    <div tabindex={this.state.isFocused ? '0' : '-1'} className='coordButton centerHere'>+</div>
-                    <div tabindex={this.state.isFocused ? '0' : '-1'} className='coordButton delete'>x</div>
+                    <div tabIndex={this.state.isFocused ? '0' : '-1'} className='coordButton centerHere'>+</div>
+                    <div tabIndex={this.state.isFocused ? '0' : '-1'} className='coordButton delete' onClick={this.remove}>x</div>
                 </div>
             </div>
         );
@@ -251,8 +268,44 @@ class CoordinateBox extends React.Component {
 class LocationPage extends React.Component {
     constructor(props) {
         super(props);
+        this.Tabs = [
+            React.createRef(),
+            React.createRef(),
+            React.createRef()
+        ];
         this.state = {
-            currentFocus: -1
+            currentFocus: -1,
+            coords: [{ 'lat': 0, 'lng': 0 }],
+            nextId: 1
+        }
+    }
+
+    addCoord = () => {
+        this.state.coords.push({ 'id': this.state.nextId, 'lat': 0, 'lng': 0 });
+        this.setState({
+            coords: this.state.coords,
+            nextId: this.state.nextId + 1
+        });
+    }
+
+    removeCoord = (id) => {
+        //console.log("remove id: ", id);
+        var i = this.state.coords.findIndex(coord => coord.id === id);
+        //console.log("remove i: ", i);
+        if (i >= 0) {
+            this.state.coords.splice(i, 1);
+            this.setState({
+                coords: this.state.coords
+            });
+            //console.log(this.state.coords);
+        }
+    }
+
+    updateLatLng = (id, newLat, newLng) => {
+        var i = this.state.coords.findIndex(coord => coord.id === id);
+        if (i >= 0) {
+            this.state.coords[i] = { 'id': id, 'lat': newLat, 'lng': newLng };
+            this.setState({ coords: this.state.coords });
         }
     }
 
@@ -263,12 +316,20 @@ class LocationPage extends React.Component {
                 </div>
                 <div className='coordListContainer'>
                     <div className='coordListTabs'>
-                        <div tabindex='0' className='coordListTab'>POINTS</div>
-                        <div tabindex='0' className='coordListTab center'>PATH</div>
-                        <div tabindex='0' className='coordListTab'>AREA</div>
+                        <div tabIndex='0' className='coordListTab'>POINTS</div>
+                        <div tabIndex='0' className='coordListTab center'>PATH</div>
+                        <div tabIndex='0' className='coordListTab'>AREA</div>
                     </div>
                     <div className='coordList'>
-                        <CoordinateBox />
+                        {this.state.coords.map((coord, i) => {
+                            return (
+                                < CoordinateBox index={coord.id} remove={this.removeCoord} updateLatLong={this.updateLatLng} key={'coord' + coord.id} />
+                            );
+                        }
+                        )}
+                        <div className='addCoordButton' onClick={this.addCoord} >
+                            +
+                        </div>
                     </div>
                 </div>
             </div>
