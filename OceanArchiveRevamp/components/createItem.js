@@ -17,6 +17,7 @@ var React = require('react');
 var Constant = require("../constants");
 var reactstrap_1 = require("reactstrap");
 var react_select_1 = require("react-select");
+var Draggable = require('react-draggable');
 var DetailsPage = /** @class */ (function (_super) {
     __extends(DetailsPage, _super);
     function DetailsPage(props) {
@@ -169,66 +170,155 @@ var CoordinateBox = /** @class */ (function (_super) {
         };
         _this.updateLat = function (e) {
             _this.setState({ lat: e.target.value });
-            _this.props.updateLatLong(_this.state.index, e.target.value, _this.state.lng);
+            _this.props.updateLatLong(_this.state.id, e.target.value, _this.state.lng);
         };
         _this.updateLng = function (e) {
             _this.setState({ lng: e.target.value });
-            _this.props.updateLatLong(_this.state.index, _this.state.lat, e.target.value);
+            _this.props.updateLatLong(_this.state.id, _this.state.lat, e.target.value);
         };
         _this.remove = function () {
-            _this.props.remove(_this.state.index);
+            _this.props.remove(_this.state.id);
+        };
+        _this.onStart = function () {
+            _this.props.onStart(_this.state.id);
+        };
+        _this.onDrag = function (e, ui) {
+            _this.props.onDrag(_this.state.id, ui.y);
+        };
+        _this.onStop = function (e, ui) {
+            _this.props.onStop(_this.state.id, ui.y);
+        };
+        _this.updateYpos = function (newY) {
+            _this.setState({
+                position: { x: 0, y: newY }
+            });
         };
         _this.state = {
             isFocused: false,
             lat: 0,
             lng: 0,
-            index: _this.props.index
+            id: _this.props.arrayId,
+            position: { x: 0, y: _this.props.yPos }
         };
         return _this;
+        //console.log('props: ', props);
     }
     CoordinateBox.prototype.render = function () {
-        return (React.createElement("div", { tabIndex: '0', className: this.state.isFocused ? 'coordContainer focused' : 'coordContainer', onFocus: this.inFocus, onBlur: this.outFocus },
-            React.createElement(reactstrap_1.FormGroup, { className: 'coordFormGroup' },
-                React.createElement(reactstrap_1.Label, { for: 'lat', className: 'coordLabel' }, "LAT"),
-                React.createElement(reactstrap_1.Input, { className: 'coordInput', type: 'number', maxLength: '10', name: 'lat', onChange: this.updateLat })),
-            React.createElement(reactstrap_1.FormGroup, { className: 'coordFormGroup' },
-                React.createElement(reactstrap_1.Label, { for: 'lng', className: 'coordLabel' }, "LONG"),
-                React.createElement(reactstrap_1.Input, { className: 'coordInput', type: 'number', maxLength: '10', name: 'lng', onChange: this.updateLng })),
-            React.createElement("div", { className: 'fillerBox' }),
-            React.createElement("div", { className: this.state.isFocused ? 'coordBtnGroup focused' : 'coordBtnGroup' },
-                React.createElement("div", { tabIndex: this.state.isFocused ? '0' : '-1', className: 'coordButton centerHere' }, "+"),
-                React.createElement("div", { tabIndex: this.state.isFocused ? '0' : '-1', className: 'coordButton delete', onClick: this.remove }, "x"))));
+        return (React.createElement(Draggable, { axis: 'y', bounds: 'parent', onStart: this.onStart, onDrag: this.onDrag, onStop: this.onStop, position: this.state.position, cancel: '.coordInput' },
+            React.createElement("div", { tabIndex: '0', className: this.state.isFocused ? 'coordContainer focused' : 'coordContainer', onFocus: this.inFocus, onBlur: this.outFocus },
+                React.createElement(reactstrap_1.FormGroup, { className: 'coordFormGroup' },
+                    React.createElement(reactstrap_1.Label, { for: 'lat', className: 'coordLabel' }, "LAT"),
+                    React.createElement(reactstrap_1.Input, { className: 'coordInput', type: 'number', maxLength: '10', name: 'lat', onChange: this.updateLat })),
+                React.createElement(reactstrap_1.FormGroup, { className: 'coordFormGroup' },
+                    React.createElement(reactstrap_1.Label, { for: 'lng', className: 'coordLabel' }, "LONG"),
+                    React.createElement(reactstrap_1.Input, { className: 'coordInput', type: 'number', maxLength: '10', name: 'lng', onChange: this.updateLng })),
+                React.createElement("div", { className: 'fillerBox' }),
+                React.createElement("div", { className: this.state.isFocused ? 'coordBtnGroup focused' : 'coordBtnGroup' },
+                    React.createElement("div", { tabIndex: this.state.isFocused ? '0' : '-1', className: 'coordButton centerHere' }, "+"),
+                    React.createElement("div", { tabIndex: this.state.isFocused ? '0' : '-1', className: 'coordButton delete', onClick: this.remove }, "x")))));
     };
     return CoordinateBox;
 }(React.Component));
+var HEIGHT = 60;
 var LocationPage = /** @class */ (function (_super) {
     __extends(LocationPage, _super);
     function LocationPage(props) {
         var _this = _super.call(this, props) || this;
         _this.addCoord = function () {
-            _this.state.coords.push({ 'id': _this.state.nextId, 'lat': 0, 'lng': 0 });
+            _this.state.coords.push({ 'ref': React.createRef(), 'id': _this.state.nextId, 'lat': 0, 'lng': 0, 'yPos': 0 });
             _this.setState({
                 coords: _this.state.coords,
                 nextId: _this.state.nextId + 1
             });
         };
         _this.removeCoord = function (id) {
-            console.log("remove id: ", id);
+            //console.log("remove id: ", id);
             var i = _this.state.coords.findIndex(function (coord) { return coord.id === id; });
-            console.log("remove i: ", i);
+            //console.log("remove i: ", i);
             if (i >= 0) {
                 _this.state.coords.splice(i, 1);
                 _this.setState({
                     coords: _this.state.coords
                 });
-                console.log(_this.state.coords);
+                //console.log(this.state.coords);
             }
         };
         _this.updateLatLng = function (id, newLat, newLng) {
             var i = _this.state.coords.findIndex(function (coord) { return coord.id === id; });
             if (i >= 0) {
-                _this.state.coords[i] = { 'id': id, 'lat': newLat, 'lng': newLng };
+                _this.state.coords[i].lat = newLat;
+                _this.state.coords[i].lng = newLng;
                 _this.setState({ coords: _this.state.coords });
+            }
+        };
+        _this.onStart = function (id) {
+            //var i = this.state.coords.findIndex(coord => coord.id === id);
+            //if (i >= 0)
+            //console.log('onStart yPos: ', this.state.coords[i].yPos);
+        };
+        _this.onDrag = function (id, y) {
+            var i = _this.state.coords.findIndex(function (coord) { return coord.id === id; });
+            if (i >= 0) {
+                //console.log('onDrag y: ', y);
+                var n = Math.floor((y + HEIGHT / 2) / HEIGHT);
+                //console.log('n: ', n);
+                if (n < 0) {
+                    for (var j = 0; j < _this.state.coords.length; j += 1) {
+                        if (j != i) {
+                            var k = j - i;
+                            if (k < 0 && k >= n)
+                                _this.state.coords[j].ref.current.updateYpos(HEIGHT);
+                            else
+                                _this.state.coords[j].ref.current.updateYpos(0);
+                        }
+                    }
+                }
+                else if (n > 0) {
+                    for (var j = 0; j < _this.state.coords.length; j += 1) {
+                        if (j != i) {
+                            var k = j - i;
+                            if (k >= 0 && k <= n)
+                                _this.state.coords[j].ref.current.updateYpos(-HEIGHT);
+                            else
+                                _this.state.coords[j].ref.current.updateYpos(0);
+                        }
+                    }
+                }
+                else {
+                    for (var j = 0; j < _this.state.coords.length; j += 1)
+                        if (j != i)
+                            _this.state.coords[j].ref.current.updateYpos(0);
+                }
+            }
+        };
+        _this.onStop = function (id, y) {
+            var i = _this.state.coords.findIndex(function (coord) { return coord.id === id; });
+            if (i >= 0) {
+                //console.log('onStop y: ', y);
+                for (var j = 0; j < _this.state.coords.length; j += 1)
+                    if (j != i)
+                        _this.state.coords[j].ref.current.updateYpos(0);
+                var n = Math.floor((y + HEIGHT / 2) / HEIGHT);
+                var coords = _this.state.coords;
+                var movedCoord = _this.state.coords[i];
+                if (n < 0) {
+                    for (var j = i; j > (i + n); j -= 1) {
+                        coords[j] = coords[j - 1];
+                    }
+                    coords[i + n] = movedCoord;
+                    _this.setState({
+                        coords: coords
+                    });
+                }
+                else if (n > 0) {
+                    for (var j = i; j < (i + n); j += 1) {
+                        coords[j] = coords[j + 1];
+                    }
+                    coords[i + n] = movedCoord;
+                    _this.setState({
+                        coords: coords
+                    });
+                }
             }
         };
         _this.Tabs = [
@@ -238,7 +328,7 @@ var LocationPage = /** @class */ (function (_super) {
         ];
         _this.state = {
             currentFocus: -1,
-            coords: [{ 'lat': 0, 'lng': 0 }],
+            coords: [{ 'ref': React.createRef(), 'id': 0, 'lat': 0, 'lng': 0, 'yPos': 0 }],
             nextId: 1
         };
         return _this;
@@ -253,10 +343,11 @@ var LocationPage = /** @class */ (function (_super) {
                     React.createElement("div", { tabIndex: '0', className: 'coordListTab center' }, "PATH"),
                     React.createElement("div", { tabIndex: '0', className: 'coordListTab' }, "AREA")),
                 React.createElement("div", { className: 'coordList' },
-                    this.state.coords.map(function (coord, i) {
-                        return (React.createElement(CoordinateBox, { index: coord.id, remove: _this.removeCoord, updateLatLong: _this.updateLatLng, key: 'coord' + coord.id }));
-                    }),
-                    React.createElement("div", { className: 'addCoordButton', onClick: this.addCoord }, "+")))));
+                    React.createElement("div", { className: 'dragContainer' }, this.state.coords.map(function (coord, i) {
+                        return (React.createElement(CoordinateBox, { ref: coord.ref, arrayId: coord.id, remove: _this.removeCoord, updateLatLong: _this.updateLatLng, onStart: _this.onStart, onDrag: _this.onDrag, onStop: _this.onStop, yPos: coord.yPos, key: 'coord' + coord.id }));
+                    })),
+                    React.createElement("div", { className: 'addCoordButton', onClick: this.addCoord }, "+"),
+                    React.createElement("div", { className: 'fillerBox' })))));
     };
     return LocationPage;
 }(React.Component));

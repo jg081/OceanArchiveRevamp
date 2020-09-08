@@ -16,6 +16,7 @@ import {
     Button
 } from 'reactstrap';
 import Select from 'react-select';
+let Draggable = require('react-draggable');
 
 class DetailsPage extends React.Component {
     constructor(props) {
@@ -214,8 +215,10 @@ class CoordinateBox extends React.Component {
             isFocused: false,
             lat: 0,
             lng: 0,
-            index: this.props.index
+            id: this.props.arrayId,
+            position: { x: 0, y: this.props.yPos }
         };
+        //console.log('props: ', props);
     }
 
     inFocus = () => {
@@ -232,39 +235,60 @@ class CoordinateBox extends React.Component {
 
     updateLat = (e) => {
         this.setState({ lat: e.target.value });
-        this.props.updateLatLong(this.state.index, e.target.value, this.state.lng);
+        this.props.updateLatLong(this.state.id, e.target.value, this.state.lng);
     }
 
     updateLng = (e) => {
         this.setState({ lng: e.target.value });
-        this.props.updateLatLong(this.state.index, this.state.lat, e.target.value);
+        this.props.updateLatLong(this.state.id, this.state.lat, e.target.value);
     }
 
     remove = () => {
-        this.props.remove(this.state.index);
+        this.props.remove(this.state.id);
+    }
+
+    onStart = () => {
+        this.props.onStart(this.state.id);
+    }
+
+    onDrag = (e, ui) => {
+        this.props.onDrag(this.state.id, ui.y);
+    }
+
+    onStop = (e, ui) => {
+        this.props.onStop(this.state.id, ui.y);
+    }
+
+    updateYpos = (newY) => {
+        this.setState({
+            position: { x: 0, y: newY }
+        });
     }
 
     render() {
         return (
-            <div tabIndex='0' className={this.state.isFocused ? 'coordContainer focused' : 'coordContainer'} onFocus={this.inFocus} onBlur={this.outFocus}>
-                <FormGroup className='coordFormGroup'>
-                    <Label for='lat' className='coordLabel'>LAT</Label>
-                    <Input className='coordInput' type='number' maxLength='10' name='lat' onChange={this.updateLat} />
-                </FormGroup>
-                <FormGroup className='coordFormGroup'>
-                    <Label for='lng' className='coordLabel'>LONG</Label>
-                    <Input className='coordInput' type='number' maxLength='10' name='lng' onChange={this.updateLng} />
-                </FormGroup>
-                <div className='fillerBox' />
-                <div className={this.state.isFocused ? 'coordBtnGroup focused' : 'coordBtnGroup'}>
-                    <div tabIndex={this.state.isFocused ? '0' : '-1'} className='coordButton centerHere'>+</div>
-                    <div tabIndex={this.state.isFocused ? '0' : '-1'} className='coordButton delete' onClick={this.remove}>x</div>
+            <Draggable axis='y' bounds='parent' onStart={this.onStart} onDrag={this.onDrag} onStop={this.onStop} position={this.state.position} cancel='.coordInput'>
+                <div tabIndex='0' className={this.state.isFocused ? 'coordContainer focused' : 'coordContainer'} onFocus={this.inFocus} onBlur={this.outFocus}>
+                    <FormGroup className='coordFormGroup'>
+                        <Label for='lat' className='coordLabel'>LAT</Label>
+                        <Input className='coordInput' type='number' maxLength='10' name='lat' onChange={this.updateLat} />
+                    </FormGroup>
+                    <FormGroup className='coordFormGroup'>
+                        <Label for='lng' className='coordLabel'>LONG</Label>
+                        <Input className='coordInput' type='number' maxLength='10' name='lng' onChange={this.updateLng} />
+                    </FormGroup>
+                    <div className='fillerBox' />
+                    <div className={this.state.isFocused ? 'coordBtnGroup focused' : 'coordBtnGroup'}>
+                        <div tabIndex={this.state.isFocused ? '0' : '-1'} className='coordButton centerHere'>+</div>
+                        <div tabIndex={this.state.isFocused ? '0' : '-1'} className='coordButton delete' onClick={this.remove}>x</div>
+                    </div>
                 </div>
-            </div>
+            </Draggable>
         );
     }
 }
 
+const HEIGHT = 60;
 class LocationPage extends React.Component {
     constructor(props) {
         super(props);
@@ -275,13 +299,13 @@ class LocationPage extends React.Component {
         ];
         this.state = {
             currentFocus: -1,
-            coords: [{ 'lat': 0, 'lng': 0 }],
+            coords: [{ 'ref': React.createRef(), 'id': 0, 'lat': 0, 'lng': 0, 'yPos': 0 }],
             nextId: 1
         }
     }
 
     addCoord = () => {
-        this.state.coords.push({ 'id': this.state.nextId, 'lat': 0, 'lng': 0 });
+        this.state.coords.push({ 'ref': React.createRef(), 'id': this.state.nextId, 'lat': 0, 'lng': 0, 'yPos': 0 });
         this.setState({
             coords: this.state.coords,
             nextId: this.state.nextId + 1
@@ -304,8 +328,79 @@ class LocationPage extends React.Component {
     updateLatLng = (id, newLat, newLng) => {
         var i = this.state.coords.findIndex(coord => coord.id === id);
         if (i >= 0) {
-            this.state.coords[i] = { 'id': id, 'lat': newLat, 'lng': newLng };
+            this.state.coords[i].lat = newLat;
+            this.state.coords[i].lng = newLng;
             this.setState({ coords: this.state.coords });
+        }
+    }
+
+    onStart = (id) => {
+        //var i = this.state.coords.findIndex(coord => coord.id === id);
+        //if (i >= 0)
+        //console.log('onStart yPos: ', this.state.coords[i].yPos);
+    }
+
+    onDrag = (id, y) => {
+        var i = this.state.coords.findIndex(coord => coord.id === id);
+        if (i >= 0) {
+            //console.log('onDrag y: ', y);
+            var n = Math.floor((y + HEIGHT / 2) / HEIGHT);
+            //console.log('n: ', n);
+            if (n < 0) {
+                for (var j = 0; j < this.state.coords.length; j += 1) {
+                    if (j != i) {
+                        var k = j - i;
+                        if (k < 0 && k >= n)
+                            this.state.coords[j].ref.current.updateYpos(HEIGHT);
+                        else
+                            this.state.coords[j].ref.current.updateYpos(0);
+                    }
+                }
+            } else if (n > 0) {
+                for (var j = 0; j < this.state.coords.length; j += 1) {
+                    if (j != i) {
+                        var k = j - i;
+                        if (k >= 0 && k <= n)
+                            this.state.coords[j].ref.current.updateYpos(-HEIGHT);
+                        else
+                            this.state.coords[j].ref.current.updateYpos(0);
+                    }
+                }
+            } else {
+                for (var j = 0; j < this.state.coords.length; j += 1)
+                    if (j != i)
+                        this.state.coords[j].ref.current.updateYpos(0);
+            }
+        }
+    }
+
+    onStop = (id, y) => {
+        var i = this.state.coords.findIndex(coord => coord.id === id);
+        if (i >= 0) {
+            //console.log('onStop y: ', y);
+            for (var j = 0; j < this.state.coords.length; j += 1)
+                if (j != i)
+                    this.state.coords[j].ref.current.updateYpos(0);
+            var n = Math.floor((y + HEIGHT / 2) / HEIGHT);
+            var coords = this.state.coords;
+            var movedCoord = this.state.coords[i];
+            if (n < 0) {
+                for (var j = i as number; j > (i + n); j -= 1) {
+                    coords[j] = coords[j - 1];
+                }
+                coords[i + n] = movedCoord;
+                this.setState({
+                    coords: coords
+                });
+            } else if (n > 0) {
+                for (var j = i as number; j < (i + n); j += 1) {
+                    coords[j] = coords[j + 1];
+                }
+                coords[i + n] = movedCoord;
+                this.setState({
+                    coords: coords
+                });
+            }
         }
     }
 
@@ -321,15 +416,28 @@ class LocationPage extends React.Component {
                         <div tabIndex='0' className='coordListTab'>AREA</div>
                     </div>
                     <div className='coordList'>
-                        {this.state.coords.map((coord, i) => {
-                            return (
-                                < CoordinateBox index={coord.id} remove={this.removeCoord} updateLatLong={this.updateLatLng} key={'coord' + coord.id} />
-                            );
-                        }
-                        )}
+                        <div className='dragContainer'>
+                            {this.state.coords.map((coord, i) => {
+                                return (
+                                    < CoordinateBox
+                                        ref={coord.ref}
+                                        arrayId={coord.id}
+                                        remove={this.removeCoord}
+                                        updateLatLong={this.updateLatLng}
+                                        onStart={this.onStart}
+                                        onDrag={this.onDrag}
+                                        onStop={this.onStop}
+                                        yPos={coord.yPos}
+                                        key={'coord' + coord.id}
+                                    />
+                                );
+                            }
+                            )}
+                        </div>
                         <div className='addCoordButton' onClick={this.addCoord} >
                             +
                         </div>
+                        <div className='fillerBox' />
                     </div>
                 </div>
             </div>
