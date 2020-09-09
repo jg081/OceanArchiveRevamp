@@ -530,7 +530,7 @@ hr {
 .mapContainer {
     min-height: 100px;
     min-width: 100px;
-    flex: 1 0 auto;
+    flex: 3 0 auto;
 }
 
 .goToLocLabels {
@@ -1246,11 +1246,25 @@ select {
 /*Locations Page*/
 .locationsPage {
     max-width: 100%;
-    flex-direction: row;
+    flex-direction: column;
 }
 
-.mapContainer {
-    flex: 1 1 auto;
+.locationsPage > .topBar {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    align-items: center;
+}
+
+.topBar > .creationButton {
+    height: 30px;
+    width: 150px;
+    line-height: 30px;
+}
+
+.mapAndListContainer {
+    display: flex;
+    flex-direction: row;
 }
 
 .coordListContainer {
@@ -1285,13 +1299,18 @@ select {
         border-color: #787878;
     }
 
+    .coordListTab.active {
+        color: #ffffff;
+        background-color: #4A74A5;
+    }
+
 .coordList {
     flex: 1 1 auto;
     overflow-y: auto;
     background-color: #4A74A5;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 380px);
+    height: calc(100vh - 430px);
     position: relative;
     align-items: center;
 }
@@ -1405,4 +1424,12 @@ input.coordInput {
     background-color: #3FB39A;
     margin: 10px;
     z-index: 600;
+}
+
+.centerActiveWaypoint {
+    transform: translate(-12.5px, -35px);
+}
+
+.centerWaypoint {
+    transform: translate(-7.5px, -22px);
 }

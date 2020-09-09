@@ -16,7 +16,10 @@ import {
     Button
 } from 'reactstrap';
 import Select from 'react-select';
+import GoogleMapReact from 'google-map-react';
+
 let Draggable = require('react-draggable');
+
 
 class DetailsPage extends React.Component {
     constructor(props) {
@@ -225,12 +228,14 @@ class CoordinateBox extends React.Component {
         this.setState({
             isFocused: true
         });
+        this.props.activateWaypoint(this.state.id);
     }
 
     outFocus = () => {
         this.setState({
             isFocused: false
         });
+        this.props.deactivateWaypoint();
     }
 
     updateLat = (e) => {
@@ -300,7 +305,8 @@ class LocationPage extends React.Component {
         this.state = {
             currentFocus: -1,
             coords: [{ 'ref': React.createRef(), 'id': 0, 'lat': 0, 'lng': 0, 'yPos': 0 }],
-            nextId: 1
+            nextId: 1,
+            activeTab: 0,
         }
     }
 
@@ -390,7 +396,8 @@ class LocationPage extends React.Component {
                 }
                 coords[i + n] = movedCoord;
                 this.setState({
-                    coords: coords
+                    coords: coords,
+                    currentFocus: i + n
                 });
             } else if (n > 0) {
                 for (var j = i as number; j < (i + n); j += 1) {
@@ -398,46 +405,93 @@ class LocationPage extends React.Component {
                 }
                 coords[i + n] = movedCoord;
                 this.setState({
-                    coords: coords
+                    coords: coords,
+                    currentFocus: i + n
                 });
             }
         }
     }
 
+    focusWaypoint = (id) => {
+        var i = this.state.coords.findIndex(coord => coord.id === id);
+        if (i >= 0)
+            this.setState({
+                currentFocus: i
+            });
+    }
+
+    defocusWaypoint = () => {
+        this.setState({
+            currentFocus: -1
+        });
+    }
+
+    changeTabs = (i) => {
+        this.setState({
+            activeTab: i
+        });
+    }
+
     render() {
         return (
             <div className='createItemPage locationsPage'>
-                <div className='mapContainer'>
+                <div className='topBar'>
+                    <span>ADD LOCATION/S</span>
+                    <div className='fillerBox' />
+                    <div className='creationButton'>UPLOAD GPS FILE</div>
                 </div>
-                <div className='coordListContainer'>
-                    <div className='coordListTabs'>
-                        <div tabIndex='0' className='coordListTab'>POINTS</div>
-                        <div tabIndex='0' className='coordListTab center'>PATH</div>
-                        <div tabIndex='0' className='coordListTab'>AREA</div>
-                    </div>
-                    <div className='coordList'>
-                        <div className='dragContainer'>
+                <div className='mapAndListContainer'>
+                    <div className='mapContainer'>
+                        <GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }} defaultZoom={5} defaultCenter={{ lat: 0, lng: 0 }}>
                             {this.state.coords.map((coord, i) => {
                                 return (
-                                    < CoordinateBox
-                                        ref={coord.ref}
-                                        arrayId={coord.id}
-                                        remove={this.removeCoord}
-                                        updateLatLong={this.updateLatLng}
-                                        onStart={this.onStart}
-                                        onDrag={this.onDrag}
-                                        onStop={this.onStop}
-                                        yPos={coord.yPos}
-                                        key={'coord' + coord.id}
-                                    />
+                                    (i === this.state.currentFocus) ?
+                                        < svg className='centerActiveWaypoint' width='25' height='35' lat={coord.lat} lng={coord.lng} key={"waypoint" + coord.id + "focus"}>
+                                            <polygon points="0,12.5 12.5,35 25,12.5" style={{ fill: Constant.MAIN_COLOUR, strokeWidth: '0' }} />
+                                            <circle cx='12.5' cy='12.5' r='10.5' stroke={Constant.MAIN_COLOUR} strokeWidth='4' fill={Constant.TERTIARY_COLOUR} />
+                                        </svg>
+                                        :
+                                        <svg className='centerWaypoint' width='15' height='22' lat={coord.lat} lng={coord.lng} key={"waypoint" + coord.id}>
+                                            <circle cx='7.5' cy='7.5' r='7.5' strokeWidth='0' fill={Constant.MAIN_COLOUR} />
+                                            <polygon points="0,7.5 7.5,22 15,7.5" style={{ fill: Constant.MAIN_COLOUR, strokeWidth: '0' }} />
+                                        </svg>
                                 );
                             }
                             )}
+                        </GoogleMapReact>
+                    </div>
+                    <div className='coordListContainer'>
+                        <div className='coordListTabs'>
+                            <div tabIndex='0' className={this.state.activeTab == 0 ? 'coordListTab active' : 'coordListTab' } onClick={() => this.changeTabs(0)}>POINTS</div>
+                            <div tabIndex='0' className={this.state.activeTab == 1 ? 'coordListTab center active' : 'coordListTab center' } onClick={() => this.changeTabs(1)}>PATH</div>
+                            <div tabIndex='0' className={this.state.activeTab == 2 ? 'coordListTab active' : 'coordListTab' } onClick={() => this.changeTabs(2)}>AREA</div>
                         </div>
-                        <div className='addCoordButton' onClick={this.addCoord} >
-                            +
+                        <div className='coordList'>
+                            <div className='dragContainer'>
+                                {this.state.coords.map((coord, i) => {
+                                    return (
+                                        < CoordinateBox
+                                            ref={coord.ref}
+                                            arrayId={coord.id}
+                                            remove={this.removeCoord}
+                                            updateLatLong={this.updateLatLng}
+                                            onStart={this.onStart}
+                                            onDrag={this.onDrag}
+                                            onStop={this.onStop}
+                                            yPos={coord.yPos}
+                                            key={'coord' + coord.id}
+                                            activateWaypoint={this.focusWaypoint}
+                                            deactivateWaypoint={this.defocusWaypoint}
+                                        />
+                                    );
+                                }
+                                )}
+                            </div>
+                            <div className='addCoordButton' onClick={this.addCoord} >
+                                +
                         </div>
-                        <div className='fillerBox' />
+                            <div className='fillerBox' />
+                        </div>
                     </div>
                 </div>
             </div>

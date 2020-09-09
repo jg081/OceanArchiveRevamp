@@ -17,6 +17,7 @@ var React = require('react');
 var Constant = require("../constants");
 var reactstrap_1 = require("reactstrap");
 var react_select_1 = require("react-select");
+var google_map_react_1 = require("google-map-react");
 var Draggable = require('react-draggable');
 var DetailsPage = /** @class */ (function (_super) {
     __extends(DetailsPage, _super);
@@ -162,11 +163,13 @@ var CoordinateBox = /** @class */ (function (_super) {
             _this.setState({
                 isFocused: true
             });
+            _this.props.activateWaypoint(_this.state.id);
         };
         _this.outFocus = function () {
             _this.setState({
                 isFocused: false
             });
+            _this.props.deactivateWaypoint();
         };
         _this.updateLat = function (e) {
             _this.setState({ lat: e.target.value });
@@ -307,7 +310,8 @@ var LocationPage = /** @class */ (function (_super) {
                     }
                     coords[i + n] = movedCoord;
                     _this.setState({
-                        coords: coords
+                        coords: coords,
+                        currentFocus: i + n
                     });
                 }
                 else if (n > 0) {
@@ -316,10 +320,28 @@ var LocationPage = /** @class */ (function (_super) {
                     }
                     coords[i + n] = movedCoord;
                     _this.setState({
-                        coords: coords
+                        coords: coords,
+                        currentFocus: i + n
                     });
                 }
             }
+        };
+        _this.focusWaypoint = function (id) {
+            var i = _this.state.coords.findIndex(function (coord) { return coord.id === id; });
+            if (i >= 0)
+                _this.setState({
+                    currentFocus: i
+                });
+        };
+        _this.defocusWaypoint = function () {
+            _this.setState({
+                currentFocus: -1
+            });
+        };
+        _this.changeTabs = function (i) {
+            _this.setState({
+                activeTab: i
+            });
         };
         _this.Tabs = [
             React.createRef(),
@@ -329,25 +351,41 @@ var LocationPage = /** @class */ (function (_super) {
         _this.state = {
             currentFocus: -1,
             coords: [{ 'ref': React.createRef(), 'id': 0, 'lat': 0, 'lng': 0, 'yPos': 0 }],
-            nextId: 1
+            nextId: 1,
+            activeTab: 0,
         };
         return _this;
     }
     LocationPage.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", { className: 'createItemPage locationsPage' },
-            React.createElement("div", { className: 'mapContainer' }),
-            React.createElement("div", { className: 'coordListContainer' },
-                React.createElement("div", { className: 'coordListTabs' },
-                    React.createElement("div", { tabIndex: '0', className: 'coordListTab' }, "POINTS"),
-                    React.createElement("div", { tabIndex: '0', className: 'coordListTab center' }, "PATH"),
-                    React.createElement("div", { tabIndex: '0', className: 'coordListTab' }, "AREA")),
-                React.createElement("div", { className: 'coordList' },
-                    React.createElement("div", { className: 'dragContainer' }, this.state.coords.map(function (coord, i) {
-                        return (React.createElement(CoordinateBox, { ref: coord.ref, arrayId: coord.id, remove: _this.removeCoord, updateLatLong: _this.updateLatLng, onStart: _this.onStart, onDrag: _this.onDrag, onStop: _this.onStop, yPos: coord.yPos, key: 'coord' + coord.id }));
-                    })),
-                    React.createElement("div", { className: 'addCoordButton', onClick: this.addCoord }, "+"),
-                    React.createElement("div", { className: 'fillerBox' })))));
+            React.createElement("div", { className: 'topBar' },
+                React.createElement("span", null, "ADD LOCATION/S"),
+                React.createElement("div", { className: 'fillerBox' }),
+                React.createElement("div", { className: 'creationButton' }, "UPLOAD GPS FILE")),
+            React.createElement("div", { className: 'mapAndListContainer' },
+                React.createElement("div", { className: 'mapContainer' },
+                    React.createElement(google_map_react_1.default, { bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 5, defaultCenter: { lat: 0, lng: 0 } }, this.state.coords.map(function (coord, i) {
+                        return ((i === _this.state.currentFocus) ?
+                            React.createElement("svg", { className: 'centerActiveWaypoint', width: '25', height: '35', lat: coord.lat, lng: coord.lng, key: "waypoint" + coord.id + "focus" },
+                                React.createElement("polygon", { points: "0,12.5 12.5,35 25,12.5", style: { fill: Constant.MAIN_COLOUR, strokeWidth: '0' } }),
+                                React.createElement("circle", { cx: '12.5', cy: '12.5', r: '10.5', stroke: Constant.MAIN_COLOUR, strokeWidth: '4', fill: Constant.TERTIARY_COLOUR }))
+                            :
+                                React.createElement("svg", { className: 'centerWaypoint', width: '15', height: '22', lat: coord.lat, lng: coord.lng, key: "waypoint" + coord.id },
+                                    React.createElement("circle", { cx: '7.5', cy: '7.5', r: '7.5', strokeWidth: '0', fill: Constant.MAIN_COLOUR }),
+                                    React.createElement("polygon", { points: "0,7.5 7.5,22 15,7.5", style: { fill: Constant.MAIN_COLOUR, strokeWidth: '0' } })));
+                    }))),
+                React.createElement("div", { className: 'coordListContainer' },
+                    React.createElement("div", { className: 'coordListTabs' },
+                        React.createElement("div", { tabIndex: '0', className: this.state.activeTab == 0 ? 'coordListTab active' : 'coordListTab', onClick: function () { return _this.changeTabs(0); } }, "POINTS"),
+                        React.createElement("div", { tabIndex: '0', className: this.state.activeTab == 1 ? 'coordListTab center active' : 'coordListTab center', onClick: function () { return _this.changeTabs(1); } }, "PATH"),
+                        React.createElement("div", { tabIndex: '0', className: this.state.activeTab == 2 ? 'coordListTab active' : 'coordListTab', onClick: function () { return _this.changeTabs(2); } }, "AREA")),
+                    React.createElement("div", { className: 'coordList' },
+                        React.createElement("div", { className: 'dragContainer' }, this.state.coords.map(function (coord, i) {
+                            return (React.createElement(CoordinateBox, { ref: coord.ref, arrayId: coord.id, remove: _this.removeCoord, updateLatLong: _this.updateLatLng, onStart: _this.onStart, onDrag: _this.onDrag, onStop: _this.onStop, yPos: coord.yPos, key: 'coord' + coord.id, activateWaypoint: _this.focusWaypoint, deactivateWaypoint: _this.defocusWaypoint }));
+                        })),
+                        React.createElement("div", { className: 'addCoordButton', onClick: this.addCoord }, "+"),
+                        React.createElement("div", { className: 'fillerBox' }))))));
     };
     return LocationPage;
 }(React.Component));
