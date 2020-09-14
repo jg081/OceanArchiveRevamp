@@ -426,7 +426,7 @@ var LocationPage = /** @class */ (function (_super) {
                     React.createElement(google_map_react_1.default, { ref: 'mapRef', onGoogleApiLoaded: function (_a) {
                             var map = _a.map, maps = _a.maps;
                             _this.map = map;
-                        }, yesIWantToUseGoogleMapApiInternals: true, bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 5, defaultCenter: { lat: 0, lng: 0 } }, this.state.coords.map(function (coord, i) {
+                        }, yesIWantToUseGoogleMapApiInternals: true, bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 5, defaultCenter: { lat: 0, lng: 0 }, options: { fullscreenControl: false } }, this.state.coords.map(function (coord, i) {
                         return ((i === _this.state.currentFocus) ?
                             React.createElement("svg", { ref: "wayRef" + coord.id, className: 'centerActiveWaypoint', width: '25', height: '35', lat: coord.lat, lng: coord.lng, key: "waypoint" + coord.id + "focus" },
                                 React.createElement("polygon", { points: "0,12.5 12.5,35 25,12.5", style: { fill: Constant.MAIN_COLOUR, strokeWidth: '0' } }),

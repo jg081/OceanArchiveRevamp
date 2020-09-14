@@ -510,7 +510,14 @@ class LocationPage extends React.Component {
                 </div>
                 <div className='mapAndListContainer'>
                     <div id='map' className='mapContainer'>
-                        <GoogleMapReact ref='mapRef' onGoogleApiLoaded={({ map, maps }) => { this.map = map }} yesIWantToUseGoogleMapApiInternals bootstrapURLKeys={{ key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }} defaultZoom={5} defaultCenter={{ lat: 0, lng: 0 }}>
+                        <GoogleMapReact
+                            ref='mapRef'
+                            onGoogleApiLoaded={({ map, maps }) => { this.map = map }}
+                            yesIWantToUseGoogleMapApiInternals
+                            bootstrapURLKeys={{ key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }}
+                            defaultZoom={5}
+                            defaultCenter={{ lat: 0, lng: 0 }}
+                            options={{ fullscreenControl: false }}>
                             {this.state.coords.map((coord, i) => {
                                 return (
                                     (i === this.state.currentFocus) ?
@@ -558,7 +565,7 @@ class LocationPage extends React.Component {
                             </div>
                             <div className='addCoordButton' onClick={this.addCoord} >
                                 <svg width='50' height='50'>
-                                    <line x1='25' y1='10' x2='25' y2='40' style={{ stroke: '#ffffff', strokeWidth: '3', strokeLinecap: 'round' }}/>
+                                    <line x1='25' y1='10' x2='25' y2='40' style={{ stroke: '#ffffff', strokeWidth: '3', strokeLinecap: 'round' }} />
                                     <line x1='10' y1='25' x2='40' y2='25' style={{ stroke: '#ffffff', strokeWidth: '3', strokeLinecap: 'round' }} />
                                 </svg>
                             </div>
@@ -566,7 +573,7 @@ class LocationPage extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }
