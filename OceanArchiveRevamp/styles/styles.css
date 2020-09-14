@@ -15,6 +15,14 @@ h2 {
     font-weight: normal;
 }
 
+.visible {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
 .fillerBox {
     flex: 10 1 auto;
 }
@@ -531,6 +539,7 @@ hr {
     min-height: 100px;
     min-width: 100px;
     flex: 3 0 auto;
+    position: relative;
 }
 
 .goToLocLabels {
@@ -1432,4 +1441,11 @@ input.coordInput {
 
 .centerWaypoint {
     transform: translate(-7.5px, -22px);
+}
+
+.waypointPath {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
 }

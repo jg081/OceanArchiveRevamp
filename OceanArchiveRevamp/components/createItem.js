@@ -14,6 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Constant = require("../constants");
 var reactstrap_1 = require("reactstrap");
 var react_select_1 = require("react-select");
@@ -172,12 +173,14 @@ var CoordinateBox = /** @class */ (function (_super) {
             _this.props.deactivateWaypoint();
         };
         _this.updateLat = function (e) {
-            _this.setState({ lat: e.target.value });
-            _this.props.updateLatLong(_this.state.id, e.target.value, _this.state.lng);
+            var f = parseFloat(e.target.value);
+            _this.setState({ lat: f });
+            _this.props.updateLatLong(_this.state.id, f, _this.state.lng);
         };
         _this.updateLng = function (e) {
-            _this.setState({ lng: e.target.value });
-            _this.props.updateLatLong(_this.state.id, _this.state.lat, e.target.value);
+            var f = parseFloat(e.target.value);
+            _this.setState({ lng: f });
+            _this.props.updateLatLong(_this.state.id, _this.state.lat, f);
         };
         _this.remove = function () {
             _this.props.remove(_this.state.id);
@@ -195,6 +198,9 @@ var CoordinateBox = /** @class */ (function (_super) {
             _this.setState({
                 position: { x: 0, y: newY }
             });
+        };
+        _this.centerMap = function () {
+            _this.props.centerMap(_this.state.lat, _this.state.lng);
         };
         _this.state = {
             isFocused: false,
@@ -217,8 +223,18 @@ var CoordinateBox = /** @class */ (function (_super) {
                     React.createElement(reactstrap_1.Input, { className: 'coordInput', type: 'number', maxLength: '10', name: 'lng', onChange: this.updateLng })),
                 React.createElement("div", { className: 'fillerBox' }),
                 React.createElement("div", { className: this.state.isFocused ? 'coordBtnGroup focused' : 'coordBtnGroup' },
-                    React.createElement("div", { tabIndex: this.state.isFocused ? '0' : '-1', className: 'coordButton centerHere' }, "+"),
-                    React.createElement("div", { tabIndex: this.state.isFocused ? '0' : '-1', className: 'coordButton delete', onClick: this.remove }, "x")))));
+                    React.createElement("div", { tabIndex: this.state.isFocused ? '0' : '-1', className: 'coordButton centerHere', onClick: this.centerMap },
+                        React.createElement("svg", { width: '50', height: '50' },
+                            React.createElement("line", { x1: '25', y1: '5', x2: '25', y2: '10', style: { stroke: '#333333', strokeWidth: '4', strokeLinecap: 'round' } }),
+                            React.createElement("line", { x1: '5', y1: '25', x2: '10', y2: '25', style: { stroke: '#333333', strokeWidth: '4', strokeLinecap: 'round' } }),
+                            React.createElement("line", { x1: '25', y1: '40', x2: '25', y2: '45', style: { stroke: '#333333', strokeWidth: '4', strokeLinecap: 'round' } }),
+                            React.createElement("line", { x1: '40', y1: '25', x2: '45', y2: '25', style: { stroke: '#333333', strokeWidth: '4', strokeLinecap: 'round' } }),
+                            React.createElement("circle", { cx: '25', cy: '25', r: '15', style: { stroke: '#333333', strokeWidth: '4', fill: 'none' } }),
+                            React.createElement("circle", { cx: '25', cy: '25', r: '7.5', style: { stroke: '#333333', strokeWidth: '4', fill: '#333333' } }))),
+                    React.createElement("div", { tabIndex: this.state.isFocused ? '0' : '-1', className: 'coordButton delete', onClick: this.remove },
+                        React.createElement("svg", { width: '50', height: '50' },
+                            React.createElement("line", { x1: '10', y1: '10', x2: '40', y2: '40', style: { stroke: '#ffffff', strokeWidth: '4', strokeLinecap: 'round' } }),
+                            React.createElement("line", { x1: '40', y1: '10', x2: '10', y2: '40', style: { stroke: '#ffffff', strokeWidth: '4', strokeLinecap: 'round' } })))))));
     };
     return CoordinateBox;
 }(React.Component));
@@ -233,6 +249,8 @@ var LocationPage = /** @class */ (function (_super) {
                 coords: _this.state.coords,
                 nextId: _this.state.nextId + 1
             });
+            if (_this.poly != null)
+                _this.poly.setPath(_this.getLatLngs());
         };
         _this.removeCoord = function (id) {
             //console.log("remove id: ", id);
@@ -241,7 +259,7 @@ var LocationPage = /** @class */ (function (_super) {
             if (i >= 0) {
                 _this.state.coords.splice(i, 1);
                 _this.setState({
-                    coords: _this.state.coords
+                    coords: _this.state.coords,
                 });
                 //console.log(this.state.coords);
             }
@@ -251,7 +269,11 @@ var LocationPage = /** @class */ (function (_super) {
             if (i >= 0) {
                 _this.state.coords[i].lat = newLat;
                 _this.state.coords[i].lng = newLng;
-                _this.setState({ coords: _this.state.coords });
+                _this.setState({
+                    coords: _this.state.coords,
+                });
+                if (_this.poly != null)
+                    _this.poly.setPath(_this.getLatLngs());
             }
         };
         _this.onStart = function (id) {
@@ -324,6 +346,8 @@ var LocationPage = /** @class */ (function (_super) {
                         currentFocus: i + n
                     });
                 }
+                if (_this.poly != null)
+                    _this.poly.setPath(_this.getLatLngs());
             }
         };
         _this.focusWaypoint = function (id) {
@@ -342,12 +366,46 @@ var LocationPage = /** @class */ (function (_super) {
             _this.setState({
                 activeTab: i
             });
+            if (_this.poly != null)
+                _this.poly.setMap(null);
+            _this.poly = null;
+            if (i == 1) {
+                _this.poly = new google.maps.Polyline({
+                    path: _this.getLatLngs(),
+                    strokeColor: Constant.MAIN_COLOUR,
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                });
+                _this.poly.setMap(_this.map);
+            }
+            else if (i == 2) {
+                _this.poly = new google.maps.Polygon({
+                    paths: _this.getLatLngs(),
+                    strokeColor: Constant.MAIN_COLOUR,
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2,
+                    fillColor: Constant.TERTIARY_COLOUR,
+                    fillOpacity: 0.35
+                });
+                _this.poly.setMap(_this.map);
+            }
+        };
+        _this.getLatLngs = function () {
+            var path = [];
+            for (var i = 0; i < _this.state.coords.length; i += 1)
+                path.push({ 'lat': _this.state.coords[i].lat, 'lng': _this.state.coords[i].lng });
+            return path;
+        };
+        _this.centerMap = function (lat, lng) {
+            _this.map.panTo({ lat: lat, lng: lng });
         };
         _this.Tabs = [
             React.createRef(),
             React.createRef(),
             React.createRef()
         ];
+        _this.map = null;
+        _this.poly = null;
         _this.state = {
             currentFocus: -1,
             coords: [{ 'ref': React.createRef(), 'id': 0, 'lat': 0, 'lng': 0, 'yPos': 0 }],
@@ -364,14 +422,17 @@ var LocationPage = /** @class */ (function (_super) {
                 React.createElement("div", { className: 'fillerBox' }),
                 React.createElement("div", { className: 'creationButton' }, "UPLOAD GPS FILE")),
             React.createElement("div", { className: 'mapAndListContainer' },
-                React.createElement("div", { className: 'mapContainer' },
-                    React.createElement(google_map_react_1.default, { bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 5, defaultCenter: { lat: 0, lng: 0 } }, this.state.coords.map(function (coord, i) {
+                React.createElement("div", { id: 'map', className: 'mapContainer' },
+                    React.createElement(google_map_react_1.default, { ref: 'mapRef', onGoogleApiLoaded: function (_a) {
+                            var map = _a.map, maps = _a.maps;
+                            _this.map = map;
+                        }, yesIWantToUseGoogleMapApiInternals: true, bootstrapURLKeys: { key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }, defaultZoom: 5, defaultCenter: { lat: 0, lng: 0 } }, this.state.coords.map(function (coord, i) {
                         return ((i === _this.state.currentFocus) ?
-                            React.createElement("svg", { className: 'centerActiveWaypoint', width: '25', height: '35', lat: coord.lat, lng: coord.lng, key: "waypoint" + coord.id + "focus" },
+                            React.createElement("svg", { ref: "wayRef" + coord.id, className: 'centerActiveWaypoint', width: '25', height: '35', lat: coord.lat, lng: coord.lng, key: "waypoint" + coord.id + "focus" },
                                 React.createElement("polygon", { points: "0,12.5 12.5,35 25,12.5", style: { fill: Constant.MAIN_COLOUR, strokeWidth: '0' } }),
                                 React.createElement("circle", { cx: '12.5', cy: '12.5', r: '10.5', stroke: Constant.MAIN_COLOUR, strokeWidth: '4', fill: Constant.TERTIARY_COLOUR }))
                             :
-                                React.createElement("svg", { className: 'centerWaypoint', width: '15', height: '22', lat: coord.lat, lng: coord.lng, key: "waypoint" + coord.id },
+                                React.createElement("svg", { ref: "wayRef" + coord.id, className: 'centerWaypoint', width: '15', height: '22', lat: coord.lat, lng: coord.lng, key: "waypoint" + coord.id },
                                     React.createElement("circle", { cx: '7.5', cy: '7.5', r: '7.5', strokeWidth: '0', fill: Constant.MAIN_COLOUR }),
                                     React.createElement("polygon", { points: "0,7.5 7.5,22 15,7.5", style: { fill: Constant.MAIN_COLOUR, strokeWidth: '0' } })));
                     }))),
@@ -382,9 +443,12 @@ var LocationPage = /** @class */ (function (_super) {
                         React.createElement("div", { tabIndex: '0', className: this.state.activeTab == 2 ? 'coordListTab active' : 'coordListTab', onClick: function () { return _this.changeTabs(2); } }, "AREA")),
                     React.createElement("div", { className: 'coordList' },
                         React.createElement("div", { className: 'dragContainer' }, this.state.coords.map(function (coord, i) {
-                            return (React.createElement(CoordinateBox, { ref: coord.ref, arrayId: coord.id, remove: _this.removeCoord, updateLatLong: _this.updateLatLng, onStart: _this.onStart, onDrag: _this.onDrag, onStop: _this.onStop, yPos: coord.yPos, key: 'coord' + coord.id, activateWaypoint: _this.focusWaypoint, deactivateWaypoint: _this.defocusWaypoint }));
+                            return (React.createElement(CoordinateBox, { ref: coord.ref, arrayId: coord.id, remove: _this.removeCoord, updateLatLong: _this.updateLatLng, onStart: _this.onStart, onDrag: _this.onDrag, onStop: _this.onStop, yPos: coord.yPos, key: 'coord' + coord.id, activateWaypoint: _this.focusWaypoint, deactivateWaypoint: _this.defocusWaypoint, centerMap: _this.centerMap }));
                         })),
-                        React.createElement("div", { className: 'addCoordButton', onClick: this.addCoord }, "+"),
+                        React.createElement("div", { className: 'addCoordButton', onClick: this.addCoord },
+                            React.createElement("svg", { width: '50', height: '50' },
+                                React.createElement("line", { x1: '25', y1: '10', x2: '25', y2: '40', style: { stroke: '#ffffff', strokeWidth: '3', strokeLinecap: 'round' } }),
+                                React.createElement("line", { x1: '10', y1: '25', x2: '40', y2: '25', style: { stroke: '#ffffff', strokeWidth: '3', strokeLinecap: 'round' } }))),
                         React.createElement("div", { className: 'fillerBox' }))))));
     };
     return LocationPage;

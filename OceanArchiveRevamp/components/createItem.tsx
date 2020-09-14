@@ -1,6 +1,7 @@
 ﻿declare var require: any
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 import * as Constant from '../constants';
 import {
@@ -239,13 +240,15 @@ class CoordinateBox extends React.Component {
     }
 
     updateLat = (e) => {
-        this.setState({ lat: e.target.value });
-        this.props.updateLatLong(this.state.id, e.target.value, this.state.lng);
+        var f = parseFloat(e.target.value);
+        this.setState({ lat: f });
+        this.props.updateLatLong(this.state.id, f, this.state.lng);
     }
 
     updateLng = (e) => {
-        this.setState({ lng: e.target.value });
-        this.props.updateLatLong(this.state.id, this.state.lat, e.target.value);
+        var f = parseFloat(e.target.value);
+        this.setState({ lng: f });
+        this.props.updateLatLong(this.state.id, this.state.lat, f);
     }
 
     remove = () => {
@@ -270,6 +273,10 @@ class CoordinateBox extends React.Component {
         });
     }
 
+    centerMap = () => {
+        this.props.centerMap(this.state.lat, this.state.lng);
+    }
+
     render() {
         return (
             <Draggable axis='y' bounds='parent' onStart={this.onStart} onDrag={this.onDrag} onStop={this.onStop} position={this.state.position} cancel='.coordInput'>
@@ -284,8 +291,22 @@ class CoordinateBox extends React.Component {
                     </FormGroup>
                     <div className='fillerBox' />
                     <div className={this.state.isFocused ? 'coordBtnGroup focused' : 'coordBtnGroup'}>
-                        <div tabIndex={this.state.isFocused ? '0' : '-1'} className='coordButton centerHere'>+</div>
-                        <div tabIndex={this.state.isFocused ? '0' : '-1'} className='coordButton delete' onClick={this.remove}>x</div>
+                        <div tabIndex={this.state.isFocused ? '0' : '-1'} className='coordButton centerHere' onClick={this.centerMap}>
+                            <svg width='50' height='50'>
+                                <line x1='25' y1='5' x2='25' y2='10' style={{ stroke: '#333333', strokeWidth: '4', strokeLinecap: 'round' }} />
+                                <line x1='5' y1='25' x2='10' y2='25' style={{ stroke: '#333333', strokeWidth: '4', strokeLinecap: 'round' }} />
+                                <line x1='25' y1='40' x2='25' y2='45' style={{ stroke: '#333333', strokeWidth: '4', strokeLinecap: 'round' }} />
+                                <line x1='40' y1='25' x2='45' y2='25' style={{ stroke: '#333333', strokeWidth: '4', strokeLinecap: 'round' }} />
+                                <circle cx='25' cy='25' r='15' style={{ stroke: '#333333', strokeWidth: '4', fill: 'none' }} />
+                                <circle cx='25' cy='25' r='7.5' style={{ stroke: '#333333', strokeWidth: '4', fill: '#333333' }} />
+                            </svg>
+                        </div>
+                        <div tabIndex={this.state.isFocused ? '0' : '-1'} className='coordButton delete' onClick={this.remove}>
+                            <svg width='50' height='50'>
+                                <line x1='10' y1='10' x2='40' y2='40' style={{ stroke: '#ffffff', strokeWidth: '4', strokeLinecap: 'round' }} />
+                                <line x1='40' y1='10' x2='10' y2='40' style={{ stroke: '#ffffff', strokeWidth: '4', strokeLinecap: 'round' }} />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </Draggable>
@@ -302,6 +323,8 @@ class LocationPage extends React.Component {
             React.createRef(),
             React.createRef()
         ];
+        this.map = null;
+        this.poly = null;
         this.state = {
             currentFocus: -1,
             coords: [{ 'ref': React.createRef(), 'id': 0, 'lat': 0, 'lng': 0, 'yPos': 0 }],
@@ -316,6 +339,8 @@ class LocationPage extends React.Component {
             coords: this.state.coords,
             nextId: this.state.nextId + 1
         });
+        if (this.poly != null)
+            this.poly.setPath(this.getLatLngs());
     }
 
     removeCoord = (id) => {
@@ -325,7 +350,7 @@ class LocationPage extends React.Component {
         if (i >= 0) {
             this.state.coords.splice(i, 1);
             this.setState({
-                coords: this.state.coords
+                coords: this.state.coords,
             });
             //console.log(this.state.coords);
         }
@@ -336,7 +361,11 @@ class LocationPage extends React.Component {
         if (i >= 0) {
             this.state.coords[i].lat = newLat;
             this.state.coords[i].lng = newLng;
-            this.setState({ coords: this.state.coords });
+            this.setState({
+                coords: this.state.coords,
+            });
+            if (this.poly != null)
+                this.poly.setPath(this.getLatLngs());
         }
     }
 
@@ -409,6 +438,8 @@ class LocationPage extends React.Component {
                     currentFocus: i + n
                 });
             }
+            if (this.poly != null)
+                this.poly.setPath(this.getLatLngs());
         }
     }
 
@@ -430,6 +461,43 @@ class LocationPage extends React.Component {
         this.setState({
             activeTab: i
         });
+
+        if (this.poly != null)
+            this.poly.setMap(null);
+
+        this.poly = null;
+
+        if (i == 1) {
+            this.poly = new google.maps.Polyline({
+                path: this.getLatLngs(),
+                strokeColor: Constant.MAIN_COLOUR,
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+            this.poly.setMap(this.map);
+        }
+        else if (i == 2) {
+            this.poly = new google.maps.Polygon({
+                paths: this.getLatLngs(),
+                strokeColor: Constant.MAIN_COLOUR,
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+                fillColor: Constant.TERTIARY_COLOUR,
+                fillOpacity: 0.35
+            });
+            this.poly.setMap(this.map);
+        }
+    }
+
+    getLatLngs = () => {
+        var path = [];
+        for (var i = 0; i < this.state.coords.length; i += 1)
+            path.push({ 'lat': this.state.coords[i].lat, 'lng': this.state.coords[i].lng });
+        return path;
+    }
+
+    centerMap = (lat, lng) => {
+        this.map.panTo({ lat: lat, lng: lng });
     }
 
     render() {
@@ -441,17 +509,17 @@ class LocationPage extends React.Component {
                     <div className='creationButton'>UPLOAD GPS FILE</div>
                 </div>
                 <div className='mapAndListContainer'>
-                    <div className='mapContainer'>
-                        <GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }} defaultZoom={5} defaultCenter={{ lat: 0, lng: 0 }}>
+                    <div id='map' className='mapContainer'>
+                        <GoogleMapReact ref='mapRef' onGoogleApiLoaded={({ map, maps }) => { this.map = map }} yesIWantToUseGoogleMapApiInternals bootstrapURLKeys={{ key: 'AIzaSyDqIVtQawOQ0DqWTSP3LG60nVhGJvsdSHk' }} defaultZoom={5} defaultCenter={{ lat: 0, lng: 0 }}>
                             {this.state.coords.map((coord, i) => {
                                 return (
                                     (i === this.state.currentFocus) ?
-                                        < svg className='centerActiveWaypoint' width='25' height='35' lat={coord.lat} lng={coord.lng} key={"waypoint" + coord.id + "focus"}>
+                                        <svg ref={"wayRef" + coord.id} className='centerActiveWaypoint' width='25' height='35' lat={coord.lat} lng={coord.lng} key={"waypoint" + coord.id + "focus"}>
                                             <polygon points="0,12.5 12.5,35 25,12.5" style={{ fill: Constant.MAIN_COLOUR, strokeWidth: '0' }} />
                                             <circle cx='12.5' cy='12.5' r='10.5' stroke={Constant.MAIN_COLOUR} strokeWidth='4' fill={Constant.TERTIARY_COLOUR} />
                                         </svg>
                                         :
-                                        <svg className='centerWaypoint' width='15' height='22' lat={coord.lat} lng={coord.lng} key={"waypoint" + coord.id}>
+                                        <svg ref={"wayRef" + coord.id} className='centerWaypoint' width='15' height='22' lat={coord.lat} lng={coord.lng} key={"waypoint" + coord.id}>
                                             <circle cx='7.5' cy='7.5' r='7.5' strokeWidth='0' fill={Constant.MAIN_COLOUR} />
                                             <polygon points="0,7.5 7.5,22 15,7.5" style={{ fill: Constant.MAIN_COLOUR, strokeWidth: '0' }} />
                                         </svg>
@@ -462,9 +530,9 @@ class LocationPage extends React.Component {
                     </div>
                     <div className='coordListContainer'>
                         <div className='coordListTabs'>
-                            <div tabIndex='0' className={this.state.activeTab == 0 ? 'coordListTab active' : 'coordListTab' } onClick={() => this.changeTabs(0)}>POINTS</div>
-                            <div tabIndex='0' className={this.state.activeTab == 1 ? 'coordListTab center active' : 'coordListTab center' } onClick={() => this.changeTabs(1)}>PATH</div>
-                            <div tabIndex='0' className={this.state.activeTab == 2 ? 'coordListTab active' : 'coordListTab' } onClick={() => this.changeTabs(2)}>AREA</div>
+                            <div tabIndex='0' className={this.state.activeTab == 0 ? 'coordListTab active' : 'coordListTab'} onClick={() => this.changeTabs(0)}>POINTS</div>
+                            <div tabIndex='0' className={this.state.activeTab == 1 ? 'coordListTab center active' : 'coordListTab center'} onClick={() => this.changeTabs(1)}>PATH</div>
+                            <div tabIndex='0' className={this.state.activeTab == 2 ? 'coordListTab active' : 'coordListTab'} onClick={() => this.changeTabs(2)}>AREA</div>
                         </div>
                         <div className='coordList'>
                             <div className='dragContainer'>
@@ -482,14 +550,18 @@ class LocationPage extends React.Component {
                                             key={'coord' + coord.id}
                                             activateWaypoint={this.focusWaypoint}
                                             deactivateWaypoint={this.defocusWaypoint}
+                                            centerMap={this.centerMap}
                                         />
                                     );
                                 }
                                 )}
                             </div>
                             <div className='addCoordButton' onClick={this.addCoord} >
-                                +
-                        </div>
+                                <svg width='50' height='50'>
+                                    <line x1='25' y1='10' x2='25' y2='40' style={{ stroke: '#ffffff', strokeWidth: '3', strokeLinecap: 'round' }}/>
+                                    <line x1='10' y1='25' x2='40' y2='25' style={{ stroke: '#ffffff', strokeWidth: '3', strokeLinecap: 'round' }} />
+                                </svg>
+                            </div>
                             <div className='fillerBox' />
                         </div>
                     </div>
