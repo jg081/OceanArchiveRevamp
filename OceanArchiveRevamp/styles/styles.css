@@ -1274,6 +1274,7 @@ select {
 .mapAndListContainer {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .coordListContainer {
@@ -1448,4 +1449,34 @@ input.coordInput {
     top: 0px;
     left: 0px;
     z-index: 1000;
+}
+
+/*Form Progress Bar*/
+.formProgressBar {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 auto;
+    margin: auto;
+    max-width: 700px;
+}
+
+.progressItem {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+.progressIndicator {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #787878;
+    align-content: center;
+    z-index: 10;
+}
+
+.progressIndicator.active {
+    background-color: #4A74A5;
 }

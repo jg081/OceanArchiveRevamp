@@ -453,6 +453,30 @@ var LocationPage = /** @class */ (function (_super) {
     };
     return LocationPage;
 }(React.Component));
+var FormProgressBar = /** @class */ (function (_super) {
+    __extends(FormProgressBar, _super);
+    function FormProgressBar(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            currentPage: 0
+        };
+        return _this;
+    }
+    FormProgressBar.prototype.render = function () {
+        var _this = this;
+        return (React.createElement("div", { className: 'formProgressBar' }, this.props.progressData.map(function (data, i) {
+            return (React.createElement("div", { className: 'progressItem', key: 'indicator' + i, onClick: function () { return _this.props.goToIndex(i); } },
+                React.createElement("div", { className: i <= _this.props.activeIndex ? 'progressIndicator active' : 'progressIndicator' }, data.submittable ?
+                    React.createElement("div", null)
+                    :
+                        React.createElement("svg", { width: '50', height: '50' },
+                            React.createElement("polygon", { points: "20,10 25,35 30,10", style: { fill: Constant.ERROR_COLOUR, stroke: Constant.ERROR_COLOUR, strokeWidth: '1' } }),
+                            React.createElement("circle", { cx: '25', cy: '42.5', r: '3', style: { fill: Constant.ERROR_COLOUR, stroke: Constant.ERROR_COLOUR, strokeWidth: '1' } }))),
+                React.createElement("div", null, data.title)));
+        })));
+    };
+    return FormProgressBar;
+}(React.Component));
 var CreateItem = /** @class */ (function (_super) {
     __extends(CreateItem, _super);
     function CreateItem(props) {
@@ -468,22 +492,22 @@ var CreateItem = /** @class */ (function (_super) {
             switch (i) {
                 //Details
                 case 1:
-                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: '1' },
+                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: 'Page1' },
                         React.createElement("div", { className: 'centerCarouselItem' },
                             React.createElement(DetailsPage, null))));
                 //Category & Tags
                 case 2:
-                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: '2' },
+                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: 'Page2' },
                         React.createElement("div", { className: 'centerCarouselItem' },
                             React.createElement(CategoryAndTagsPage, { setMainFocus: _this.setMainFocus }))));
                 //Regions & Legal
                 case 3:
-                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: '3' },
+                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: 'Page3' },
                         React.createElement("div", { className: 'centerCarouselItem' },
                             React.createElement(RegionAndLegalPage, null))));
                 //Location/s
                 case 4:
-                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: '4' },
+                    return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: 'Page4' },
                         React.createElement("div", { className: 'centerCarouselItem' },
                             React.createElement(LocationPage, null))));
             }
@@ -505,9 +529,15 @@ var CreateItem = /** @class */ (function (_super) {
         };
         _this.state = {
             activeIndex: 0,
-            animating: false
+            animating: false,
+            progressData: [
+                { title: "Details", submittable: false },
+                { title: "Category & Tags", submittable: false },
+                { title: "Regions & Legal", submittable: false },
+                { title: "Location/s", submittable: false }
+            ]
         };
-        var mainFocus;
+        _this.mainFocus = 'sci';
         return _this;
     }
     CreateItem.prototype.render = function () {
@@ -515,7 +545,7 @@ var CreateItem = /** @class */ (function (_super) {
         return (React.createElement(reactstrap_1.Form, { className: 'creationContainer' },
             React.createElement("div", { className: 'creationHeader' },
                 "Create Item",
-                React.createElement(reactstrap_1.CarouselIndicators, { items: this.formPages, activeIndex: this.state.activeIndex, onClickHandler: this.goToIndex })),
+                React.createElement(FormProgressBar, { progressData: this.state.progressData, goToIndex: this.goToIndex, activeIndex: this.state.activeIndex })),
             React.createElement(reactstrap_1.Carousel, { pause: false, interval: false, activeIndex: this.state.activeIndex, next: this.next, previous: this.prev }, this.formPages),
             React.createElement("div", { className: 'creationFooter' },
                 React.createElement("div", { className: 'creationButton', onClick: this.prev }, "BACK"),

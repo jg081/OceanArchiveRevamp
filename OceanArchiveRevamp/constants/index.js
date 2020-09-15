@@ -9,6 +9,7 @@ export const ART_ACTIVISM = '#707BE0';
 export const ACTIVISM_SCITECH = '#28ADE1';
 export const WHITE = '#FFFFFF';
 export const BLACK = '#000000';
+export const ERROR_COLOUR = '#FF3A3A';
 
 //Constants from current Ocean Archive GitHub
 //https://github.com/AcrossTheCloud/TBA21-client/blob/master/src/components/metadata/ItemEditor.tsx

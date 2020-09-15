@@ -578,14 +578,53 @@ class LocationPage extends React.Component {
     }
 }
 
+class FormProgressBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentPage: 0
+        }
+    }
+
+    render() {
+        return (
+            <div className='formProgressBar'>
+                {this.props.progressData.map((data, i) => {
+                    return (
+                        <div className='progressItem' key={'indicator' + i} onClick={() => this.props.goToIndex(i)}>
+                            <div className={i <= this.props.activeIndex ? 'progressIndicator active' : 'progressIndicator'}>
+                                {data.submittable ?
+                                    <div />
+                                    :
+                                    <svg width='50' height='50'>
+                                        <polygon points="20,10 25,35 30,10" style={{ fill: Constant.ERROR_COLOUR, stroke: Constant.ERROR_COLOUR, strokeWidth: '1' }} />
+                                        <circle cx='25' cy='42.5' r='3' style={{ fill: Constant.ERROR_COLOUR, stroke: Constant.ERROR_COLOUR, strokeWidth: '1' }} />
+                                    </svg>
+                                }
+                            </div>
+                            <div>{data.title}</div>
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    }
+}
+
 export default class CreateItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             activeIndex: 0,
-            animating: false
+            animating: false,
+            progressData: [
+                { title: "Details", submittable: false },
+                { title: "Category & Tags", submittable: false },
+                { title: "Regions & Legal", submittable: false },
+                { title: "Location/s", submittable: false }
+            ]
         };
-        var mainFocus;
+        this.mainFocus = 'sci';
     }
 
     focusAreas = ['sci', 'art', 'act'];
@@ -603,7 +642,7 @@ export default class CreateItem extends React.Component {
             //Details
             case 1:
                 return (
-                    <CarouselItem className='creationCarouselItem' key='1'>
+                    <CarouselItem className='creationCarouselItem' key='Page1'>
                         <div className='centerCarouselItem'>
                             <DetailsPage />
                         </div>
@@ -612,7 +651,7 @@ export default class CreateItem extends React.Component {
             //Category & Tags
             case 2:
                 return (
-                    <CarouselItem className='creationCarouselItem' key='2'>
+                    <CarouselItem className='creationCarouselItem' key='Page2'>
                         <div className='centerCarouselItem'>
                             <CategoryAndTagsPage setMainFocus={this.setMainFocus} />
                         </div>
@@ -621,7 +660,7 @@ export default class CreateItem extends React.Component {
             //Regions & Legal
             case 3:
                 return (
-                    <CarouselItem className='creationCarouselItem' key='3'>
+                    <CarouselItem className='creationCarouselItem' key='Page3'>
                         <div className='centerCarouselItem'>
                             <RegionAndLegalPage />
                         </div>
@@ -630,7 +669,7 @@ export default class CreateItem extends React.Component {
             //Location/s
             case 4:
                 return (
-                    <CarouselItem className='creationCarouselItem' key='4'>
+                    <CarouselItem className='creationCarouselItem' key='Page4'>
                         <div className='centerCarouselItem'>
                             <LocationPage />
                         </div>
@@ -661,7 +700,7 @@ export default class CreateItem extends React.Component {
             <Form className='creationContainer'>
                 <div className='creationHeader'>
                     Create Item
-                        <CarouselIndicators items={this.formPages} activeIndex={this.state.activeIndex} onClickHandler={this.goToIndex} />
+                    <FormProgressBar progressData={this.state.progressData} goToIndex={this.goToIndex} activeIndex={this.state.activeIndex} />
                 </div>
                 <Carousel pause={false} interval={false} activeIndex={this.state.activeIndex} next={this.next} previous={this.prev}>
                     {this.formPages}
