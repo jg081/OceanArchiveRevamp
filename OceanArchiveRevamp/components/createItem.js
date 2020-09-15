@@ -466,6 +466,10 @@ var FormProgressBar = /** @class */ (function (_super) {
         var _this = this;
         return (React.createElement("div", { className: 'formProgressBar' }, this.props.progressData.map(function (data, i) {
             return (React.createElement("div", { className: 'progressItem', key: 'indicator' + i, onClick: function () { return _this.props.goToIndex(i); } },
+                i < (_this.props.progressData.length - 1) ?
+                    React.createElement("hr", { className: i < _this.props.activeIndex ? 'progressConnectorLine active' : 'progressConnectorLine' })
+                    :
+                        React.createElement("div", null),
                 React.createElement("div", { className: i <= _this.props.activeIndex ? 'progressIndicator active' : 'progressIndicator' }, data.submittable ?
                     React.createElement("div", null)
                     :
@@ -532,7 +536,7 @@ var CreateItem = /** @class */ (function (_super) {
             animating: false,
             progressData: [
                 { title: "Details", submittable: false },
-                { title: "Category & Tags", submittable: false },
+                { title: "Category & Tags", submittable: true },
                 { title: "Regions & Legal", submittable: false },
                 { title: "Location/s", submittable: false }
             ]

@@ -8,6 +8,11 @@ export const SCITECH_ART = '#4845FF';
 export const ART_ACTIVISM = '#707BE0';
 export const ACTIVISM_SCITECH = '#28ADE1';
 export const WHITE = '#FFFFFF';
+export const GREY_33 = '#333333';
+export const GREY_78 = '#787878';
+export const GREY_7E = '#7E7E7E';
+export const GREY_CC = '#CCCCCC';
+export const GREY_D8 = '#D8D8D8';
 export const BLACK = '#000000';
 export const ERROR_COLOUR = '#FF3A3A';
 

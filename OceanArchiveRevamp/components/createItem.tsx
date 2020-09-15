@@ -592,6 +592,11 @@ class FormProgressBar extends React.Component {
                 {this.props.progressData.map((data, i) => {
                     return (
                         <div className='progressItem' key={'indicator' + i} onClick={() => this.props.goToIndex(i)}>
+                            {i < (this.props.progressData.length - 1) ?
+                                <hr className={i < this.props.activeIndex ? 'progressConnectorLine active' : 'progressConnectorLine'} />
+                                :
+                                <div />
+                            }
                             <div className={i <= this.props.activeIndex ? 'progressIndicator active' : 'progressIndicator'}>
                                 {data.submittable ?
                                     <div />
@@ -619,7 +624,7 @@ export default class CreateItem extends React.Component {
             animating: false,
             progressData: [
                 { title: "Details", submittable: false },
-                { title: "Category & Tags", submittable: false },
+                { title: "Category & Tags", submittable: true },
                 { title: "Regions & Legal", submittable: false },
                 { title: "Location/s", submittable: false }
             ]
