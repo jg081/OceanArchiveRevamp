@@ -10,6 +10,7 @@ import {
     CarouselIndicators,
     CarouselControl,
     Form,
+    FormFeedback,
     FormGroup,
     Label,
     Input,
@@ -25,6 +26,51 @@ let Draggable = require('react-draggable');
 class DetailsPage extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            errors: {
+                title: false,
+                desc: false,
+                creator: false,
+                dateStart: false,
+                dateFinish: false,
+                url: false,
+                lang: false
+            },
+            values: {
+                title: '',
+                desc: '',
+                creator: [],
+                dateStart: '',
+                dateFinish: '',
+                url: '',
+                lang: ''
+            }
+        };
+    }
+
+    validate = () => {
+        console.log('Validate Details');
+        var pageValid = true;
+        var errors = this.state.errors;
+        if (this.state.values.title.length <= 0)
+            errors.title = true;
+
+        if (errors.title || errors.desc || errors.creator || errors.dateStart || errors.dateFinish || errors.url || errors.lang)
+            pageValid = false;
+
+        return pageValid;
+    }
+
+    validateTitle = (e) => {
+        var error = false;
+        if (e.target.value.length <= 0)
+            error = true;
+
+        var errors = this.state.errors;
+        errors.title = error;
+        var values = this.state.values;
+        values.title = e.target.value;
+        this.setState({ errors: errors, values: values });
     }
 
     render() {
@@ -35,31 +81,38 @@ class DetailsPage extends React.Component {
                         </div>
                 <FormGroup>
                     <Label for='title'>Title</Label>
-                    <Input type='text' name='title' id='title' />
+                    <Input type='text' name='title' id='title' value={this.state.values.title} required invalid={this.state.errors.title} onChange={(e) => this.validateTitle(e)} />
+                    <FormFeedback valid={!this.state.errors.title} >Title Error</FormFeedback>
                 </FormGroup>
                 <FormGroup>
                     <Label for='desc'>Description</Label>
-                    <Input type='textarea' name='desc' id='desc' />
+                    <Input type='textarea' name='desc' id='desc' value={this.state.values.desc} required invalid={this.state.errors.desc} />
+                    <FormFeedback valid={!this.state.errors.desc} >Desc Error</FormFeedback>
                 </FormGroup>
                 <FormGroup>
                     <Label for='creator'>Creator(s) / Author(s)</Label>
-                    <Input type='text' name='creator' id='creator' />
+                    <Input type='text' name='creator' id='creator' value={this.state.values.creator} required invalid={this.state.errors.creator} />
+                    <FormFeedback valid={!this.state.errors.creator} >Creator Error</FormFeedback>
                 </FormGroup>
                 <FormGroup>
                     <Label for='dateStart'>Date Started/Made</Label>
-                    <Input type='date' name='dateStart' id='dateStart' />
+                    <Input type='date' name='dateStart' id='dateStart' value={this.state.values.dateStart} required invalid={this.state.errors.dateStart} />
+                    <FormFeedback valid={!this.state.errors.dateStart} >Date Start Error</FormFeedback>
                 </FormGroup>
                 <FormGroup>
-                    <Label for='dateFinish'>Date Finished</Label>
-                    <Input type='date' name='dateFinish' id='dateFinish' />
+                    <Label for='dateFinish'>Date Finished (optional)</Label>
+                    <Input type='date' name='dateFinish' id='dateFinish' value={this.state.values.dateFinish} invalid={this.state.errors.dateFinish} />
+                    <FormFeedback valid={!this.state.errors.dateFinish} >Date Finish Error</FormFeedback>
                 </FormGroup>
                 <FormGroup>
-                    <Label for='url'>URL</Label>
-                    <Input type='url' name='url' id='url' />
+                    <Label for='url'>URL (optional)</Label>
+                    <Input type='url' name='url' id='url' value={this.state.values.url} invalid={this.state.errors.url} />
+                    <FormFeedback valid={!this.state.errors.url} >URL Error</FormFeedback>
                 </FormGroup>
                 <FormGroup>
-                    <Label for='lang'>Language</Label>
-                    <Input type='text' name='lang' id='lang' />
+                    <Label for='lang'>Language (optional)</Label>
+                    <Input type='text' name='lang' id='lang' value={this.state.values.lang} invalid={this.state.errors.lang} />
+                    <FormFeedback valid={!this.state.errors.lang} >Language Error</FormFeedback>
                 </FormGroup>
             </div>
         );
@@ -88,6 +141,13 @@ class CategoryAndTagsPage extends React.Component {
             //console.log(index, " checked ", this.checkBoxes[index].current.checked);
             this.checkBoxes[index].current.checked = false;
         }
+    }
+
+    validate = () => {
+        console.log('Validate Cats & Tags');
+        var pageValid = true;
+
+        return pageValid;
     }
 
     render() {
@@ -173,6 +233,13 @@ class CategoryAndTagsPage extends React.Component {
 class RegionAndLegalPage extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    validate = () => {
+        console.log('Validate Region & Legal');
+        var pageValid = true;
+
+        return pageValid;
     }
 
     render() {
@@ -331,6 +398,13 @@ class LocationPage extends React.Component {
             nextId: 1,
             activeTab: 0,
         }
+    }
+
+    validate = () => {
+        console.log('Validate Locations');
+        var pageValid = true;
+
+        return pageValid;
     }
 
     addCoord = () => {
@@ -642,6 +716,13 @@ export default class CreateItem extends React.Component {
 
     formNumbers = [1, 2, 3, 4];
 
+    pageRefs = [
+        React.createRef(),
+        React.createRef(),
+        React.createRef(),
+        React.createRef()
+    ]
+
     formPages = this.formNumbers.map((i) => {
         switch (i) {
             //Details
@@ -649,7 +730,7 @@ export default class CreateItem extends React.Component {
                 return (
                     <CarouselItem className='creationCarouselItem' key='Page1'>
                         <div className='centerCarouselItem'>
-                            <DetailsPage />
+                            <DetailsPage ref={this.pageRefs[0]} />
                         </div>
                     </CarouselItem >
                 );
@@ -658,7 +739,7 @@ export default class CreateItem extends React.Component {
                 return (
                     <CarouselItem className='creationCarouselItem' key='Page2'>
                         <div className='centerCarouselItem'>
-                            <CategoryAndTagsPage setMainFocus={this.setMainFocus} />
+                            <CategoryAndTagsPage ref={this.pageRefs[1]} setMainFocus={this.setMainFocus} />
                         </div>
                     </CarouselItem>
                 );
@@ -667,7 +748,7 @@ export default class CreateItem extends React.Component {
                 return (
                     <CarouselItem className='creationCarouselItem' key='Page3'>
                         <div className='centerCarouselItem'>
-                            <RegionAndLegalPage />
+                            <RegionAndLegalPage ref={this.pageRefs[2]} />
                         </div>
                     </CarouselItem>
                 );
@@ -676,27 +757,50 @@ export default class CreateItem extends React.Component {
                 return (
                     <CarouselItem className='creationCarouselItem' key='Page4'>
                         <div className='centerCarouselItem'>
-                            <LocationPage />
+                            <LocationPage ref={this.pageRefs[3]} />
                         </div>
                     </CarouselItem>
                 );
         }
     });
 
+    validatePages = (toPage) => {
+        var progressData = this.state.progressData;
+        var start, end;
+        if (this.state.activeIndex > toPage) {
+            start = toPage;
+            end = this.state.activeIndex;
+        } else {
+            end = toPage;
+            start = this.state.activeIndex;
+        }
+
+        for (var i = start; i <= end; i += 1) {
+            progressData[i].submittable = this.pageRefs[i].current.validate();
+        }
+
+        this.setState({
+            progressData: progressData
+        });
+    }
+
     next = () => {
         if (this.state.animating) return;
         var nextIndex = ((this.state.activeIndex + 1) > (this.formNumbers.length - 1)) ? (this.formNumbers.length - 1) : (this.state.activeIndex + 1);
-        this.setState({ activeIndex: nextIndex })
+        this.validatePages(this.state.activeIndex);
+        this.setState({ activeIndex: nextIndex });
     }
 
     prev = () => {
         if (this.state.animating) return;
         var nextIndex = (this.state.activeIndex - 1) < 0 ? 0 : (this.state.activeIndex - 1);
-        this.setState({ activeIndex: nextIndex })
+        this.validatePages(this.state.activeIndex);
+        this.setState({ activeIndex: nextIndex });
     }
 
     goToIndex = (newIndex) => {
         this.setState({ activeIndex: newIndex });
+        this.validatePages(newIndex);
     }
 
     render() {

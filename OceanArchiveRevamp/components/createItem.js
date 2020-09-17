@@ -23,32 +23,81 @@ var Draggable = require('react-draggable');
 var DetailsPage = /** @class */ (function (_super) {
     __extends(DetailsPage, _super);
     function DetailsPage(props) {
-        return _super.call(this, props) || this;
+        var _this = _super.call(this, props) || this;
+        _this.validate = function () {
+            console.log('Validate Details');
+            var pageValid = true;
+            var errors = _this.state.errors;
+            if (_this.state.values.title.length <= 0)
+                errors.title = true;
+            if (errors.title || errors.desc || errors.creator || errors.dateStart || errors.dateFinish || errors.url || errors.lang)
+                pageValid = false;
+            return pageValid;
+        };
+        _this.validateTitle = function (e) {
+            var error = false;
+            if (e.target.value.length <= 0)
+                error = true;
+            var errors = _this.state.errors;
+            errors.title = error;
+            var values = _this.state.values;
+            values.title = e.target.value;
+            _this.setState({ errors: errors, values: values });
+        };
+        _this.state = {
+            errors: {
+                title: false,
+                desc: false,
+                creator: false,
+                dateStart: false,
+                dateFinish: false,
+                url: false,
+                lang: false
+            },
+            values: {
+                title: '',
+                desc: '',
+                creator: [],
+                dateStart: '',
+                dateFinish: '',
+                url: '',
+                lang: ''
+            }
+        };
+        return _this;
     }
     DetailsPage.prototype.render = function () {
+        var _this = this;
         return (React.createElement("div", { className: 'createItemPage' },
             React.createElement("div", { className: 'dragAndDrop' }, "DRAG & DROP OR CLICK TO UPLOAD FILE"),
             React.createElement(reactstrap_1.FormGroup, null,
                 React.createElement(reactstrap_1.Label, { for: 'title' }, "Title"),
-                React.createElement(reactstrap_1.Input, { type: 'text', name: 'title', id: 'title' })),
+                React.createElement(reactstrap_1.Input, { type: 'text', name: 'title', id: 'title', value: this.state.values.title, required: true, invalid: this.state.errors.title, onChange: function (e) { return _this.validateTitle(e); } }),
+                React.createElement(reactstrap_1.FormFeedback, { valid: !this.state.errors.title }, "Title Error")),
             React.createElement(reactstrap_1.FormGroup, null,
                 React.createElement(reactstrap_1.Label, { for: 'desc' }, "Description"),
-                React.createElement(reactstrap_1.Input, { type: 'textarea', name: 'desc', id: 'desc' })),
+                React.createElement(reactstrap_1.Input, { type: 'textarea', name: 'desc', id: 'desc', value: this.state.values.desc, required: true, invalid: this.state.errors.desc }),
+                React.createElement(reactstrap_1.FormFeedback, { valid: !this.state.errors.desc }, "Desc Error")),
             React.createElement(reactstrap_1.FormGroup, null,
                 React.createElement(reactstrap_1.Label, { for: 'creator' }, "Creator(s) / Author(s)"),
-                React.createElement(reactstrap_1.Input, { type: 'text', name: 'creator', id: 'creator' })),
+                React.createElement(reactstrap_1.Input, { type: 'text', name: 'creator', id: 'creator', value: this.state.values.creator, required: true, invalid: this.state.errors.creator }),
+                React.createElement(reactstrap_1.FormFeedback, { valid: !this.state.errors.creator }, "Creator Error")),
             React.createElement(reactstrap_1.FormGroup, null,
                 React.createElement(reactstrap_1.Label, { for: 'dateStart' }, "Date Started/Made"),
-                React.createElement(reactstrap_1.Input, { type: 'date', name: 'dateStart', id: 'dateStart' })),
+                React.createElement(reactstrap_1.Input, { type: 'date', name: 'dateStart', id: 'dateStart', value: this.state.values.dateStart, required: true, invalid: this.state.errors.dateStart }),
+                React.createElement(reactstrap_1.FormFeedback, { valid: !this.state.errors.dateStart }, "Date Start Error")),
             React.createElement(reactstrap_1.FormGroup, null,
-                React.createElement(reactstrap_1.Label, { for: 'dateFinish' }, "Date Finished"),
-                React.createElement(reactstrap_1.Input, { type: 'date', name: 'dateFinish', id: 'dateFinish' })),
+                React.createElement(reactstrap_1.Label, { for: 'dateFinish' }, "Date Finished (optional)"),
+                React.createElement(reactstrap_1.Input, { type: 'date', name: 'dateFinish', id: 'dateFinish', value: this.state.values.dateFinish, invalid: this.state.errors.dateFinish }),
+                React.createElement(reactstrap_1.FormFeedback, { valid: !this.state.errors.dateFinish }, "Date Finish Error")),
             React.createElement(reactstrap_1.FormGroup, null,
-                React.createElement(reactstrap_1.Label, { for: 'url' }, "URL"),
-                React.createElement(reactstrap_1.Input, { type: 'url', name: 'url', id: 'url' })),
+                React.createElement(reactstrap_1.Label, { for: 'url' }, "URL (optional)"),
+                React.createElement(reactstrap_1.Input, { type: 'url', name: 'url', id: 'url', value: this.state.values.url, invalid: this.state.errors.url }),
+                React.createElement(reactstrap_1.FormFeedback, { valid: !this.state.errors.url }, "URL Error")),
             React.createElement(reactstrap_1.FormGroup, null,
-                React.createElement(reactstrap_1.Label, { for: 'lang' }, "Language"),
-                React.createElement(reactstrap_1.Input, { type: 'text', name: 'lang', id: 'lang' }))));
+                React.createElement(reactstrap_1.Label, { for: 'lang' }, "Language (optional)"),
+                React.createElement(reactstrap_1.Input, { type: 'text', name: 'lang', id: 'lang', value: this.state.values.lang, invalid: this.state.errors.lang }),
+                React.createElement(reactstrap_1.FormFeedback, { valid: !this.state.errors.lang }, "Language Error"))));
     };
     return DetailsPage;
 }(React.Component));
@@ -65,6 +114,11 @@ var CategoryAndTagsPage = /** @class */ (function (_super) {
                 //console.log(index, " checked ", this.checkBoxes[index].current.checked);
                 _this.checkBoxes[index].current.checked = false;
             }
+        };
+        _this.validate = function () {
+            console.log('Validate Cats & Tags');
+            var pageValid = true;
+            return pageValid;
         };
         _this.state = {
             activeFocus: 0
@@ -125,7 +179,13 @@ var CategoryAndTagsPage = /** @class */ (function (_super) {
 var RegionAndLegalPage = /** @class */ (function (_super) {
     __extends(RegionAndLegalPage, _super);
     function RegionAndLegalPage(props) {
-        return _super.call(this, props) || this;
+        var _this = _super.call(this, props) || this;
+        _this.validate = function () {
+            console.log('Validate Region & Legal');
+            var pageValid = true;
+            return pageValid;
+        };
+        return _this;
     }
     RegionAndLegalPage.prototype.render = function () {
         return (React.createElement("div", { className: 'createItemPage' },
@@ -243,6 +303,11 @@ var LocationPage = /** @class */ (function (_super) {
     __extends(LocationPage, _super);
     function LocationPage(props) {
         var _this = _super.call(this, props) || this;
+        _this.validate = function () {
+            console.log('Validate Locations');
+            var pageValid = true;
+            return pageValid;
+        };
         _this.addCoord = function () {
             _this.state.coords.push({ 'ref': React.createRef(), 'id': _this.state.nextId, 'lat': 0, 'lng': 0, 'yPos': 0 });
             _this.setState({
@@ -492,44 +557,71 @@ var CreateItem = /** @class */ (function (_super) {
             //console.log("mainFocus After: ", this.mainFocus);
         };
         _this.formNumbers = [1, 2, 3, 4];
+        _this.pageRefs = [
+            React.createRef(),
+            React.createRef(),
+            React.createRef(),
+            React.createRef()
+        ];
         _this.formPages = _this.formNumbers.map(function (i) {
             switch (i) {
                 //Details
                 case 1:
                     return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: 'Page1' },
                         React.createElement("div", { className: 'centerCarouselItem' },
-                            React.createElement(DetailsPage, null))));
+                            React.createElement(DetailsPage, { ref: _this.pageRefs[0] }))));
                 //Category & Tags
                 case 2:
                     return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: 'Page2' },
                         React.createElement("div", { className: 'centerCarouselItem' },
-                            React.createElement(CategoryAndTagsPage, { setMainFocus: _this.setMainFocus }))));
+                            React.createElement(CategoryAndTagsPage, { ref: _this.pageRefs[1], setMainFocus: _this.setMainFocus }))));
                 //Regions & Legal
                 case 3:
                     return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: 'Page3' },
                         React.createElement("div", { className: 'centerCarouselItem' },
-                            React.createElement(RegionAndLegalPage, null))));
+                            React.createElement(RegionAndLegalPage, { ref: _this.pageRefs[2] }))));
                 //Location/s
                 case 4:
                     return (React.createElement(reactstrap_1.CarouselItem, { className: 'creationCarouselItem', key: 'Page4' },
                         React.createElement("div", { className: 'centerCarouselItem' },
-                            React.createElement(LocationPage, null))));
+                            React.createElement(LocationPage, { ref: _this.pageRefs[3] }))));
             }
         });
+        _this.validatePages = function (toPage) {
+            var progressData = _this.state.progressData;
+            var start, end;
+            if (_this.state.activeIndex > toPage) {
+                start = toPage;
+                end = _this.state.activeIndex;
+            }
+            else {
+                end = toPage;
+                start = _this.state.activeIndex;
+            }
+            for (var i = start; i <= end; i += 1) {
+                progressData[i].submittable = _this.pageRefs[i].current.validate();
+            }
+            _this.setState({
+                progressData: progressData
+            });
+        };
         _this.next = function () {
             if (_this.state.animating)
                 return;
             var nextIndex = ((_this.state.activeIndex + 1) > (_this.formNumbers.length - 1)) ? (_this.formNumbers.length - 1) : (_this.state.activeIndex + 1);
+            _this.validatePages(_this.state.activeIndex);
             _this.setState({ activeIndex: nextIndex });
         };
         _this.prev = function () {
             if (_this.state.animating)
                 return;
             var nextIndex = (_this.state.activeIndex - 1) < 0 ? 0 : (_this.state.activeIndex - 1);
+            _this.validatePages(_this.state.activeIndex);
             _this.setState({ activeIndex: nextIndex });
         };
         _this.goToIndex = function (newIndex) {
             _this.setState({ activeIndex: newIndex });
+            _this.validatePages(newIndex);
         };
         _this.state = {
             activeIndex: 0,

@@ -1206,6 +1206,23 @@ div .react-select__placeholder {
     font-family: Roboto;
 }
 
+input.is-invalid {
+    border-color: #FF3A3A;
+}
+
+.invalid-feedback {
+    margin-top: 5px;
+    color: #FF3A3A;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.valid-feedback {
+    height: 0px;
+    max-height: 0px;
+    overflow: hidden;
+}
+
 /*Create Item - Details*/
 .dragAndDrop {
     flex: 1 1 auto;
